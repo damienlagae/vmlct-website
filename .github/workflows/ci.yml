@@ -170,14 +170,14 @@ jobs:
       - name: Create database
         run: bin/console doctrine:database:create --if-not-exists --env=test
         env:
-          DATABASE_URL: "mysql://root@database:3306/app?serverVersion=11.4-MariaDB"
+          DATABASE_URL: "mysql://root@database:3306/app?serverVersion=mariadb-11.4.10"
 
       - name: Run migrations
         run: bin/console doctrine:migrations:migrate --no-interaction --allow-no-migration --env=test
         env:
-          DATABASE_URL: "mysql://root@database:3306/app?serverVersion=11.4-MariaDB"
+          DATABASE_URL: "mysql://root@database:3306/app?serverVersion=mariadb-11.4.10"
 
       - name: Run tests
         run: bin/phpunit --testdox
         env:
-          DATABASE_URL: "mysql://root@database:3306/app?serverVersion=11.4-MariaDB"
+          DATABASE_URL: "mysql://root@database:3306/app?serverVersion=mariadb-11.4.10"
