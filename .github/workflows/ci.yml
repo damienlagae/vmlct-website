@@ -145,10 +145,14 @@ jobs:
       database:
         image: mariadb:11.4
         env:
-          MYSQL_DATABASE: app
-          MYSQL_PASSWORD: password123
-          MYSQL_ALLOW_EMPTY_PASSWORD: yes
-        options: --health-cmd="mysqladmin ping -h 127.0.0.1 -u root --silent" --health-interval=5s --health-timeout=5s --health-retries=10
+          MARIADB_DATABASE: app
+          MARIADB_ALLOW_EMPTY_ROOT_PASSWORD: yes
+        options: >-
+          --health-cmd="healthcheck.sh --connect --innodb_initialized"
+          --health-interval=5s
+          --health-timeout=5s
+          --health-retries=20
+          --health-start-period=30s
     container:
       image: ${{ needs.build-image.outputs.image }}
       credentials:
