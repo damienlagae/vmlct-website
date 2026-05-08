@@ -1,9 +1,16 @@
 <!DOCTYPE html>
-<html>
-    <head>
+<html lang="{{ app.request.locale }}" class="h-100">
+<head>
+    {% block meta_tags %}
         <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="{{ 'params.application.description' }}">
+        <meta name="theme-color" content="#ffffff">
+    {% endblock %}
+    <title>{% block title %}Van Moer Logistics Cycling Team – Jeugdwielerploeg uit het Waasland{% endblock %}</title>
+    {% block favicon %}
+        <link rel="icon" type="image/png" href="{{ asset('img/favicon.png') }}" />
+    {% endblock %}
         {% block stylesheets %}
         {% endblock %}
 
@@ -18,7 +25,21 @@
         <script src="https://cdn.jsdelivr.net/npm/frankenphp-hot-reload/+esm" type="module"></script>
         {% endif %}
     </head>
-    <body>
-        {% block body %}{% endblock %}
+    <body class="d-flex flex-column h-100">
+
+        {% block header %}
+            {{ include('_header.html.twig') }}
+        {% endblock %}
+        {% block main %}
+        <main class="flex-shrink-0 mb-3">
+            <div class="container">
+                {% block body %}
+                {% endblock %}
+            </div>
+        </main>
+        {% endblock %}
+        {% block footer %}
+            {{ include('_footer.html.twig') }}
+        {% endblock %}
     </body>
 </html>

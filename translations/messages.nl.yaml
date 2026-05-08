@@ -1,0 +1,15 @@
+home:
+    cta: 'Meer informatie'
+    subtitle: 'Een jeugdwielerploeg uit het Waasland die zich richt op de ontwikkeling van jonge wielertalenten.'
+    title: 'Van Moer Logistics Cycling Team'
+menu:
+    navbar:
+        aboutUs: 'Over ons'
+        category: 'Categorieën'
+        contact: 'Contact'
+        home: 'Home'
+        sponsors: 'Sponsors'
+modal:
+    body: 'Bootstrap JS werkt. JS en CSS worden geladen via AssetMapper.'
+    close: 'Sluiten'
+    title: 'Bootstrap JS werkt'

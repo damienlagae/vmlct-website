@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ 'home.title'|trans }}{% endblock %}
+
+{% block body %}
+    <div class="container py-5">
+        <div class="p-5 mb-4 bg-body-tertiary rounded-3">
+            <div class="container-fluid py-3">
+                <h1 class="display-5 fw-bold">{{ 'home.title'|trans }}</h1>
+                <p class="col-md-8 fs-4">{{ 'home.subtitle'|trans }}</p>
+                <button type="button" class="btn btn-primary btn-lg" data-bs-toggle="modal" data-bs-target="#welcomeModal">
+                    {{ 'home.cta'|trans }}
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="welcomeModal" tabindex="-1" aria-labelledby="welcomeModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="welcomeModalLabel">{{ 'modal.title'|trans }}</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="{{ 'modal.close'|trans }}"></button>
+                </div>
+                <div class="modal-body">{{ 'modal.body'|trans }}</div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ 'modal.close'|trans }}</button>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
