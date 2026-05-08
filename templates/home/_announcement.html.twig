@@ -1,0 +1,19 @@
+<section id="home" class="py-4">
+    <div class="container">
+        <div class="announcement-card">
+            <div class="d-flex align-items-start gap-3">
+                <twig:ux:icon name="bi:megaphone-fill" class="fs-3 flex-shrink-0 announcement-icon" />
+                <div>
+                    <h2 class="h5 fw-bold mb-1">{{ 'home.announcement.title'|trans }}</h2>
+                    <p class="mb-2">{{ 'home.announcement.body'|trans|raw }}</p>
+                    <p class="mb-0">
+                        {{ 'home.announcement.followUs'|trans({
+                            '%facebook%': '<a href="https://www.facebook.com/wielerteamwaasland" target="_blank" rel="noopener" class="fw-semibold link-vmlct">Facebook</a>',
+                            '%instagram%': '<a href="https://www.instagram.com/van_moer_cycling_team_/" target="_blank" rel="noopener" class="fw-semibold link-vmlct">Instagram</a>',
+                        })|raw }}
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

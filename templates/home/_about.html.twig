@@ -1,0 +1,34 @@
+{% set blocks = [
+    { key: 'club',     icon: 'bi:bicycle' },
+    { key: 'team',     icon: 'bi:people-fill' },
+    { key: 'coaching', icon: 'bi:trophy-fill' },
+    { key: 'join',     icon: 'bi:star-fill' },
+] %}
+<section id="over-ons" class="py-5"
+         data-controller="active-section"
+         data-active-section-target="section">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+                <div class="text-center mb-5">
+                    <h2 class="section-title">{{ 'home.about.title'|trans }}</h2>
+                    <div class="title-underline"></div>
+                </div>
+                <div class="row g-4">
+                    {% for block in blocks %}
+                        <div class="col-md-6">
+                            <div class="about-card h-100" data-controller="scroll-animate">
+                                <div class="about-icon"><twig:ux:icon :name="block.icon" /></div>
+                                <h3>{{ ('home.about.' ~ block.key ~ '.title')|trans }}</h3>
+                                <p>{{ ('home.about.' ~ block.key ~ '.body1')|trans|raw }}</p>
+                                {% if block.key in ['club', 'team', 'join'] %}
+                                    <p>{{ ('home.about.' ~ block.key ~ '.body2')|trans|raw }}</p>
+                                {% endif %}
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

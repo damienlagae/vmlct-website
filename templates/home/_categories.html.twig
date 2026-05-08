@@ -1,0 +1,27 @@
+{% set categories = ['miniemen', 'aspiranten', 'nieuwelingen', 'junioren'] %}
+<section id="categorieen" class="py-5 bg-light"
+         data-controller="active-section"
+         data-active-section-target="section">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="section-title">{{ 'home.categories.title'|trans }}</h2>
+            <div class="title-underline"></div>
+        </div>
+        <div class="row g-4">
+            {% for key in categories %}
+                <div class="col-sm-6 col-lg-3">
+                    <div class="category-card text-center" data-controller="scroll-animate">
+                        <twig:ux:icon name="bi:bicycle" class="display-5 mb-3" />
+                        <h3 class="h5 fw-bold mb-1">{{ ('home.categories.' ~ key ~ '.name')|trans }}</h3>
+                        <p class="text-muted mb-0">{{ ('home.categories.' ~ key ~ '.age')|trans }}</p>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        <p class="text-muted small mt-4 mb-0 text-center">
+            {{ 'home.categories.callout'|trans({
+                '%contact%': '<a href="#contact" class="link-vmlct">' ~ 'home.categories.contactLink'|trans ~ '</a>',
+            })|raw }}
+        </p>
+    </div>
+</section>

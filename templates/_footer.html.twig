@@ -1,21 +1,26 @@
-<footer class="py-4 text-white">
+<footer class="py-4 text-white mt-auto">
     <div class="container">
         <div class="row align-items-center">
             <div class="col-md-4 text-center text-md-start mb-3 mb-md-0">
-                <img src="{{ asset('img/logo/van_moer_logistics_cycling_team.png') }}" alt="Van Moer Logistics Cycling Team" title="Van Moer Logistics Cycling Team" height="35" class="footer-logo" />
+                <img src="{{ asset('img/logo/van_moer_logistics_cycling_team.png') }}"
+                     alt="{{ 'app.name'|trans }}"
+                     title="{{ 'app.name'|trans }}"
+                     height="35" class="footer-logo" />
             </div>
             <div class="col-md-4 text-center mb-3 mb-md-0">
                 <div class="d-flex justify-content-center gap-3">
-                    <a href="https://www.facebook.com/wielerteamwaasland" target="_blank" rel="noopener" class="footer-social" aria-label="Facebook">
-                        <i class="bi bi-facebook"></i>
+                    <a href="https://www.facebook.com/wielerteamwaasland" target="_blank" rel="noopener"
+                       class="footer-social" aria-label="Facebook">
+                        <twig:ux:icon name="bi:facebook" />
                     </a>
-                    <a href="https://www.instagram.com/van_moer_cycling_team_/" target="_blank" rel="noopener" class="footer-social" aria-label="Instagram">
-                        <i class="bi bi-instagram"></i>
+                    <a href="https://www.instagram.com/van_moer_cycling_team_/" target="_blank" rel="noopener"
+                       class="footer-social" aria-label="Instagram">
+                        <twig:ux:icon name="bi:instagram" />
                     </a>
                 </div>
             </div>
             <div class="col-md-4 text-center text-md-end">
-                <small class="text-white-50">&copy; {{ "now"|date("Y") }} Van Moer Logistics Cycling Team</small>
+                <small class="text-white-50">&copy; {{ "now"|date("Y") }} {{ 'app.name'|trans }}</small>
             </div>
         </div>
     </div>

@@ -1,0 +1,56 @@
+<section id="contact" class="py-5"
+         data-controller="active-section"
+         data-active-section-target="section">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="text-center mb-5">
+                    <h2 class="section-title">{{ 'home.contact.title'|trans }}</h2>
+                    <div class="title-underline"></div>
+                    <p class="text-muted mt-3">{{ 'home.contact.intro'|trans }}</p>
+                </div>
+                <div class="contact-card" data-controller="scroll-animate">
+                    <form id="contactForm">
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label for="naam" class="form-label">{{ 'home.contact.form.name'|trans }} <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" id="naam" name="naam" required />
+                            </div>
+                            <div class="col-md-6">
+                                <label for="email" class="form-label">{{ 'home.contact.form.email'|trans }} <span class="text-danger">*</span></label>
+                                <input type="email" class="form-control" id="email" name="email" required />
+                            </div>
+                            <div class="col-12">
+                                <label for="onderwerp" class="form-label">{{ 'home.contact.form.subject'|trans }} <span class="text-danger">*</span></label>
+                                <select class="form-select" id="onderwerp" name="onderwerp" required>
+                                    <option value="" selected disabled>{{ 'home.contact.form.subjectPlaceholder'|trans }}</option>
+                                    <option value="lid-worden">{{ 'home.contact.form.subjectOptions.member'|trans }}</option>
+                                    <option value="info">{{ 'home.contact.form.subjectOptions.info'|trans }}</option>
+                                    <option value="sponsoring">{{ 'home.contact.form.subjectOptions.sponsoring'|trans }}</option>
+                                    <option value="andere">{{ 'home.contact.form.subjectOptions.other'|trans }}</option>
+                                </select>
+                            </div>
+                            <div class="col-12">
+                                <label for="bericht" class="form-label">{{ 'home.contact.form.message'|trans }} <span class="text-danger">*</span></label>
+                                <textarea class="form-control" id="bericht" name="bericht" rows="5" required></textarea>
+                            </div>
+                            <div class="col-12">
+                                <div class="honeypot" aria-hidden="true">
+                                    <input type="text" name="website" tabindex="-1" autocomplete="off" />
+                                </div>
+                            </div>
+                            <div class="col-12 text-center">
+                                <button type="submit" class="btn btn-primary btn-lg px-5" id="submitBtn" disabled>
+                                    <span class="btn-text">{{ 'home.contact.form.submit'|trans }}</span>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <p class="text-muted small text-center mt-4 mb-0">
+                    <twig:ux:icon name="bi:geo-alt-fill" class="me-1" />{{ 'home.contact.location'|trans }}
+                </p>
+            </div>
+        </div>
+    </div>
+</section>

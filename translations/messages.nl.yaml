@@ -1,15 +1,88 @@
-home:
-    cta: 'Meer informatie'
-    subtitle: 'Een jeugdwielerploeg uit het Waasland die zich richt op de ontwikkeling van jonge wielertalenten.'
-    title: 'Van Moer Logistics Cycling Team'
+app:
+    name: 'Van Moer Logistics Cycling Team'
+    description: 'Jeugdwielerclub uit Beveren, actief in wielrennen op de weg, baanwielrennen en veldrijden. Sluit je aan vanaf 8 jaar!'
+    title: 'Van Moer Logistics Cycling Team – Jeugdwielerploeg uit het Waasland'
+
 menu:
     navbar:
-        aboutUs: 'Over ons'
-        category: 'Categorieën'
-        contact: 'Contact'
         home: 'Home'
+        category: 'Categorieën'
+        aboutUs: 'Over ons'
         sponsors: 'Sponsors'
+        contact: 'Contact'
+
+home:
+    title: 'Van Moer Logistics Cycling Team'
+    subtitle: 'Een jeugdwielerploeg uit het Waasland die zich richt op de ontwikkeling van jonge wielertalenten.'
+    cta: 'Meer informatie'
+
+    announcement:
+        title: 'Vernieuwde website in 2027'
+        body: 'Onze website krijgt een volledig nieuwe look. Omwille van het drukke wielerseizoen lanceren we de vernieuwde versie in <strong>2027</strong> — we nemen er graag de tijd voor om het goed te doen.'
+        followUs: 'Volg ons ondertussen op %facebook% en %instagram% om niets van het team te missen.'
+
+    categories:
+        title: 'Categorieën'
+        callout: 'Zin om mee te fietsen? Nieuwe renners en rensters zijn altijd welkom — %contact% en kom eens meetrainen.'
+        contactLink: 'neem contact op'
+        miniemen:
+            name: 'Miniemen'
+            age: '8 – 11 jaar'
+        aspiranten:
+            name: 'Aspiranten'
+            age: '12 – 14 jaar'
+        nieuwelingen:
+            name: 'Nieuwelingen'
+            age: '15 – 16 jaar'
+        junioren:
+            name: 'Junioren'
+            age: '17 – 18 jaar'
+
+    about:
+        title: 'Over ons'
+        club:
+            title: 'Onze club'
+            body1: 'Sinds de oprichting van het Van Moer Logistics Cycling Team hebben al veel jeugdrenners en –rensters met succes in de kleuren van onze club gereden. Wij zijn actief in een aantal verschillende wielersportdisciplines: wielrennen op de weg, baanwielrennen en veldrijden.'
+            body2: 'We streven hierbij naar een goede balans tussen prestatiegericht sporten en gezellig en sociaal bezig zijn.'
+        team:
+            title: 'Teamwerk'
+            body1: "Ook al lijkt de sport individueel, het is toch een 'team' waarin jij ook deelneemt. Er wordt dan ook op jouw inzet en sportiviteit gerekend. Het is daarom belangrijk dat je niet alleen traint maar ook aan wedstrijden meedoet."
+            body2: 'Ook hulp van de ouders/verzorgers wordt op prijs gesteld. Meehelpen bij wedstrijden en de voorbereiding daarvan, wij rekenen dus op uw inzet en bereidwilligheid. Zonder jouw hulp kan de jeugd niet fietsen.'
+        coaching:
+            title: 'Begeleiding'
+            body1: 'Onze jeugdrenners worden door een enthousiaste groep trainers begeleid. Zij worden hierin bijgestaan door jeugdbegeleiders en ervaren wielrenners.'
+        join:
+            title: 'Aansluiten'
+            body1: 'Wielrennen kan bij de miniemen vanaf het jaar waarin je 8 wordt. Het eindstation bij het Van Moer Logistics Cycling Team is bij de Junioren waar je eventueel als volwaardig wielrenner verder kan in de hogere categorieën.'
+            body2: '<strong>Lijkt het je wat?</strong> Je bent welkom om eens te komen meetrainen, daarna kan je beslissen of je door wil gaan.'
+
+    sponsors:
+        title: 'Onze sponsors'
+        intro: 'Dankzij onze sponsors kunnen wij onze jeugdrenners de beste omkadering bieden.'
+
+    contact:
+        title: 'Contact'
+        intro: 'Kandidaat nieuwe leden of vragen? Neem gerust contact met ons op.'
+        location: 'Beveren – Waasland, België'
+        form:
+            name: 'Naam'
+            email: 'E-mailadres'
+            subject: 'Onderwerp'
+            subjectPlaceholder: 'Kies een onderwerp...'
+            subjectOptions:
+                member: 'Lid worden'
+                info: 'Algemene info'
+                sponsoring: 'Sponsoring'
+                other: 'Andere'
+            message: 'Bericht'
+            submit: 'Versturen'
+            sending: 'Bezig met versturen...'
+        success:
+            title: 'Bedankt voor uw bericht!'
+            body: 'We nemen zo snel mogelijk contact met u op.'
+        error: 'Er is iets misgegaan. Probeer het later opnieuw of contacteer ons via sociale media.'
+
 modal:
+    title: 'Bootstrap JS werkt'
     body: 'Bootstrap JS werkt. JS en CSS worden geladen via AssetMapper.'
     close: 'Sluiten'
-    title: 'Bootstrap JS werkt'

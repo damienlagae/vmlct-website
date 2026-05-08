@@ -1,0 +1,48 @@
+{% set sponsors = [
+    { src: 'van-moer-logistics.png',   alt: 'Van Moer Logistics',          url: 'https://vanmoer.com/' },
+    { src: 'captains.webp',            alt: 'Captains of Cycling',         url: 'https://www.captainsofcycling.be/' },
+    { src: 'van-berghen.webp',         alt: 'Van Berghen Bjorn Grondwerken', url: 'https://www.grondwerkenvbb.be/' },
+    { src: 'de-clerck.webp',           alt: 'De Clerck',                   url: 'https://www.de-clerck.be/' },
+    { src: 'pollepel.jpg',             alt: 'Aaron Polfliet Grondwerken' },
+    { src: 'spronk.png',               alt: 'Wasserij Spronk',             url: 'https://www.wasserijspronk.be/' },
+    { src: 'vermarc.png',              alt: 'Vermarc Sport',               url: 'https://www.vermarcsport.com/' },
+    { src: 'van-havere.webp',          alt: 'Van Havere Bouwmachines',     url: 'https://www.vh-bm.com/' },
+    { src: 'soetehuys.png',            alt: 'Soete huys',                  url: 'https://www.soetehuys.be/' },
+    { src: 'modemakers.webp',          alt: 'Modemakers',                  url: 'https://modemakers.be/' },
+    { src: 'hvm.jpg',                  alt: 'Hector Van Moer & Zonen',     url: 'https://vanmoerh.be/' },
+    { src: 'rudyco.png',               alt: 'Rudyco',                      url: 'https://www.rudyco.be/' },
+    { src: 'sola.png',                 alt: 'Sola International',          url: 'https://solainternational.be/' },
+    { src: 'alpha-advice.jpg',         alt: 'Alpha Advice',                url: 'https://www.alpha-advice.lu/' },
+    { src: 'truck-service.png',        alt: 'Truck Service DVP' },
+    { src: 'waasland-automotive.jpg',  alt: 'Waasland Automotive',         url: 'https://www.waaslandautomotive.be/' },
+    { src: 'amacx.avif',               alt: 'Amacx',                       url: 'https://amacx.com/' },
+    { src: 'ekoi.webp',                alt: 'Ekoi',                        url: 'https://www.ekoi.com/' },
+] %}
+
+<section id="sponsors" class="py-5 bg-light"
+         data-controller="active-section"
+         data-active-section-target="section">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="section-title">{{ 'home.sponsors.title'|trans }}</h2>
+            <div class="title-underline"></div>
+            <p class="text-muted mt-3">{{ 'home.sponsors.intro'|trans }}</p>
+        </div>
+
+        <div class="row g-3 row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-lg-4 justify-content-center">
+            {% for sponsor in sponsors %}
+                <div class="col">
+                    {% if sponsor.url is defined %}
+                        <a href="{{ sponsor.url }}" target="_blank" rel="noopener" class="sponsor-cell d-flex">
+                            <img src="{{ asset('img/sponsors/' ~ sponsor.src) }}" alt="{{ sponsor.alt }}" loading="lazy" />
+                        </a>
+                    {% else %}
+                        <div class="sponsor-cell">
+                            <img src="{{ asset('img/sponsors/' ~ sponsor.src) }}" alt="{{ sponsor.alt }}" loading="lazy" />
+                        </div>
+                    {% endif %}
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>

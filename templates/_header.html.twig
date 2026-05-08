@@ -1,27 +1,47 @@
-<nav class="navbar navbar-expand-lg navbar-dark" id="mainNav">
+<nav class="navbar navbar-expand-lg navbar-dark"
+     id="mainNav"
+     data-controller="navbar-scroll active-section">
     <div class="container">
-        <a class="navbar-brand d-flex align-items-center" href="#">
-          <span class="navbar-logo-badge">
-            <img src="{{ asset('img/logo/van_moer_logistics_cycling_team.png') }}" alt="Van Moer Logistics Cycling Team" title="Van Moer Logistics Cycling Team" height="50" />
-          </span>
+        <a class="navbar-brand d-flex align-items-center" href="{{ path('app_home') }}">
+            <span class="navbar-logo-badge">
+                <img src="{{ asset('img/logo/van_moer_logistics_cycling_team.png') }}"
+                     alt="{{ 'app.name'|trans }}"
+                     title="{{ 'app.name'|trans }}"
+                     height="50" />
+            </span>
         </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigatie">
+        <button class="navbar-toggler" type="button"
+                data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false"
+                aria-label="Toggle navigatie">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto">
-                <li class="nav-item"><a class="nav-link" href="{{ path('app_home') }}">{{ 'menu.navbar.home'|trans }}</a></li>
-                <li class="nav-item"><a class="nav-link" href="#">{{ 'menu.navbar.category'|trans }}</a></li>
-                <li class="nav-item"><a class="nav-link" href="#">{{ 'menu.navbar.aboutUs'|trans }}</a></li>
-                <li class="nav-item"><a class="nav-link" href="#">{{ 'menu.navbar.sponsors'|trans }}</a></li>
-                <li class="nav-item"><a class="nav-link" href="#">{{ 'menu.navbar.contact'|trans }}</a></li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#home" data-active-section-target="link">{{ 'menu.navbar.home'|trans }}</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#categorieen" data-active-section-target="link">{{ 'menu.navbar.category'|trans }}</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#over-ons" data-active-section-target="link">{{ 'menu.navbar.aboutUs'|trans }}</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#sponsors" data-active-section-target="link">{{ 'menu.navbar.sponsors'|trans }}</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#contact" data-active-section-target="link">{{ 'menu.navbar.contact'|trans }}</a>
+                </li>
             </ul>
             <div class="d-flex ms-lg-3 gap-2 mt-3 mt-lg-0">
-                <a href="https://www.facebook.com/wielerteamwaasland" target="_blank" rel="noopener" class="btn btn-outline-light btn-sm" aria-label="Facebook">
-                    <i class="bi bi-facebook"></i>
+                <a href="https://www.facebook.com/wielerteamwaasland" target="_blank" rel="noopener"
+                   class="btn btn-outline-light btn-sm" aria-label="Facebook">
+                    <twig:ux:icon name="bi:facebook" />
                 </a>
-                <a href="https://www.instagram.com/van_moer_cycling_team_/" target="_blank" rel="noopener" class="btn btn-outline-light btn-sm" aria-label="Instagram">
-                    <i class="bi bi-instagram"></i>
+                <a href="https://www.instagram.com/van_moer_cycling_team_/" target="_blank" rel="noopener"
+                   class="btn btn-outline-light btn-sm" aria-label="Instagram">
+                    <twig:ux:icon name="bi:instagram" />
                 </a>
             </div>
         </div>
