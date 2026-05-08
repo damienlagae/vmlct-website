@@ -1,0 +1,39 @@
+parameters:
+    level: 8
+    paths:
+        - src
+    excludePaths:
+        - tests/bootstrap.php
+
+    # Performance
+    tmpDir: var/cache/phpstan
+    parallel:
+        maximumNumberOfProcesses: 4
+
+    # Inférence de types
+    inferPrivatePropertyTypeFromConstructor: true
+    treatPhpDocTypesAsCertain: false
+
+    # Détection des erreurs cachées
+    checkUninitializedProperties: true
+    checkDynamicProperties: false # Set to true to be stricter
+    checkImplicitMixed: false # Set to true to be stricter
+
+    symfony:
+        constantHassers: false
+        containerXmlPath: var/cache/dev/App_KernelDevDebugContainer.xml
+        consoleApplicationLoader: tools/phpstan/console-application.php
+
+    doctrine:
+        repositoryClass: Doctrine\ORM\EntityRepository
+        objectManagerLoader: tools/phpstan/object-manager.php
+        allCollectionsSelectable: false
+
+
+    reportUnmatchedIgnoredErrors: false
+    ignoreErrors:
+        -
+            identifier: missingType.generics
+        -
+            identifier: doctrine.associationType
+            path: src/Entity
