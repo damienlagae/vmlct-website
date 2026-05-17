@@ -1,0 +1,76 @@
+{% extends '@Shared/admin/layout.html.twig' %}
+
+{% block title %}{{ 'team.admin.staff.index.title'|trans }}{% endblock %}
+
+{% block admin_content %}
+    <header class="admin-page-header mb-4 d-flex flex-wrap align-items-center justify-content-between gap-3">
+        <div>
+            <h1 class="admin-page-header__title">{{ 'team.admin.staff.index.title'|trans }}</h1>
+            <p class="admin-page-header__subtitle">{{ 'team.admin.staff.index.subtitle'|trans }}</p>
+        </div>
+        {% if is_granted(enum('App\\Module\\Team\\Security\\TeamPermissions').create.value) %}
+            <a href="{{ path('admin_staff_create') }}" class="btn btn-primary">
+                <twig:ux:icon name="bi:plus-lg" /> {{ 'team.admin.staff.actions.create'|trans }}
+            </a>
+        {% endif %}
+    </header>
+
+    {% for label, messages in app.flashes(['success', 'danger']) %}
+        {% for message in messages %}
+            <div class="alert alert-{{ label }} alert-dismissible fade show" role="alert">
+                {{ message|trans }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        {% endfor %}
+    {% endfor %}
+
+    <div class="card shadow-sm">
+        <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0">
+                <thead>
+                    <tr>
+                        <th scope="col">{{ 'team.admin.table.name'|trans }}</th>
+                        <th scope="col">{{ 'team.admin.table.role'|trans }}</th>
+                        <th scope="col" style="width: 120px;">{{ 'team.admin.table.status'|trans }}</th>
+                        <th scope="col" class="text-end" style="width: 140px;">{{ 'team.admin.table.actions'|trans }}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for member in staff %}
+                        <tr>
+                            <td><strong>{{ member.fullName }}</strong></td>
+                            <td>{{ ('team.staff_role.' ~ member.role.value)|trans }}</td>
+                            <td>
+                                {% if member.active %}
+                                    <span class="badge bg-success-subtle text-success">{{ 'team.admin.status.active'|trans }}</span>
+                                {% else %}
+                                    <span class="badge bg-secondary-subtle text-secondary">{{ 'team.admin.status.inactive'|trans }}</span>
+                                {% endif %}
+                            </td>
+                            <td class="text-end">
+                                {% if is_granted(enum('App\\Module\\Team\\Security\\TeamPermissions').edit.value, member) %}
+                                    <a href="{{ path('admin_staff_edit', {id: member.id}) }}" class="btn btn-sm btn-outline-primary">
+                                        <twig:ux:icon name="bi:pencil" />
+                                    </a>
+                                {% endif %}
+                                {% if is_granted(enum('App\\Module\\Team\\Security\\TeamPermissions').delete.value, member) %}
+                                    <form method="post" action="{{ path('admin_staff_delete', {id: member.id}) }}"
+                                          class="d-inline"
+                                          data-controller="confirm"
+                                          data-confirm-message-value="{{ 'team.admin.staff.actions.confirm_delete'|trans({'%name%': member.fullName}) }}">
+                                        <input type="hidden" name="_token" value="{{ csrf_token('delete-staff-' ~ member.id) }}" />
+                                        <button type="submit" class="btn btn-sm btn-outline-danger">
+                                            <twig:ux:icon name="bi:trash" />
+                                        </button>
+                                    </form>
+                                {% endif %}
+                            </td>
+                        </tr>
+                    {% else %}
+                        <tr><td colspan="4" class="text-center text-muted py-4">{{ 'team.admin.staff.empty'|trans }}</td></tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}

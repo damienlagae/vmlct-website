@@ -1,0 +1,11 @@
+{% extends '@Shared/admin/layout.html.twig' %}
+
+{% block title %}{{ 'team.admin.rider.create.title'|trans }}{% endblock %}
+
+{% block admin_content %}
+    <header class="admin-page-header mb-4">
+        <h1 class="admin-page-header__title">{{ 'team.admin.rider.create.title'|trans }}</h1>
+    </header>
+
+    {% include '@Team/admin/rider/_form.html.twig' with {form: form, submitLabel: 'team.admin.actions.save'} %}
+{% endblock %}

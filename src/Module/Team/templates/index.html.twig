@@ -1,0 +1,79 @@
+{% extends '@Shared/base.html.twig' %}
+
+{% block title %}{{ 'team.public.title'|trans }}{% endblock %}
+
+{% block body %}
+    <section class="py-5">
+        <div class="container">
+            <header class="text-center mb-5">
+                <h2 class="section-title">{{ 'team.public.title'|trans }}</h2>
+                <div class="title-underline"></div>
+                <p class="text-muted mt-3">{{ 'team.public.intro'|trans }}</p>
+            </header>
+
+            <section class="mb-5">
+                <h3 class="h4 mb-4">{{ 'team.public.staff_heading'|trans }}</h3>
+                {% if staff is empty %}
+                    <p class="text-muted">{{ 'team.public.staff_empty'|trans }}</p>
+                {% else %}
+                    <div class="row g-3 row-cols-2 row-cols-md-3 row-cols-lg-4">
+                        {% for member in staff %}
+                            <div class="col">
+                                <div class="card h-100 border-0 shadow-sm">
+                                    {% if member.photoUrl %}
+                                        <img src="{{ member.photoUrl }}" alt="{{ member.fullName }}" class="card-img-top" />
+                                    {% else %}
+                                        <div class="ratio ratio-1x1 bg-light d-flex align-items-center justify-content-center">
+                                            <twig:ux:icon name="bi:person" class="text-muted" style="font-size: 3rem;" />
+                                        </div>
+                                    {% endif %}
+                                    <div class="card-body">
+                                        <h4 class="h6 mb-1">{{ member.fullName }}</h4>
+                                        <p class="small text-muted mb-0">{{ ('team.staff_role.' ~ member.role.value)|trans }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </section>
+
+            <section>
+                <h3 class="h4 mb-4">{{ 'team.public.riders_heading'|trans }}</h3>
+                {% if totalRiders == 0 %}
+                    <p class="text-muted">{{ 'team.public.riders_empty'|trans }}</p>
+                {% else %}
+                    {% for category in categories %}
+                        {% set categoryRiders = ridersByCategory[category.value]|default([]) %}
+                        {% if categoryRiders|length > 0 %}
+                            <article class="mb-4">
+                                <h4 class="h5 mb-3">{{ ('team.category.' ~ category.value)|trans }} <small class="text-muted">({{ category.ageRange }})</small></h4>
+                                <div class="row g-3 row-cols-2 row-cols-md-3 row-cols-lg-4">
+                                    {% for rider in categoryRiders %}
+                                        <div class="col">
+                                            <div class="card h-100 border-0 shadow-sm">
+                                                {% if rider.photoUrl %}
+                                                    <img src="{{ rider.photoUrl }}" alt="{{ rider.fullName }}" class="card-img-top" />
+                                                {% else %}
+                                                    <div class="ratio ratio-1x1 bg-light d-flex align-items-center justify-content-center">
+                                                        <twig:ux:icon name="bi:bicycle" class="text-muted" style="font-size: 3rem;" />
+                                                    </div>
+                                                {% endif %}
+                                                <div class="card-body">
+                                                    <h5 class="h6 mb-1">{{ rider.fullName }}</h5>
+                                                    {% if rider.bibNumber %}
+                                                        <span class="badge text-bg-secondary">#{{ rider.bibNumber }}</span>
+                                                    {% endif %}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                            </article>
+                        {% endif %}
+                    {% endfor %}
+                {% endif %}
+            </section>
+        </div>
+    </section>
+{% endblock %}

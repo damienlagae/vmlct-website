@@ -141,6 +141,90 @@ security:
         password: 'Wachtwoord'
         submit: 'Aanmelden'
 
+team:
+    public:
+        title: 'Onze ploeg'
+        intro: 'Maak kennis met de renners en de mensen achter het team.'
+        staff_heading: 'Begeleiding'
+        staff_empty: 'Nog geen begeleiders om te tonen.'
+        riders_heading: 'Renners'
+        riders_empty: 'Nog geen renners om te tonen.'
+    category:
+        miniemen: 'Miniemen'
+        aspiranten: 'Aspiranten'
+        nieuwelingen: 'Nieuwelingen'
+        junioren: 'Junioren'
+    staff_role:
+        director: 'Bestuur'
+        coach: 'Trainer'
+        mechanic: 'Mecanicien'
+        soigneur: 'Verzorger'
+        manager: 'Ploegleider'
+        volunteer: 'Vrijwilliger'
+    form:
+        firstName: 'Voornaam'
+        lastName: 'Achternaam'
+        dateOfBirth: 'Geboortedatum'
+        category: 'Categorie'
+        bibNumber: 'Dossardnummer'
+        role: 'Rol'
+        photoUrl: 'Foto URL'
+        photoUrl_help: 'Tijdelijk: volledige URL naar de foto. Wordt later vervangen door een upload.'
+        bio: 'Biografie'
+        palmares: 'Erelijst'
+        active: 'Actief (zichtbaar op de site)'
+    flash:
+        rider_created: 'Renner aangemaakt.'
+        rider_updated: 'Renner bijgewerkt.'
+        rider_deleted: 'Renner verwijderd.'
+        staff_created: 'Begeleider aangemaakt.'
+        staff_updated: 'Begeleider bijgewerkt.'
+        staff_deleted: 'Begeleider verwijderd.'
+    admin:
+        dashboard:
+            title: 'Team'
+            subtitle: 'Beheer renners en begeleiding van het team.'
+            riders: 'renners'
+            riders_hint: 'Bekijk en beheer alle renners.'
+            staff: 'begeleiders'
+            staff_hint: 'Bekijk en beheer de staff.'
+        actions:
+            save: 'Opslaan'
+        status:
+            active: 'Actief'
+            inactive: 'Inactief'
+        table:
+            name: 'Naam'
+            category: 'Categorie'
+            bib: 'Dossard'
+            role: 'Rol'
+            status: 'Status'
+            actions: 'Acties'
+        rider:
+            index:
+                title: 'Renners'
+                subtitle: 'Beheer de renners van het team.'
+            create:
+                title: 'Nieuwe renner'
+            edit:
+                title: 'Renner bewerken: %name%'
+            empty: 'Nog geen renners aangemaakt.'
+            actions:
+                create: 'Renner toevoegen'
+                confirm_delete: 'Weet je zeker dat je renner "%name%" wilt verwijderen?'
+        staff:
+            index:
+                title: 'Begeleiding'
+                subtitle: 'Beheer de begeleiders van het team.'
+            create:
+                title: 'Nieuwe begeleider'
+            edit:
+                title: 'Begeleider bewerken: %name%'
+            empty: 'Nog geen begeleiders aangemaakt.'
+            actions:
+                create: 'Begeleider toevoegen'
+                confirm_delete: 'Weet je zeker dat je begeleider "%name%" wilt verwijderen?'
+
 user:
     form:
         email: 'E-mailadres'
@@ -199,6 +283,7 @@ admin:
     sidebar:
         label: 'Beheer navigatie'
         dashboard: 'Dashboard'
+        team: 'Team'
         sponsors: 'Sponsors'
         users: 'Gebruikers'
         coming_soon: 'Binnenkort beschikbaar'

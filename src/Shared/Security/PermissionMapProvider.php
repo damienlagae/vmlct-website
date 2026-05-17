@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Shared\Security;
 
 use App\Module\Sponsor\Security\SponsorPermissions;
+use App\Module\Team\Security\TeamPermissions;
 use App\Shared\Security\Permissions\UserPermissions;
 
 /**
@@ -35,6 +36,12 @@ final class PermissionMapProvider
         UserPermissions::edit->value => ['ROLE_ADMIN'],
         UserPermissions::delete->value => ['ROLE_SUPER_ADMIN'],
         UserPermissions::impersonate->value => ['ROLE_SUPER_ADMIN'],
+
+        // TEAM (riders + staff)
+        TeamPermissions::view->value => ['ROLE_USER'],
+        TeamPermissions::create->value => ['ROLE_ADMIN'],
+        TeamPermissions::edit->value => ['ROLE_ADMIN'],
+        TeamPermissions::delete->value => ['ROLE_SUPER_ADMIN'],
     ];
 
     /**

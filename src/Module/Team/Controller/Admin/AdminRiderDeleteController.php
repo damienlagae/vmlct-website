@@ -1,0 +1,34 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Module\Team\Controller\Admin;
+
+use App\Module\Team\Entity\Rider;
+use App\Module\Team\Security\TeamPermissions;
+use App\Shared\Admin\Controller\AbstractAdminController;
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
+
+#[Route('/admin/team/renners/{id}/delete', name: 'admin_rider_delete', methods: ['POST'])]
+#[IsGranted(TeamPermissions::delete->value, subject: 'rider')]
+final class AdminRiderDeleteController extends AbstractAdminController
+{
+    public function __invoke(Request $request, Rider $rider, EntityManagerInterface $em): Response
+    {
+        $token = $request->getPayload()->getString('_token');
+        if (!$this->isCsrfTokenValid('delete-rider-'.$rider->getId(), $token)) {
+            throw $this->createAccessDeniedException();
+        }
+
+        $em->remove($rider);
+        $em->flush();
+
+        $this->addFlash('success', 'team.flash.rider_deleted');
+
+        return $this->redirectToRoute('admin_rider_index');
+    }
+}
