@@ -31,17 +31,8 @@ class Rider implements HasUlidIdInterface, TimestampableInterface
     #[ORM\Column(length: 30, enumType: RiderCategory::class)]
     private RiderCategory $category;
 
-    #[ORM\Column(nullable: true)]
-    private ?int $bibNumber = null;
-
     #[ORM\Column(length: 500, nullable: true)]
     private ?string $photoUrl = null;
-
-    #[ORM\Column(type: Types::TEXT, nullable: true)]
-    private ?string $bio = null;
-
-    #[ORM\Column(type: Types::TEXT, nullable: true)]
-    private ?string $palmares = null;
 
     #[ORM\Column]
     private bool $active = true;
@@ -99,16 +90,6 @@ class Rider implements HasUlidIdInterface, TimestampableInterface
         $this->category = $category;
     }
 
-    public function getBibNumber(): ?int
-    {
-        return $this->bibNumber;
-    }
-
-    public function setBibNumber(?int $bibNumber): void
-    {
-        $this->bibNumber = $bibNumber;
-    }
-
     public function getPhotoUrl(): ?string
     {
         return $this->photoUrl;
@@ -117,26 +98,6 @@ class Rider implements HasUlidIdInterface, TimestampableInterface
     public function setPhotoUrl(?string $photoUrl): void
     {
         $this->photoUrl = $photoUrl;
-    }
-
-    public function getBio(): ?string
-    {
-        return $this->bio;
-    }
-
-    public function setBio(?string $bio): void
-    {
-        $this->bio = $bio;
-    }
-
-    public function getPalmares(): ?string
-    {
-        return $this->palmares;
-    }
-
-    public function setPalmares(?string $palmares): void
-    {
-        $this->palmares = $palmares;
     }
 
     public function isActive(): bool

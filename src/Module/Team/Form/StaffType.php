@@ -9,7 +9,6 @@ use App\Module\Team\Entity\StaffRole;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\EnumType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\UrlType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -39,11 +38,6 @@ final class StaffType extends AbstractType
                 'label' => 'team.form.photoUrl',
                 'required' => false,
                 'help' => 'team.form.photoUrl_help',
-            ])
-            ->add('bio', TextareaType::class, [
-                'label' => 'team.form.bio',
-                'required' => false,
-                'attr' => ['rows' => 4],
             ])
             ->add('active', CheckboxType::class, [
                 'label' => 'team.form.active',

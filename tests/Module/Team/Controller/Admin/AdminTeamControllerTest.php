@@ -60,7 +60,6 @@ final class AdminTeamControllerTest extends WebTestCase
             'rider[lastName]' => 'TestRider',
             'rider[dateOfBirth]' => '2010-06-15',
             'rider[category]' => RiderCategory::Aspiranten->value,
-            'rider[bibNumber]' => '7',
             'rider[active]' => '1',
         ]);
 
@@ -70,7 +69,6 @@ final class AdminTeamControllerTest extends WebTestCase
         $rider = $repo->findOneBy(['lastName' => 'TestRider']);
         self::assertNotNull($rider);
         self::assertSame(RiderCategory::Aspiranten, $rider->getCategory());
-        self::assertSame(7, $rider->getBibNumber());
     }
 
     public function testRiderEditUpdatesFields(): void

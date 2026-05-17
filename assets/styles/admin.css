@@ -184,6 +184,30 @@ body:has(.admin-shell) {
     font-size: 1.05rem;
 }
 
+.admin-sidebar__subitems {
+    list-style: none;
+    padding: 0.25rem 0 0.25rem 1.6rem;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.1rem;
+}
+
+.admin-sidebar__link--child {
+    font-size: 0.88rem;
+    padding: 0.4rem 0.75rem;
+    color: var(--admin-text-muted);
+}
+
+.admin-sidebar__link--child:hover {
+    color: var(--vmlct-dark);
+}
+
+.admin-sidebar__link--child.admin-sidebar__link--active {
+    background: rgba(var(--vmlct-blue-rgb), 0.08);
+    color: var(--vmlct-blue);
+}
+
 /* Main */
 .admin-main {
     flex: 1 1 auto;

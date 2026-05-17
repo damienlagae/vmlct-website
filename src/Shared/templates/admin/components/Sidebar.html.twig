@@ -20,6 +20,25 @@
                         <small class="admin-sidebar__badge">{{ 'admin.sidebar.coming_soon_badge'|trans }}</small>
                     </span>
                 {% endif %}
+
+                {% if item.children is defined and active %}
+                    <ul class="admin-sidebar__subitems">
+                        {% for child in item.children %}
+                            {% set childAvailable = this.routeExists(child.route) %}
+                            {% set childActive = childAvailable and this.isActive(...child.match) %}
+                            <li class="admin-sidebar__subitem">
+                                {% if childAvailable %}
+                                    <a href="{{ path(child.route) }}"
+                                       class="admin-sidebar__link admin-sidebar__link--child{% if childActive %} admin-sidebar__link--active{% endif %}"
+                                       {% if childActive %}aria-current="page"{% endif %}>
+                                        <twig:ux:icon name="{{ child.icon }}" class="admin-sidebar__icon" />
+                                        <span>{{ child.label|trans }}</span>
+                                    </a>
+                                {% endif %}
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
             </li>
         {% endfor %}
     </ul>

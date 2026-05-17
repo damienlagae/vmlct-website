@@ -166,12 +166,9 @@ team:
         lastName: 'Achternaam'
         dateOfBirth: 'Geboortedatum'
         category: 'Categorie'
-        bibNumber: 'Dossardnummer'
         role: 'Rol'
         photoUrl: 'Foto URL'
         photoUrl_help: 'Tijdelijk: volledige URL naar de foto. Wordt later vervangen door een upload.'
-        bio: 'Biografie'
-        palmares: 'Erelijst'
         active: 'Actief (zichtbaar op de site)'
     flash:
         rider_created: 'Renner aangemaakt.'
@@ -196,7 +193,6 @@ team:
         table:
             name: 'Naam'
             category: 'Categorie'
-            bib: 'Dossard'
             role: 'Rol'
             status: 'Status'
             actions: 'Acties'

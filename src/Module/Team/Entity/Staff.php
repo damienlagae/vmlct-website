@@ -9,7 +9,6 @@ use App\Shared\Entity\HasUlidIdInterface;
 use App\Shared\Entity\TimestampableInterface;
 use App\Shared\Entity\TimestampableTrait;
 use App\Shared\Entity\UlidIdTrait;
-use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: StaffRepository::class)]
@@ -30,9 +29,6 @@ class Staff implements HasUlidIdInterface, TimestampableInterface
 
     #[ORM\Column(length: 500, nullable: true)]
     private ?string $photoUrl = null;
-
-    #[ORM\Column(type: Types::TEXT, nullable: true)]
-    private ?string $bio = null;
 
     #[ORM\Column]
     private bool $active = true;
@@ -87,16 +83,6 @@ class Staff implements HasUlidIdInterface, TimestampableInterface
     public function setPhotoUrl(?string $photoUrl): void
     {
         $this->photoUrl = $photoUrl;
-    }
-
-    public function getBio(): ?string
-    {
-        return $this->bio;
-    }
-
-    public function setBio(?string $bio): void
-    {
-        $this->bio = $bio;
     }
 
     public function isActive(): bool

@@ -10,8 +10,6 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\EnumType;
-use Symfony\Component\Form\Extension\Core\Type\IntegerType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\UrlType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -43,24 +41,10 @@ final class RiderType extends AbstractType
                 'class' => RiderCategory::class,
                 'choice_label' => fn (RiderCategory $c): string => 'team.category.'.$c->value,
             ])
-            ->add('bibNumber', IntegerType::class, [
-                'label' => 'team.form.bibNumber',
-                'required' => false,
-            ])
             ->add('photoUrl', UrlType::class, [
                 'label' => 'team.form.photoUrl',
                 'required' => false,
                 'help' => 'team.form.photoUrl_help',
-            ])
-            ->add('bio', TextareaType::class, [
-                'label' => 'team.form.bio',
-                'required' => false,
-                'attr' => ['rows' => 4],
-            ])
-            ->add('palmares', TextareaType::class, [
-                'label' => 'team.form.palmares',
-                'required' => false,
-                'attr' => ['rows' => 4],
             ])
             ->add('active', CheckboxType::class, [
                 'label' => 'team.form.active',

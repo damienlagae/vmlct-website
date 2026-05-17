@@ -10,20 +10,20 @@
 
     <div class="row g-3">
         <div class="col-12 col-md-6">
-            <a class="admin-stat-card admin-stat-card--primary" href="{{ path('admin_rider_index') }}">
-                <div class="admin-stat-card__icon"><twig:ux:icon name="bi:bicycle" /></div>
-                <div class="admin-stat-card__body">
-                    <div class="admin-stat-card__label">{{ totalRiders }} {{ 'team.admin.dashboard.riders'|trans }}</div>
-                    <div class="admin-stat-card__hint">{{ 'team.admin.dashboard.riders_hint'|trans }}</div>
-                </div>
-            </a>
-        </div>
-        <div class="col-12 col-md-6">
             <a class="admin-stat-card admin-stat-card--info" href="{{ path('admin_staff_index') }}">
                 <div class="admin-stat-card__icon"><twig:ux:icon name="bi:person-badge" /></div>
                 <div class="admin-stat-card__body">
                     <div class="admin-stat-card__label">{{ totalStaff }} {{ 'team.admin.dashboard.staff'|trans }}</div>
                     <div class="admin-stat-card__hint">{{ 'team.admin.dashboard.staff_hint'|trans }}</div>
+                </div>
+            </a>
+        </div>
+        <div class="col-12 col-md-6">
+            <a class="admin-stat-card admin-stat-card--primary" href="{{ path('admin_rider_index') }}">
+                <div class="admin-stat-card__icon"><twig:ux:icon name="bi:bicycle" /></div>
+                <div class="admin-stat-card__body">
+                    <div class="admin-stat-card__label">{{ totalRiders }} {{ 'team.admin.dashboard.riders'|trans }}</div>
+                    <div class="admin-stat-card__hint">{{ 'team.admin.dashboard.riders_hint'|trans }}</div>
                 </div>
             </a>
         </div>

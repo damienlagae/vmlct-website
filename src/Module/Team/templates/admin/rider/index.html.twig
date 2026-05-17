@@ -31,7 +31,6 @@
                     <tr>
                         <th scope="col">{{ 'team.admin.table.name'|trans }}</th>
                         <th scope="col">{{ 'team.admin.table.category'|trans }}</th>
-                        <th scope="col">{{ 'team.admin.table.bib'|trans }}</th>
                         <th scope="col" style="width: 120px;">{{ 'team.admin.table.status'|trans }}</th>
                         <th scope="col" class="text-end" style="width: 140px;">{{ 'team.admin.table.actions'|trans }}</th>
                     </tr>
@@ -41,7 +40,6 @@
                         <tr>
                             <td><strong>{{ rider.fullName }}</strong></td>
                             <td>{{ ('team.category.' ~ rider.category.value)|trans }}</td>
-                            <td>{{ rider.bibNumber ?? '—' }}</td>
                             <td>
                                 {% if rider.active %}
                                     <span class="badge bg-success-subtle text-success">{{ 'team.admin.status.active'|trans }}</span>
@@ -69,7 +67,7 @@
                             </td>
                         </tr>
                     {% else %}
-                        <tr><td colspan="5" class="text-center text-muted py-4">{{ 'team.admin.rider.empty'|trans }}</td></tr>
+                        <tr><td colspan="4" class="text-center text-muted py-4">{{ 'team.admin.rider.empty'|trans }}</td></tr>
                     {% endfor %}
                 </tbody>
             </table>
