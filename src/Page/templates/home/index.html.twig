@@ -1,0 +1,11 @@
+{% extends '@Shared/base.html.twig' %}
+
+{% block title %}{{ 'app.title'|trans }}{% endblock %}
+
+{% block body %}
+    {{ include('@Page/home/_announcement.html.twig') }}
+    {{ include('@Page/home/_categories.html.twig') }}
+    {{ include('@Page/home/_about.html.twig') }}
+    {{ include('@Page/home/_sponsors.html.twig') }}
+    {{ include('@Page/home/_contact.html.twig') }}
+{% endblock %}

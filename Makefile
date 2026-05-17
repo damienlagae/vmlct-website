@@ -83,7 +83,7 @@ lint-composer: ## Validate composer.json
 	$(COMPOSER) validate --no-check-publish
 
 lint-twig: ## Lint Twig templates
-	$(SYMFONY) lint:twig templates
+	$(SYMFONY) lint:twig src/Shared/templates src/Page/templates src/Module
 
 ## —— Code Quality ————————————————————————————————————————————————————————
 .PHONY: tools csf csf-fix stan rector rector-fix analyze fix

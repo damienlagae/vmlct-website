@@ -41,7 +41,7 @@
 </head>
 <body class="d-flex flex-column h-100">
     {% block header %}
-        {{ include('_header.html.twig') }}
+        {{ include('@Shared/_header.html.twig') }}
     {% endblock %}
 
     <h1 class="visually-hidden">{{ 'app.title'|trans }}</h1>
@@ -53,7 +53,7 @@
     {% endblock %}
 
     {% block footer %}
-        {{ include('_footer.html.twig') }}
+        {{ include('@Shared/_footer.html.twig') }}
     {% endblock %}
 </body>
 </html>

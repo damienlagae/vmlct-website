@@ -133,7 +133,7 @@
             "@test"
         ],
         "lint-yaml": "bin/console lint:yaml config --parse-tags",
-        "lint-twig": "bin/console lint:twig templates",
+        "lint-twig": "bin/console lint:twig src/Shared/templates src/Page/templates src/Module",
         "lint-container": "bin/console lint:container",
         "lint-composer": "@composer validate --no-check-publish",
         "lint": [
