@@ -35,12 +35,34 @@
                                     <div class="audit-trail__diff">
                                         <dt><code>{{ field }}</code></dt>
                                         <dd>
-                                            {% if change.old is defined and change.old is not null %}
-                                                <span class="audit-trail__old">{{ change.old|json_encode }}</span>
-                                                <twig:ux:icon name="bi:arrow-right" class="audit-trail__arrow" />
-                                            {% endif %}
-                                            {% if change.new is defined %}
-                                                <span class="audit-trail__new">{{ change.new|json_encode }}</span>
+                                            {% if change.old is defined or change.new is defined %}
+                                                {# scalar field: { old?, new? } #}
+                                                {% if change.old is defined and change.old is not null %}
+                                                    <span class="audit-trail__old">{{ change.old|json_encode }}</span>
+                                                    <twig:ux:icon name="bi:arrow-right" class="audit-trail__arrow" />
+                                                {% endif %}
+                                                {% if change.new is defined %}
+                                                    <span class="audit-trail__new">{{ change.new|json_encode }}</span>
+                                                {% endif %}
+                                            {% else %}
+                                                {# collection field: [ { old?, new? }, ... ] — e.g. roles, JSON columns #}
+                                                <ul class="audit-trail__diff-items">
+                                                    {% for item in change %}
+                                                        <li>
+                                                            {% if item.old is defined %}
+                                                                <span class="audit-trail__old">{{ item.old|json_encode }}</span>
+                                                                <twig:ux:icon name="bi:arrow-right" class="audit-trail__arrow" />
+                                                            {% else %}
+                                                                <span class="badge bg-success-subtle text-success">+</span>
+                                                            {% endif %}
+                                                            {% if item.new is defined %}
+                                                                <span class="audit-trail__new">{{ item.new|json_encode }}</span>
+                                                            {% else %}
+                                                                <span class="badge bg-danger-subtle text-danger">−</span>
+                                                            {% endif %}
+                                                        </li>
+                                                    {% endfor %}
+                                                </ul>
                                             {% endif %}
                                         </dd>
                                     </div>
