@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Shared\Security;
 
 use App\Module\Sponsor\Security\SponsorPermissions;
+use App\Shared\Security\Permissions\UserPermissions;
 
 /**
  * Static mapping permission_value => list of roles allowed to perform it.
@@ -27,6 +28,13 @@ final class PermissionMapProvider
         SponsorPermissions::create->value => ['ROLE_ADMIN'],
         SponsorPermissions::edit->value => ['ROLE_ADMIN'],
         SponsorPermissions::delete->value => ['ROLE_SUPER_ADMIN'],
+
+        // USER
+        UserPermissions::view->value => ['ROLE_ADMIN'],
+        UserPermissions::create->value => ['ROLE_ADMIN'],
+        UserPermissions::edit->value => ['ROLE_ADMIN'],
+        UserPermissions::delete->value => ['ROLE_SUPER_ADMIN'],
+        UserPermissions::impersonate->value => ['ROLE_SUPER_ADMIN'],
     ];
 
     /**

@@ -141,6 +141,56 @@ security:
         password: 'Wachtwoord'
         submit: 'Aanmelden'
 
+user:
+    form:
+        email: 'E-mailadres'
+        firstName: 'Voornaam'
+        lastName: 'Achternaam'
+        roles: 'Rollen'
+        roles_help: 'ROLE_USER wordt automatisch toegekend aan elke gebruiker.'
+        role:
+            admin: 'Beheerder (ROLE_ADMIN)'
+            super_admin: 'Hoofdbeheerder (ROLE_SUPER_ADMIN)'
+        password: 'Wachtwoord'
+        password_change: 'Nieuw wachtwoord'
+        password_help: 'Laat leeg om het huidige wachtwoord te behouden.'
+        active: 'Actief (kan zich aanmelden)'
+    flash:
+        created: 'Gebruiker aangemaakt.'
+        updated: 'Gebruiker bijgewerkt.'
+        deleted: 'Gebruiker verwijderd.'
+        cannot_delete_self: 'Je kunt je eigen account niet verwijderen.'
+    admin:
+        index:
+            title: 'Gebruikers'
+            subtitle: 'Beheer accounts, rollen en toegang.'
+        create:
+            title: 'Nieuwe gebruiker'
+            subtitle: 'Maak een nieuw account aan.'
+        edit:
+            title: 'Gebruiker bewerken: %email%'
+            subtitle: 'Pas de gegevens, rollen of het wachtwoord aan.'
+        empty: 'Geen gebruikers gevonden.'
+        stats:
+            total: 'Totaal aantal accounts'
+            active: 'Actief'
+            admins: 'Beheerders'
+        table:
+            email: 'E-mail'
+            name: 'Naam'
+            roles: 'Rollen'
+            status: 'Status'
+            actions: 'Acties'
+        status:
+            active: 'Actief'
+            inactive: 'Inactief'
+        actions:
+            create: 'Gebruiker toevoegen'
+            edit: 'Bewerken'
+            delete: 'Verwijderen'
+            save: 'Opslaan'
+            confirm_delete: 'Weet je zeker dat je gebruiker "%email%" wilt verwijderen?'
+
 admin:
     header:
         nav_label: 'Hoofdnavigatie'

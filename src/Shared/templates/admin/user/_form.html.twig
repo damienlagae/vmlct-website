@@ -1,0 +1,18 @@
+{{ form_start(form) }}
+    <div class="card shadow-sm">
+        <div class="card-body p-4">
+            {{ form_row(form.email) }}
+            <div class="row">
+                <div class="col-md-6">{{ form_row(form.firstName) }}</div>
+                <div class="col-md-6">{{ form_row(form.lastName) }}</div>
+            </div>
+            {{ form_row(form.plainPassword) }}
+            {{ form_row(form.roles) }}
+            {{ form_row(form.active) }}
+        </div>
+        <div class="card-footer d-flex justify-content-between bg-white border-top">
+            <a href="{{ path('admin_user_index') }}" class="btn btn-link">{{ 'admin.form.cancel'|trans }}</a>
+            <button type="submit" class="btn btn-primary">{{ submitLabel|trans }}</button>
+        </div>
+    </div>
+{{ form_end(form) }}

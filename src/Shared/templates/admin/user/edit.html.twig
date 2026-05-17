@@ -1,0 +1,12 @@
+{% extends '@Shared/admin/layout.html.twig' %}
+
+{% block title %}{{ 'user.admin.edit.title'|trans({'%email%': managedUser.email}) }}{% endblock %}
+
+{% block admin_content %}
+    <header class="admin-page-header mb-4">
+        <h1 class="admin-page-header__title">{{ 'user.admin.edit.title'|trans({'%email%': managedUser.email}) }}</h1>
+        <p class="admin-page-header__subtitle">{{ 'user.admin.edit.subtitle'|trans }}</p>
+    </header>
+
+    {% include '@Shared/admin/user/_form.html.twig' with {form: form, submitLabel: 'user.admin.actions.save'} %}
+{% endblock %}
