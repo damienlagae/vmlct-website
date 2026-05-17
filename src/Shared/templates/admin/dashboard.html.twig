@@ -1,0 +1,13 @@
+{% extends '@Shared/base.html.twig' %}
+
+{% block title %}{{ 'admin.dashboard.title'|trans }}{% endblock %}
+
+{% block body %}
+    <section class="py-5">
+        <div class="container">
+            <h1>{{ 'admin.dashboard.title'|trans }}</h1>
+            <p class="text-muted">{{ 'admin.dashboard.welcome'|trans({'%name%': app.user.fullName}) }}</p>
+            <p><a href="{{ path('logout') }}" class="btn btn-outline-secondary btn-sm">{{ 'admin.logout'|trans }}</a></p>
+        </div>
+    </section>
+{% endblock %}
