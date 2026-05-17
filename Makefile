@@ -129,6 +129,11 @@ test: ## Run PHPUnit tests
 test-coverage: ## Run tests with coverage report
 	$(SYMFONY_CLI) php bin/phpunit --coverage-html var/coverage --coverage-text
 
+coverage-check: ## Fail if coverage is below 80%
+	$(SYMFONY_CLI) php tools/coverage-check.php var/coverage/clover.xml 80
+
+coverage-gate: test-coverage coverage-check ## Run tests with coverage and enforce 80% threshold
+
 ## —— CI ——————————————————————————————————————————————————————————————————
 .PHONY: ci qa
 
