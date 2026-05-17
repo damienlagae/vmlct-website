@@ -29,6 +29,23 @@ make abort     # stop everything
 
 The Symfony CLI handles TLS, hot reload, and worker management (see `.symfony.local.yaml`).
 
+### Dev fixtures
+
+```bash
+symfony console foundry:load-fixtures users     # seed admin/editor/user accounts
+symfony console foundry:load-fixtures sponsors  # seed sponsors
+```
+
+Dev credentials seeded by the `users` story:
+
+| Email                | Password | Roles              |
+|----------------------|----------|--------------------|
+| admin@vmlct.local    | admin    | `ROLE_SUPER_ADMIN` |
+| editor@vmlct.local   | editor   | `ROLE_ADMIN`       |
+| (faker)              | user     | `ROLE_USER`        |
+
+Admin URL: `/admin` (requires `ROLE_ADMIN`). Login at `/login`.
+
 ## Architecture
 
 The project is a **modular monolith**. Each business domain lives in `src/Module/<Name>/` and is built to be extractable later by copy/paste — not as a Composer bundle.

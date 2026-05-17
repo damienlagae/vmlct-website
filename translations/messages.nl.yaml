@@ -89,3 +89,17 @@ modal:
 
 sponsor:
     empty: 'Nog geen sponsors om te tonen.'
+
+security:
+    login:
+        title: 'Aanmelden'
+        heading: 'Aanmelden'
+        email: 'E-mailadres'
+        password: 'Wachtwoord'
+        submit: 'Aanmelden'
+
+admin:
+    dashboard:
+        title: 'Beheer'
+        welcome: 'Welkom, %name%.'
+    logout: 'Afmelden'

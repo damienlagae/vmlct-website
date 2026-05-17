@@ -1,0 +1,44 @@
+{% extends '@Shared/base.html.twig' %}
+
+{% block title %}{{ 'security.login.title'|trans }}{% endblock %}
+
+{% block body %}
+    <section class="py-5">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-6 col-lg-5">
+                    <div class="card shadow-sm">
+                        <div class="card-body p-4">
+                            <h1 class="h3 mb-4 text-center">{{ 'security.login.heading'|trans }}</h1>
+
+                            {% if error %}
+                                <div class="alert alert-danger" role="alert">
+                                    {{ error.messageKey|trans(error.messageData, 'security') }}
+                                </div>
+                            {% endif %}
+
+                            <form method="post" novalidate>
+                                <div class="mb-3">
+                                    <label for="inputEmail" class="form-label">{{ 'security.login.email'|trans }}</label>
+                                    <input type="email" name="_username" id="inputEmail"
+                                           value="{{ last_username }}"
+                                           class="form-control" autocomplete="email" required autofocus>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="inputPassword" class="form-label">{{ 'security.login.password'|trans }}</label>
+                                    <input type="password" name="_password" id="inputPassword"
+                                           class="form-control" autocomplete="current-password" required>
+                                </div>
+                                <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+
+                                <button type="submit" class="btn btn-primary w-100">
+                                    {{ 'security.login.submit'|trans }}
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
