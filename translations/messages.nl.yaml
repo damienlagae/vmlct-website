@@ -103,3 +103,17 @@ admin:
         title: 'Beheer'
         welcome: 'Welkom, %name%.'
     logout: 'Afmelden'
+
+profile:
+    title: 'Mijn profiel'
+    info_card:
+        title: 'Gebruikersinformatie'
+        email: 'E-mail'
+        fullName: 'Naam'
+        roles: 'Rollen'
+        createdAt: 'Aangemaakt op'
+    permissions_card:
+        title: 'Mijn rechten'
+        domain: 'Domein'
+        permission: 'Recht'
+        empty: 'Je hebt momenteel geen actieve rechten.'

@@ -1,0 +1,81 @@
+{% extends '@Shared/base.html.twig' %}
+
+{% block title %}{{ 'profile.title'|trans }}{% endblock %}
+
+{% block body %}
+    <section class="py-5">
+        <div class="container">
+            <h1 class="mb-4">{{ 'profile.title'|trans }}</h1>
+
+            <div class="card shadow-sm mb-4">
+                <div class="card-body p-4">
+                    <div class="d-flex align-items-center mb-4">
+                        {% if profileUser.avatarUrl %}
+                            <img src="{{ profileUser.avatarUrl }}"
+                                 alt="{{ profileUser.fullName }}"
+                                 class="rounded-circle me-3"
+                                 width="56" height="56">
+                        {% else %}
+                            <div class="rounded-circle bg-secondary text-white d-flex align-items-center justify-content-center me-3"
+                                 style="width: 56px; height: 56px; font-size: 1.5rem;">
+                                {{ profileUser.firstName|first|upper }}{{ profileUser.lastName|first|upper }}
+                            </div>
+                        {% endif %}
+                        <h2 class="h4 mb-0">{{ 'profile.info_card.title'|trans }}</h2>
+                    </div>
+
+                    <dl class="row mb-0">
+                        <dt class="col-sm-3">{{ 'profile.info_card.email'|trans }}</dt>
+                        <dd class="col-sm-9">{{ profileUser.email }}</dd>
+
+                        <dt class="col-sm-3">{{ 'profile.info_card.fullName'|trans }}</dt>
+                        <dd class="col-sm-9">{{ profileUser.fullName }}</dd>
+
+                        <dt class="col-sm-3">{{ 'profile.info_card.roles'|trans }}</dt>
+                        <dd class="col-sm-9">
+                            {% for role in profileUser.roles %}
+                                <code>{{ role }}</code>{% if not loop.last %}, {% endif %}
+                            {% endfor %}
+                        </dd>
+
+                        {% if profileUser.createdAt %}
+                            <dt class="col-sm-3">{{ 'profile.info_card.createdAt'|trans }}</dt>
+                            <dd class="col-sm-9">{{ profileUser.createdAt|format_datetime(locale='nl', pattern='dd/MM/yyyy HH:mm') }}</dd>
+                        {% endif %}
+                    </dl>
+                </div>
+            </div>
+
+            <div class="card shadow-sm">
+                <div class="card-body p-4">
+                    <h2 class="h4 mb-3">{{ 'profile.permissions_card.title'|trans }}</h2>
+
+                    {% if grantedByDomain is empty %}
+                        <p class="text-muted mb-0">{{ 'profile.permissions_card.empty'|trans }}</p>
+                    {% else %}
+                        <div class="table-responsive">
+                            <table class="table table-bordered mb-0">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">{{ 'profile.permissions_card.domain'|trans }}</th>
+                                        <th scope="col">{{ 'profile.permissions_card.permission'|trans }}</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for domain, permissions in grantedByDomain %}
+                                        {% for permission in permissions %}
+                                            <tr>
+                                                <td>{{ domain }}</td>
+                                                <td><code>{{ permission.value }}</code></td>
+                                            </tr>
+                                        {% endfor %}
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
