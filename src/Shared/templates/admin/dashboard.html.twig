@@ -1,13 +1,57 @@
-{% extends '@Shared/base.html.twig' %}
+{% extends '@Shared/admin/layout.html.twig' %}
 
 {% block title %}{{ 'admin.dashboard.title'|trans }}{% endblock %}
 
-{% block body %}
-    <section class="py-5">
-        <div class="container">
-            <h1>{{ 'admin.dashboard.title'|trans }}</h1>
-            <p class="text-muted">{{ 'admin.dashboard.welcome'|trans({'%name%': app.user.fullName}) }}</p>
-            <p><a href="{{ path('logout') }}" class="btn btn-outline-secondary btn-sm">{{ 'admin.logout'|trans }}</a></p>
+{% block admin_content %}
+    <header class="admin-page-header mb-4">
+        <h1 class="admin-page-header__title">{{ 'admin.dashboard.title'|trans }}</h1>
+        <p class="admin-page-header__subtitle">{{ 'admin.dashboard.welcome'|trans({'%name%': app.user.fullName}) }}</p>
+    </header>
+
+    <div class="row g-3">
+        <div class="col-12 col-md-6 col-lg-3">
+            <a class="admin-stat-card admin-stat-card--primary" href="{{ path('admin_sponsor_index') }}">
+                <div class="admin-stat-card__icon">
+                    <twig:ux:icon name="bi:award" />
+                </div>
+                <div class="admin-stat-card__body">
+                    <div class="admin-stat-card__label">{{ 'admin.dashboard.sponsors.label'|trans }}</div>
+                    <div class="admin-stat-card__hint">{{ 'admin.dashboard.sponsors.hint'|trans }}</div>
+                </div>
+            </a>
         </div>
-    </section>
+        <div class="col-12 col-md-6 col-lg-3">
+            <a class="admin-stat-card admin-stat-card--success" href="{{ path('admin_user_index') }}">
+                <div class="admin-stat-card__icon">
+                    <twig:ux:icon name="bi:people" />
+                </div>
+                <div class="admin-stat-card__body">
+                    <div class="admin-stat-card__label">{{ 'admin.dashboard.users.label'|trans }}</div>
+                    <div class="admin-stat-card__hint">{{ 'admin.dashboard.users.hint'|trans }}</div>
+                </div>
+            </a>
+        </div>
+        <div class="col-12 col-md-6 col-lg-3">
+            <a class="admin-stat-card admin-stat-card--info" href="{{ path('profile') }}">
+                <div class="admin-stat-card__icon">
+                    <twig:ux:icon name="bi:person-badge" />
+                </div>
+                <div class="admin-stat-card__body">
+                    <div class="admin-stat-card__label">{{ 'admin.dashboard.profile.label'|trans }}</div>
+                    <div class="admin-stat-card__hint">{{ 'admin.dashboard.profile.hint'|trans }}</div>
+                </div>
+            </a>
+        </div>
+        <div class="col-12 col-md-6 col-lg-3">
+            <a class="admin-stat-card admin-stat-card--neutral" href="{{ path('home') }}">
+                <div class="admin-stat-card__icon">
+                    <twig:ux:icon name="bi:house" />
+                </div>
+                <div class="admin-stat-card__body">
+                    <div class="admin-stat-card__label">{{ 'admin.dashboard.site.label'|trans }}</div>
+                    <div class="admin-stat-card__hint">{{ 'admin.dashboard.site.hint'|trans }}</div>
+                </div>
+            </a>
+        </div>
+    </div>
 {% endblock %}

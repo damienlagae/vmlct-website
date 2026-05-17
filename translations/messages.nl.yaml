@@ -99,10 +99,37 @@ security:
         submit: 'Aanmelden'
 
 admin:
+    header:
+        subtitle: 'Beheer'
+        nav_label: 'Hoofdnavigatie'
+        view_site: 'Site bekijken'
+        profile: 'Mijn profiel'
+    sidebar:
+        label: 'Beheer navigatie'
+        dashboard: 'Dashboard'
+        sponsors: 'Sponsors'
+        users: 'Gebruikers'
+        coming_soon: 'Binnenkort beschikbaar'
+        coming_soon_badge: 'Binnenkort'
     dashboard:
-        title: 'Beheer'
+        title: 'Dashboard'
         welcome: 'Welkom, %name%.'
+        sponsors:
+            label: 'Sponsors'
+            hint: 'Beheer logos en links'
+        users:
+            label: 'Gebruikers'
+            hint: 'Beheer accounts en rollen'
+        profile:
+            label: 'Mijn profiel'
+            hint: 'Bekijk je rechten'
+        site:
+            label: 'Naar de site'
+            hint: 'Bekijk de publieke pagina'
     logout: 'Afmelden'
+    coming_soon:
+        title: 'Binnenkort beschikbaar'
+        body: 'Deze sectie wordt momenteel opgebouwd en is binnenkort beschikbaar.'
 
 profile:
     title: 'Mijn profiel'

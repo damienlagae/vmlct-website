@@ -1,0 +1,26 @@
+<nav class="admin-sidebar" aria-label="{{ 'admin.sidebar.label'|trans }}">
+    <ul class="admin-sidebar__items">
+        {% for item in this.items %}
+            {% set available = this.routeExists(item.route) %}
+            {% set active = available and this.isActive(...item.match) %}
+            <li class="admin-sidebar__item">
+                {% if available %}
+                    <a href="{{ path(item.route) }}"
+                       class="admin-sidebar__link{% if active %} admin-sidebar__link--active{% endif %}"
+                       {% if active %}aria-current="page"{% endif %}>
+                        <twig:ux:icon name="{{ item.icon }}" class="admin-sidebar__icon" />
+                        <span>{{ item.label|trans }}</span>
+                    </a>
+                {% else %}
+                    <span class="admin-sidebar__link admin-sidebar__link--disabled"
+                          aria-disabled="true"
+                          title="{{ 'admin.sidebar.coming_soon'|trans }}">
+                        <twig:ux:icon name="{{ item.icon }}" class="admin-sidebar__icon" />
+                        <span>{{ item.label|trans }}</span>
+                        <small class="admin-sidebar__badge">{{ 'admin.sidebar.coming_soon_badge'|trans }}</small>
+                    </span>
+                {% endif %}
+            </li>
+        {% endfor %}
+    </ul>
+</nav>

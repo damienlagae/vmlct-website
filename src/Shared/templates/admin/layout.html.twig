@@ -1,0 +1,25 @@
+{% extends '@Shared/base.html.twig' %}
+
+{% block meta_tags %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="noindex,nofollow">
+{% endblock %}
+
+{% block header %}
+    <twig:Admin:Header />
+{% endblock %}
+
+{% block main %}
+    <div class="admin-shell">
+        <twig:Admin:Sidebar />
+        <main class="admin-main">
+            <div class="admin-main__inner">
+                {% block admin_breadcrumb %}{% endblock %}
+                {% block admin_content %}{% endblock %}
+            </div>
+        </main>
+    </div>
+{% endblock %}
+
+{% block footer %}{% endblock %}

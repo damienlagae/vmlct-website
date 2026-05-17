@@ -1,0 +1,13 @@
+{% extends '@Shared/admin/layout.html.twig' %}
+
+{% block title %}{{ pageTitle|default('admin.coming_soon.title'|trans) }}{% endblock %}
+
+{% block admin_content %}
+    <header class="admin-page-header mb-4">
+        <h1 class="admin-page-header__title">{{ pageTitle|default('admin.coming_soon.title'|trans) }}</h1>
+    </header>
+
+    <div class="alert alert-info" role="alert">
+        <twig:ux:icon name="bi:hourglass-split" /> {{ 'admin.coming_soon.body'|trans }}
+    </div>
+{% endblock %}
