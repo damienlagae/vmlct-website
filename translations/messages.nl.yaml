@@ -86,3 +86,6 @@ modal:
     title: 'Bootstrap JS werkt'
     body: 'Bootstrap JS werkt. JS en CSS worden geladen via AssetMapper.'
     close: 'Sluiten'
+
+sponsor:
+    empty: 'Nog geen sponsors om te tonen.'

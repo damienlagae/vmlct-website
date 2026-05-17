@@ -4,6 +4,7 @@ twig:
     paths:
         '%kernel.project_dir%/src/Shared/templates': Shared
         '%kernel.project_dir%/src/Page/templates': Page
+        '%kernel.project_dir%/src/Module/Sponsor/templates': Sponsor
 
 when@test:
     twig:
