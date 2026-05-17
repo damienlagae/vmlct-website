@@ -37,3 +37,13 @@ liip_imagine:
             quality: 80
             filters:
                 thumbnail: { size: [600, 400], mode: outbound }
+
+        article_inline:
+            quality: 85
+            filters:
+                thumbnail: { size: [1200, 1200], mode: inset }
+
+        article_inline_thumb:
+            quality: 80
+            filters:
+                thumbnail: { size: [320, 240], mode: outbound }

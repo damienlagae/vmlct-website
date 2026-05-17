@@ -315,6 +315,12 @@ footer {
 }
 
 /* Content blocks (News, Page) */
+.article-content {
+    /* Containment: floats from image blocks must not leak past the
+       block list onto sibling content (e.g. the "back to list" button). */
+    display: flow-root;
+}
+
 .content-block {
     margin-bottom: 1.5rem;
 }

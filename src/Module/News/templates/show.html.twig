@@ -34,11 +34,13 @@
                         <p class="lead">{{ article.excerpt }}</p>
                     {% endif %}
 
-                    {% if blocks is empty %}
-                        <p class="text-muted"><em>{{ 'news.public.body_coming_soon'|trans }}</em></p>
-                    {% else %}
-                        {% include '@Shared/blocks/_render.html.twig' with {blocks: blocks} %}
-                    {% endif %}
+                    <div class="article-content">
+                        {% if blocks is empty %}
+                            <p class="text-muted"><em>{{ 'news.public.body_coming_soon'|trans }}</em></p>
+                        {% else %}
+                            {% include '@Shared/blocks/_render.html.twig' with {blocks: blocks} %}
+                        {% endif %}
+                    </div>
 
                     <p class="mt-5">
                         <a href="{{ path('news_index') }}" class="btn btn-outline-secondary btn-sm">
