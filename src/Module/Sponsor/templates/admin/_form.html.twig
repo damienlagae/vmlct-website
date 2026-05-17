@@ -3,7 +3,17 @@
         <div class="card-body p-4">
             {{ form_row(form.name) }}
             {{ form_row(form.websiteUrl) }}
-            {{ form_row(form.logoUrl) }}
+            {% if form.parent and form.parent.vars.data is not null and form.parent.vars.data.logoPath %}
+                <div class="mb-3">
+                    <label class="form-label">{{ 'sponsor.form.current_logo'|trans }}</label>
+                    <div>
+                        <img src="{{ form.parent.vars.data.logoPath|imagine_filter('sponsor_logo') }}"
+                             alt="{{ form.parent.vars.data.name }}"
+                             style="max-height: 80px;" class="border rounded p-1 bg-white" />
+                    </div>
+                </div>
+            {% endif %}
+            {{ form_row(form.logo) }}
             {{ form_row(form.displayOrder) }}
             {{ form_row(form.active) }}
         </div>

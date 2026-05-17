@@ -3,16 +3,16 @@
         <div class="col">
             {% if sponsor.websiteUrl %}
                 <a href="{{ sponsor.websiteUrl }}" target="_blank" rel="noopener" class="sponsor-cell d-flex">
-                    {% if sponsor.logoUrl %}
-                        <img src="{{ sponsor.logoUrl }}" alt="{{ sponsor.name }}" loading="lazy" />
+                    {% if sponsor.logoPath %}
+                        <img src="{{ sponsor.logoPath|imagine_filter('sponsor_logo') }}" alt="{{ sponsor.name }}" loading="lazy" />
                     {% else %}
                         <span class="sponsor-name">{{ sponsor.name }}</span>
                     {% endif %}
                 </a>
             {% else %}
                 <div class="sponsor-cell">
-                    {% if sponsor.logoUrl %}
-                        <img src="{{ sponsor.logoUrl }}" alt="{{ sponsor.name }}" loading="lazy" />
+                    {% if sponsor.logoPath %}
+                        <img src="{{ sponsor.logoPath|imagine_filter('sponsor_logo') }}" alt="{{ sponsor.name }}" loading="lazy" />
                     {% else %}
                         <span class="sponsor-name">{{ sponsor.name }}</span>
                     {% endif %}

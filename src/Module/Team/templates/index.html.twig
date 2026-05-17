@@ -20,8 +20,8 @@
                         {% for member in staff %}
                             <div class="col">
                                 <div class="card h-100 border-0 shadow-sm">
-                                    {% if member.photoUrl %}
-                                        <img src="{{ member.photoUrl }}" alt="{{ member.fullName }}" class="card-img-top" />
+                                    {% if member.photoPath %}
+                                        <img src="{{ member.photoPath|imagine_filter('team_photo') }}" alt="{{ member.fullName }}" class="card-img-top" />
                                     {% else %}
                                         <div class="ratio ratio-1x1 bg-light d-flex align-items-center justify-content-center">
                                             <twig:ux:icon name="bi:person" class="text-muted" style="font-size: 3rem;" />
@@ -52,8 +52,8 @@
                                     {% for rider in categoryRiders %}
                                         <div class="col">
                                             <div class="card h-100 border-0 shadow-sm">
-                                                {% if rider.photoUrl %}
-                                                    <img src="{{ rider.photoUrl }}" alt="{{ rider.fullName }}" class="card-img-top" />
+                                                {% if rider.photoPath %}
+                                                    <img src="{{ rider.photoPath|imagine_filter('team_photo') }}" alt="{{ rider.fullName }}" class="card-img-top" />
                                                 {% else %}
                                                     <div class="ratio ratio-1x1 bg-light d-flex align-items-center justify-content-center">
                                                         <twig:ux:icon name="bi:bicycle" class="text-muted" style="font-size: 3rem;" />

@@ -25,7 +25,7 @@ final class SponsorFactory extends PersistentObjectFactory
         return [
             'name' => self::faker()->company(),
             'websiteUrl' => self::faker()->url(),
-            'logoUrl' => null,
+            'logoPath' => null,
             'displayOrder' => self::faker()->numberBetween(0, 100),
             'active' => true,
         ];

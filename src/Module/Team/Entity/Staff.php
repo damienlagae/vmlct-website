@@ -27,8 +27,8 @@ class Staff implements HasUlidIdInterface, TimestampableInterface
     #[ORM\Column(length: 30, enumType: StaffRole::class)]
     private StaffRole $role;
 
-    #[ORM\Column(length: 500, nullable: true)]
-    private ?string $photoUrl = null;
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $photoPath = null;
 
     #[ORM\Column]
     private bool $active = true;
@@ -75,14 +75,14 @@ class Staff implements HasUlidIdInterface, TimestampableInterface
         $this->role = $role;
     }
 
-    public function getPhotoUrl(): ?string
+    public function getPhotoPath(): ?string
     {
-        return $this->photoUrl;
+        return $this->photoPath;
     }
 
-    public function setPhotoUrl(?string $photoUrl): void
+    public function setPhotoPath(?string $photoPath): void
     {
-        $this->photoUrl = $photoUrl;
+        $this->photoPath = $photoPath;
     }
 
     public function isActive(): bool

@@ -7,6 +7,7 @@ namespace App\Module\Team\Controller\Admin;
 use App\Module\Team\Entity\Rider;
 use App\Module\Team\Security\TeamPermissions;
 use App\Shared\Admin\Controller\AbstractAdminController;
+use App\Shared\Media\Uploader;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -17,15 +18,19 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 #[IsGranted(TeamPermissions::delete->value, subject: 'rider')]
 final class AdminRiderDeleteController extends AbstractAdminController
 {
-    public function __invoke(Request $request, Rider $rider, EntityManagerInterface $em): Response
+    public function __invoke(Request $request, Rider $rider, EntityManagerInterface $em, Uploader $uploader): Response
     {
         $token = $request->getPayload()->getString('_token');
         if (!$this->isCsrfTokenValid('delete-rider-'.$rider->getId(), $token)) {
             throw $this->createAccessDeniedException();
         }
 
+        $photoPath = $rider->getPhotoPath();
+
         $em->remove($rider);
         $em->flush();
+
+        $uploader->delete($photoPath);
 
         $this->addFlash('success', 'team.flash.rider_deleted');
 

@@ -8,7 +8,9 @@ use App\Module\Sponsor\Entity\Sponsor;
 use App\Module\Sponsor\Form\SponsorType;
 use App\Module\Sponsor\Security\SponsorPermissions;
 use App\Shared\Admin\Controller\AbstractAdminController;
+use App\Shared\Media\Uploader;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -18,12 +20,18 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 #[IsGranted(SponsorPermissions::edit->value, subject: 'sponsor')]
 final class AdminSponsorEditController extends AbstractAdminController
 {
-    public function __invoke(Request $request, Sponsor $sponsor, EntityManagerInterface $em): Response
+    public function __invoke(Request $request, Sponsor $sponsor, EntityManagerInterface $em, Uploader $uploader): Response
     {
         $form = $this->createForm(SponsorType::class, $sponsor);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $logo = $form->get('logo')->getData();
+            if ($logo instanceof UploadedFile) {
+                $uploader->delete($sponsor->getLogoPath());
+                $sponsor->setLogoPath($uploader->upload($logo, 'sponsor'));
+            }
+
             $em->flush();
 
             $this->addFlash('success', 'sponsor.flash.updated');

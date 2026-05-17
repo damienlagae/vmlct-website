@@ -31,7 +31,7 @@ final class RiderFactory extends PersistentObjectFactory
             'lastName' => self::faker()->lastName(),
             'dateOfBirth' => \DateTimeImmutable::createFromMutable(self::faker()->dateTimeBetween('-18 years', '-8 years')),
             'category' => $category,
-            'photoUrl' => null,
+            'photoPath' => null,
             'active' => true,
         ];
     }

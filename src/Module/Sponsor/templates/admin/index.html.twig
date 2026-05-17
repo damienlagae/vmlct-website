@@ -71,8 +71,8 @@
                     {% for sponsor in sponsors %}
                         <tr>
                             <td>
-                                {% if sponsor.logoUrl %}
-                                    <img src="{{ sponsor.logoUrl }}" alt="{{ sponsor.name }}" height="32" />
+                                {% if sponsor.logoPath %}
+                                    <img src="{{ sponsor.logoPath|imagine_filter('sponsor_logo') }}" alt="{{ sponsor.name }}" height="32" />
                                 {% else %}
                                     <span class="text-muted"><twig:ux:icon name="bi:image" /></span>
                                 {% endif %}

@@ -7,6 +7,7 @@ namespace App\Module\Sponsor\Form;
 use App\Module\Sponsor\Entity\Sponsor;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\UrlType;
@@ -29,11 +30,17 @@ final class SponsorType extends AbstractType
                 'required' => false,
                 'constraints' => [new Assert\Length(max: 500)],
             ])
-            ->add('logoUrl', UrlType::class, [
-                'label' => 'sponsor.form.logoUrl',
+            ->add('logo', FileType::class, [
+                'label' => 'sponsor.form.logo',
+                'mapped' => false,
                 'required' => false,
-                'help' => 'sponsor.form.logoUrl_help',
-                'constraints' => [new Assert\Length(max: 500)],
+                'help' => 'sponsor.form.logo_help',
+                'constraints' => [
+                    new Assert\Image(
+                        maxSize: '2M',
+                        mimeTypes: ['image/png', 'image/jpeg', 'image/webp', 'image/svg+xml'],
+                    ),
+                ],
             ])
             ->add('displayOrder', IntegerType::class, [
                 'label' => 'sponsor.form.displayOrder',

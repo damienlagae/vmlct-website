@@ -92,8 +92,9 @@ sponsor:
     form:
         name: 'Naam'
         websiteUrl: 'Website'
-        logoUrl: 'Logo URL'
-        logoUrl_help: 'Tijdelijk: volledige URL naar het logo. Wordt later vervangen door een upload.'
+        logo: 'Logo'
+        logo_help: 'PNG, JPEG, WEBP of SVG. Maximaal 2 MB.'
+        current_logo: 'Huidig logo'
         displayOrder: 'Volgorde'
         displayOrder_help: 'Laagste eerst. Sponsors met dezelfde volgorde worden alfabetisch gesorteerd.'
         active: 'Actief (zichtbaar op de site)'
@@ -167,8 +168,9 @@ team:
         dateOfBirth: 'Geboortedatum'
         category: 'Categorie'
         role: 'Rol'
-        photoUrl: 'Foto URL'
-        photoUrl_help: 'Tijdelijk: volledige URL naar de foto. Wordt later vervangen door een upload.'
+        photo: 'Foto'
+        photo_help: 'PNG, JPEG of WEBP. Maximaal 4 MB.'
+        current_photo: 'Huidige foto'
         active: 'Actief (zichtbaar op de site)'
     flash:
         rider_created: 'Renner aangemaakt.'

@@ -24,8 +24,8 @@ class Sponsor implements HasUlidIdInterface, TimestampableInterface
     #[ORM\Column(length: 500, nullable: true)]
     private ?string $websiteUrl = null;
 
-    #[ORM\Column(length: 500, nullable: true)]
-    private ?string $logoUrl = null;
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $logoPath = null;
 
     #[ORM\Column]
     private int $displayOrder = 0;
@@ -58,14 +58,14 @@ class Sponsor implements HasUlidIdInterface, TimestampableInterface
         $this->websiteUrl = $websiteUrl;
     }
 
-    public function getLogoUrl(): ?string
+    public function getLogoPath(): ?string
     {
-        return $this->logoUrl;
+        return $this->logoPath;
     }
 
-    public function setLogoUrl(?string $logoUrl): void
+    public function setLogoPath(?string $logoPath): void
     {
-        $this->logoUrl = $logoUrl;
+        $this->logoPath = $logoPath;
     }
 
     public function getDisplayOrder(): int

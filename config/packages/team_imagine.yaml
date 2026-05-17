@@ -1,0 +1,6 @@
+liip_imagine:
+    filter_sets:
+        team_photo:
+            quality: 85
+            filters:
+                thumbnail: { size: [400, 400], mode: outbound }

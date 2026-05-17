@@ -30,7 +30,7 @@ final class StaffFactory extends PersistentObjectFactory
             'firstName' => self::faker()->firstName(),
             'lastName' => self::faker()->lastName(),
             'role' => $role,
-            'photoUrl' => null,
+            'photoPath' => null,
             'active' => true,
         ];
     }

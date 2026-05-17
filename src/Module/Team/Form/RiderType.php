@@ -10,8 +10,8 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\EnumType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\UrlType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -41,10 +41,17 @@ final class RiderType extends AbstractType
                 'class' => RiderCategory::class,
                 'choice_label' => fn (RiderCategory $c): string => 'team.category.'.$c->value,
             ])
-            ->add('photoUrl', UrlType::class, [
-                'label' => 'team.form.photoUrl',
+            ->add('photo', FileType::class, [
+                'label' => 'team.form.photo',
+                'mapped' => false,
                 'required' => false,
-                'help' => 'team.form.photoUrl_help',
+                'help' => 'team.form.photo_help',
+                'constraints' => [
+                    new Assert\Image(
+                        maxSize: '4M',
+                        mimeTypes: ['image/png', 'image/jpeg', 'image/webp'],
+                    ),
+                ],
             ])
             ->add('active', CheckboxType::class, [
                 'label' => 'team.form.active',
