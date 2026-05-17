@@ -1,4 +1,7 @@
-# Enable stateless CSRF protection for forms and logins/logouts
+# Enable stateless CSRF protection for forms and logout, but keep the
+# login token stateful (session-based). The stateless flow requires JS to
+# sign the token at submit time, which is fragile when the auth page is
+# the first one the user sees (no session cookie yet, no JS context).
 framework:
     form:
         csrf_protection:
@@ -7,5 +10,4 @@ framework:
     csrf_protection:
         stateless_token_ids:
             - submit
-            - authenticate
             - logout
