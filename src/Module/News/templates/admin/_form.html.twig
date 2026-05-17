@@ -1,26 +1,77 @@
-{{ form_start(form) }}
-    <div class="card shadow-sm">
-        <div class="card-body p-4">
-            {{ form_row(form.title) }}
-            {{ form_row(form.slug) }}
-            {{ form_row(form.excerpt) }}
+{{ form_start(form, {attr: {class: 'admin-form'}}) }}
+    <div class="row g-4">
+        <div class="col-lg-8">
+            <div class="card shadow-sm">
+                <div class="card-header bg-white d-flex align-items-center gap-2 py-3">
+                    <twig:ux:icon name="bi:journal-text" class="text-primary" />
+                    <h2 class="h6 mb-0">{{ 'news.form.section.content'|trans }}</h2>
+                </div>
+                <div class="card-body">
+                    {{ form_row(form.title) }}
+                    {{ form_row(form.slug) }}
+                    {{ form_row(form.excerpt) }}
 
+                    <div class="alert alert-light border small mb-0">
+                        <twig:ux:icon name="bi:info-circle" /> {{ 'news.form.body_placeholder_hint'|trans }}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-4">
             {% set article = form.vars.data %}
-            {% if article is not null and article.coverPath %}
-                <div class="mb-3">
-                    <label class="form-label d-block">{{ 'news.form.current_cover'|trans }}</label>
-                    <img src="{{ article.coverPath|imagine_filter('article_card') }}"
-                         alt="{{ article.title }}"
-                         style="max-height: 140px;" class="border rounded" />
+
+            <div class="card shadow-sm mb-3">
+                <div class="card-header bg-white d-flex align-items-center gap-2 py-3">
+                    <twig:ux:icon name="bi:image" class="text-primary" />
+                    <h2 class="h6 mb-0">{{ 'news.form.section.cover'|trans }}</h2>
+                </div>
+                <div class="card-body">
+                    {% if article is not null and article.coverPath %}
+                        <div class="mb-3">
+                            <img src="{{ article.coverPath|imagine_filter('article_card') }}"
+                                 alt="{{ article.title }}"
+                                 class="img-fluid rounded border" />
+                        </div>
+                    {% else %}
+                        <div class="admin-form__placeholder mb-3">
+                            <twig:ux:icon name="bi:image" />
+                            <span>{{ 'news.form.no_cover'|trans }}</span>
+                        </div>
+                    {% endif %}
+                    {{ form_row(form.coverFile) }}
+                </div>
+            </div>
+
+            <div class="card shadow-sm mb-3">
+                <div class="card-header bg-white d-flex align-items-center gap-2 py-3">
+                    <twig:ux:icon name="bi:calendar-event" class="text-primary" />
+                    <h2 class="h6 mb-0">{{ 'news.form.section.publication'|trans }}</h2>
+                </div>
+                <div class="card-body">
+                    {{ form_row(form.publishedAt) }}
+                </div>
+            </div>
+
+            {% if article is not null and article.author %}
+                <div class="card shadow-sm">
+                    <div class="card-header bg-white d-flex align-items-center gap-2 py-3">
+                        <twig:ux:icon name="bi:person" class="text-primary" />
+                        <h2 class="h6 mb-0">{{ 'news.form.section.author'|trans }}</h2>
+                    </div>
+                    <div class="card-body">
+                        <p class="mb-0">{{ article.author.fullName }}</p>
+                        <p class="small text-muted mb-0">{{ article.author.email }}</p>
+                    </div>
                 </div>
             {% endif %}
+        </div>
+    </div>
 
-            {{ form_row(form.coverFile) }}
-            {{ form_row(form.publishedAt) }}
-        </div>
-        <div class="card-footer d-flex justify-content-between bg-white border-top">
-            <a href="{{ path('admin_article_index') }}" class="btn btn-link">{{ 'admin.form.cancel'|trans }}</a>
-            <button type="submit" class="btn btn-primary">{{ submitLabel|trans }}</button>
-        </div>
+    <div class="admin-form-actions">
+        <a href="{{ path('admin_article_index') }}" class="btn btn-link">{{ 'admin.form.cancel'|trans }}</a>
+        <button type="submit" class="btn btn-primary">
+            <twig:ux:icon name="bi:check2" /> {{ submitLabel|trans }}
+        </button>
     </div>
 {{ form_end(form) }}

@@ -173,6 +173,13 @@ news:
         current_cover: 'Huidige cover'
         publishedAt: 'Publicatiedatum'
         publishedAt_help: 'Laat leeg voor een draft. Een datum in de toekomst is toegestaan (verschijnt zodra die datum bereikt is).'
+        section:
+            content: 'Inhoud'
+            cover: 'Cover & media'
+            publication: 'Publicatie'
+            author: 'Auteur'
+        no_cover: 'Nog geen cover geüpload'
+        body_placeholder_hint: 'De block-editor voor de volledige inhoud komt in een volgende update.'
     flash:
         created: 'Artikel aangemaakt.'
         updated: 'Artikel bijgewerkt.'
