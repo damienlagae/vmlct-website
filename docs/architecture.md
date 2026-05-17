@@ -1,6 +1,6 @@
 # Architecture
 
-The VMLCT website is a **modular monolith**. Each business domain lives under `src/Module/<Name>/` and is built to be extracted later by copy/paste — not as a Composer package, not as a DDD/hexagonal stack. Modules follow the standard Symfony layout (Controller/, Entity/, Repository/, Form/, Twig/Component/, templates/).
+This website is a **modular monolith**. Each business domain lives under `src/Module/<Name>/` and is built to be extracted later by copy/paste — not as a Composer package, not as a DDD/hexagonal stack. Modules follow the standard Symfony layout (Controller/, Entity/, Repository/, Form/, Twig/Component/, templates/).
 
 ## Folder Layout
 
