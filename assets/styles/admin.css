@@ -444,6 +444,42 @@ body:has(.admin-shell) {
     border-left: 3px solid #3b82f6;
 }
 
+/* Trix WYSIWYG in the block editor */
+trix-editor.trix-content {
+    min-height: 7rem;
+    padding: 0.5rem 0.75rem;
+    background: #fff;
+    border: 1px solid var(--admin-border);
+    border-radius: 0 0 6px 6px;
+    border-top: 0;
+}
+
+trix-editor.trix-content:focus {
+    outline: none;
+    border-color: #86b7fe;
+    box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.15);
+}
+
+trix-toolbar {
+    border: 1px solid var(--admin-border);
+    border-bottom: 0;
+    border-radius: 6px 6px 0 0;
+    background: #f8fafc;
+    padding: 0.25rem 0.5rem;
+}
+
+trix-toolbar .trix-button-group {
+    border-color: var(--admin-border);
+    margin-bottom: 0;
+}
+
+/* Hide the file-attach button — uploads must go through Flysystem/Liip,
+   not Trix's default attach flow. */
+trix-toolbar .trix-button-group--file-tools,
+trix-toolbar .trix-button--icon-attach {
+    display: none;
+}
+
 /* Form layout */
 .admin-form {
     padding-bottom: 5rem; /* breathing room above the sticky footer */

@@ -42,4 +42,11 @@ return [
         'path' => './vendor/symfony/ux-live-component/assets/dist/live.min.css',
         'type' => 'css',
     ],
+    'trix' => [
+        'version' => '2.1.19',
+    ],
+    'trix/dist/trix.min.css' => [
+        'version' => '2.1.19',
+        'type' => 'css',
+    ],
 ];

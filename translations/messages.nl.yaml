@@ -201,8 +201,8 @@ news:
             down: 'Naar beneden'
             remove: 'Verwijderen'
         field:
-            text_html: 'HTML-inhoud'
-            text_html_help: 'Eenvoudige HTML toegelaten: <p>, <strong>, <em>, <a>, <ul>, <ol>, <li>.'
+            text_html: 'Tekst'
+            text_html_help: 'Gebruik de werkbalk om de tekst op te maken.'
             heading_text: 'Titel'
             heading_level: 'Niveau'
             image_path: 'Pad of bestandsnaam'

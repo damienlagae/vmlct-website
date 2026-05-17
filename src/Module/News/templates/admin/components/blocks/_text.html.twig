@@ -1,11 +1,19 @@
+{% set blockId = block.id|default('text-' ~ index) %}
 <div class="mb-0">
-    <label class="form-label small text-uppercase fw-semibold" for="block-text-{{ index }}">
+    <label class="form-label small text-uppercase fw-semibold" for="block-text-{{ blockId }}">
         {{ 'news.editor.field.text_html'|trans }}
     </label>
-    <textarea id="block-text-{{ index }}"
-              class="form-control font-monospace"
-              rows="5"
-              data-model="debounce(400)|blocks.{{ index }}.html"
-              placeholder="<p>...</p>">{{ block.html ?? '' }}</textarea>
+    <input type="hidden"
+           id="block-text-input-{{ blockId }}"
+           value="{{ block.html|default('') }}"
+           data-model="debounce(400)|blocks.{{ index }}.html">
+    {# data-live-ignore on the wrapper keeps Trix's toolbar (a sibling Trix
+       injects at runtime) safe from idiomorph re-renders. #}
+    <div data-live-ignore>
+        <trix-editor input="block-text-input-{{ blockId }}"
+                     id="block-text-{{ blockId }}"
+                     data-controller="trix-sync"
+                     class="trix-content form-control"></trix-editor>
+    </div>
     <div class="form-text">{{ 'news.editor.field.text_html_help'|trans }}</div>
 </div>
