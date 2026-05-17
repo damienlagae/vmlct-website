@@ -12,6 +12,18 @@ liip_imagine:
                 cache_prefix: 'media/cache'
     cache: default
 
-# Per-module filter sets live in dedicated files alongside this one
-# (e.g. sponsor_imagine.yaml, team_imagine.yaml) so each module owns
-# its own image transformations next to where it's declared.
+    # Filter names are scoped to their module (sponsor_*, team_*, news_*, ...)
+    # — no generic "thumbnail" / "logo" / "hero" buckets shared across modules,
+    # so the dimensions match each module's actual layout and can evolve
+    # independently.
+    filter_sets:
+        sponsor_logo:
+            quality: 85
+            filters:
+                thumbnail: { size: [250, 250], mode: inset }
+                background: { size: [250, 250], position: center, color: '#ffffff' }
+
+        team_photo:
+            quality: 85
+            filters:
+                thumbnail: { size: [400, 400], mode: outbound }

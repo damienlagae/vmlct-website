@@ -1,7 +1,0 @@
-liip_imagine:
-    filter_sets:
-        sponsor_logo:
-            quality: 85
-            filters:
-                thumbnail: { size: [250, 250], mode: inset }
-                background: { size: [250, 250], position: center, color: '#ffffff' }
