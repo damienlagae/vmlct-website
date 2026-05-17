@@ -5,8 +5,10 @@ declare(strict_types=1);
 namespace App\Module\News\Form;
 
 use App\Module\News\Entity\Article;
+use App\Shared\Content\Form\JsonBlocksTransformer;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -35,6 +37,9 @@ final class ArticleType extends AbstractType
                 'required' => false,
                 'attr' => ['rows' => 3],
             ])
+            ->add('content', HiddenType::class, [
+                'required' => false,
+            ])
             ->add('coverFile', VichImageType::class, [
                 'label' => 'news.form.cover',
                 'required' => false,
@@ -55,6 +60,8 @@ final class ArticleType extends AbstractType
                 'help' => 'news.form.publishedAt_help',
             ])
         ;
+
+        $builder->get('content')->addModelTransformer(new JsonBlocksTransformer());
     }
 
     public function configureOptions(OptionsResolver $resolver): void

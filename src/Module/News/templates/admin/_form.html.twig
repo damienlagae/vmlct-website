@@ -1,4 +1,5 @@
 {{ form_start(form, {attr: {class: 'admin-form'}}) }}
+    {% do form.content.setRendered(true) %}
     <div class="row g-4">
         <div class="col-lg-8">
             <div class="card shadow-sm">
@@ -11,9 +12,13 @@
                     {{ form_row(form.slug) }}
                     {{ form_row(form.excerpt) }}
 
-                    <div class="alert alert-light border small mb-0">
-                        <twig:ux:icon name="bi:info-circle" /> {{ 'news.form.body_placeholder_hint'|trans }}
-                    </div>
+                    <hr class="my-4" />
+
+                    <h3 class="h6 text-uppercase text-muted mb-3">{{ 'news.form.section.blocks'|trans }}</h3>
+                    <twig:News:ContentEditor
+                        :blocks="form.vars.data.content ?? []"
+                        :fieldName="form.content.vars.full_name"
+                    />
                 </div>
             </div>
         </div>

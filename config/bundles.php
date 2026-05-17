@@ -21,4 +21,5 @@ return [
     Liip\ImagineBundle\LiipImagineBundle::class => ['all' => true],
     Vich\UploaderBundle\VichUploaderBundle::class => ['all' => true],
     DH\AuditorBundle\DHAuditorBundle::class => ['all' => true],
+    Symfony\UX\LiveComponent\LiveComponentBundle::class => ['all' => true],
 ];

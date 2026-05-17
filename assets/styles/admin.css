@@ -362,6 +362,88 @@ body:has(.admin-shell) {
     flex-wrap: wrap;
 }
 
+.audit-trail__diff-items li.audit-trail__diff-item--nested {
+    display: block;
+}
+
+.audit-trail__nested {
+    width: 100%;
+    background: #fff;
+    border: 1px solid var(--admin-border);
+    border-radius: 6px;
+    padding: 0.4rem 0.6rem;
+}
+
+.audit-trail__nested + .audit-trail__nested {
+    margin-top: 0.35rem;
+}
+
+.audit-trail__nested-summary {
+    cursor: pointer;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.audit-trail__nested-summary::-webkit-details-marker {
+    display: none;
+}
+
+.audit-trail__nested-summary::before {
+    content: '▸';
+    font-size: 0.8em;
+    color: var(--admin-text-muted);
+    transition: transform 0.15s;
+}
+
+.audit-trail__nested[open] .audit-trail__nested-summary::before {
+    transform: rotate(90deg);
+}
+
+.audit-trail__nested-diffs {
+    margin-top: 0.5rem;
+    background: #f8fafc;
+}
+
+.audit-trail__op-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0.15rem 0.5rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+}
+
+.audit-trail__op-badge--add {
+    background: #d1fae5;
+    color: #047857;
+}
+
+.audit-trail__op-badge--remove {
+    background: #fee2e2;
+    color: #b91c1c;
+}
+
+.audit-trail__op-badge--modify {
+    background: #dbeafe;
+    color: #1d4ed8;
+}
+
+.audit-trail__nested--add {
+    border-left: 3px solid #10b981;
+}
+
+.audit-trail__nested--remove {
+    border-left: 3px solid #ef4444;
+}
+
+.audit-trail__nested--modify {
+    border-left: 3px solid #3b82f6;
+}
+
 /* Form layout */
 .admin-form {
     padding-bottom: 5rem; /* breathing room above the sticky footer */

@@ -14,6 +14,7 @@ use DH\Auditor\Attribute\Auditable;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\Uid\Ulid;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 #[ORM\Entity(repositoryClass: ArticleRepository::class)]
@@ -41,9 +42,12 @@ class Article implements HasUlidIdInterface, TimestampableInterface
     private ?File $coverFile = null;
 
     /**
-     * Structured content blocks. Empty array until the block editor lands.
+     * Internal storage shape: dict `<blockId, {position, ...payload}>`.
+     * Stored as a JSON object so that auditor diffs by block id (stable) and
+     * not by index (cascades on insertion/removal). Always normalised through
+     * `setContent()` — never assigned directly from the outside.
      *
-     * @var array<int, array<string, mixed>>
+     * @var array<string, array<string, mixed>>
      */
     #[ORM\Column(type: Types::JSON)]
     private array $content = [];
@@ -116,19 +120,66 @@ class Article implements HasUlidIdInterface, TimestampableInterface
     }
 
     /**
-     * @return array<int, array<string, mixed>>
+     * Ordered list of blocks, sorted by their persisted `position`. Each
+     * payload carries its `id` (string) so the editor / consumers can match
+     * blocks across saves. Legacy list-shaped content is tolerated and gets
+     * a fresh ULID on the next `setContent()` round-trip.
+     *
+     * @return list<array<string, mixed>>
      */
     public function getContent(): array
     {
-        return $this->content;
+        if ([] === $this->content) {
+            return [];
+        }
+
+        $blocks = [];
+        foreach ($this->content as $key => $payload) {
+            if (!\is_array($payload)) {
+                continue;
+            }
+            if (\is_int($key)) {
+                // Legacy list-shape — synthesise position from index, leave id
+                // unset so the next save assigns a stable ULID.
+                $payload['position'] ??= $key;
+            } else {
+                $payload['id'] = (string) $key;
+            }
+            $blocks[] = $payload;
+        }
+
+        usort(
+            $blocks,
+            static fn (array $a, array $b): int => ($a['position'] ?? 0) <=> ($b['position'] ?? 0),
+        );
+
+        return $blocks;
     }
 
     /**
-     * @param array<int, array<string, mixed>> $content
+     * Accepts an ordered list of block payloads (each may carry an `id`).
+     * Normalises into the dict storage shape: stable ULID as key, sequential
+     * `position` reflecting the list order.
+     *
+     * @param list<array<string, mixed>> $blocks
      */
-    public function setContent(array $content): void
+    public function setContent(array $blocks): void
     {
-        $this->content = $content;
+        $dict = [];
+        foreach (array_values($blocks) as $position => $payload) {
+            if (!\is_array($payload)) {
+                continue;
+            }
+            $id = $payload['id'] ?? null;
+            if (!\is_string($id) || '' === $id) {
+                $id = (string) new Ulid();
+            }
+            unset($payload['id']);
+            $payload['position'] = $position;
+            $dict[$id] = $payload;
+        }
+
+        $this->content = $dict;
     }
 
     public function getPublishedAt(): ?\DateTimeImmutable

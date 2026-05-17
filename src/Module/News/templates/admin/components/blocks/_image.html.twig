@@ -1,0 +1,48 @@
+<div class="row g-3">
+    <div class="col-md-8">
+        <label class="form-label small text-uppercase fw-semibold" for="block-image-path-{{ index }}">
+            {{ 'news.editor.field.image_path'|trans }}
+        </label>
+        <input id="block-image-path-{{ index }}"
+               type="text"
+               class="form-control"
+               value="{{ block.path ?? '' }}"
+               data-model="debounce(400)|blocks.{{ index }}.path"
+               placeholder="my-image.jpg">
+        <div class="form-text">{{ 'news.editor.field.image_path_help'|trans }}</div>
+    </div>
+    <div class="col-md-4">
+        <label class="form-label small text-uppercase fw-semibold" for="block-image-alignment-{{ index }}">
+            {{ 'news.editor.field.image_alignment'|trans }}
+        </label>
+        {% set currentAlignment = block.alignment ?? 'center' %}
+        <select id="block-image-alignment-{{ index }}"
+                class="form-select"
+                data-model="blocks.{{ index }}.alignment">
+            <option value="left"{% if currentAlignment == 'left' %} selected{% endif %}>{{ 'news.editor.alignment.left'|trans }}</option>
+            <option value="center"{% if currentAlignment == 'center' %} selected{% endif %}>{{ 'news.editor.alignment.center'|trans }}</option>
+            <option value="right"{% if currentAlignment == 'right' %} selected{% endif %}>{{ 'news.editor.alignment.right'|trans }}</option>
+            <option value="full"{% if currentAlignment == 'full' %} selected{% endif %}>{{ 'news.editor.alignment.full'|trans }}</option>
+        </select>
+    </div>
+    <div class="col-md-6">
+        <label class="form-label small text-uppercase fw-semibold" for="block-image-alt-{{ index }}">
+            {{ 'news.editor.field.image_alt'|trans }}
+        </label>
+        <input id="block-image-alt-{{ index }}"
+               type="text"
+               class="form-control"
+               value="{{ block.alt ?? '' }}"
+               data-model="debounce(400)|blocks.{{ index }}.alt">
+    </div>
+    <div class="col-md-6">
+        <label class="form-label small text-uppercase fw-semibold" for="block-image-caption-{{ index }}">
+            {{ 'news.editor.field.image_caption'|trans }}
+        </label>
+        <input id="block-image-caption-{{ index }}"
+               type="text"
+               class="form-control"
+               value="{{ block.caption ?? '' }}"
+               data-model="debounce(400)|blocks.{{ index }}.caption">
+    </div>
+</div>

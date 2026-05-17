@@ -1,0 +1,11 @@
+<div class="mb-0">
+    <label class="form-label small text-uppercase fw-semibold" for="block-text-{{ index }}">
+        {{ 'news.editor.field.text_html'|trans }}
+    </label>
+    <textarea id="block-text-{{ index }}"
+              class="form-control font-monospace"
+              rows="5"
+              data-model="debounce(400)|blocks.{{ index }}.html"
+              placeholder="<p>...</p>">{{ block.html ?? '' }}</textarea>
+    <div class="form-text">{{ 'news.editor.field.text_html_help'|trans }}</div>
+</div>

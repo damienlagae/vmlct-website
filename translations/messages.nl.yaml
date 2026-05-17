@@ -155,6 +155,10 @@ audit:
         remove: 'verwijderd'
         associate: 'gekoppeld'
         dissociate: 'losgekoppeld'
+    block:
+        add: 'Toegevoegd'
+        remove: 'Verwijderd'
+        modify: 'Aangepast'
 
 news:
     public:
@@ -179,11 +183,38 @@ news:
         publishedAt_help: 'Laat leeg voor een draft. Een datum in de toekomst is toegestaan (verschijnt zodra die datum bereikt is).'
         section:
             content: 'Inhoud'
+            blocks: 'Blokken'
             cover: 'Cover & media'
             publication: 'Publicatie'
             author: 'Auteur'
         no_cover: 'Nog geen cover geüpload'
         body_placeholder_hint: 'De block-editor voor de volledige inhoud komt in een volgende update.'
+    editor:
+        empty: 'Nog geen blokken. Voeg er een toe met de knoppen hieronder.'
+        add: 'Blok toevoegen:'
+        block:
+            text: 'Tekst'
+            heading: 'Tussentitel'
+            image: 'Afbeelding'
+        actions:
+            up: 'Naar boven'
+            down: 'Naar beneden'
+            remove: 'Verwijderen'
+        field:
+            text_html: 'HTML-inhoud'
+            text_html_help: 'Eenvoudige HTML toegelaten: <p>, <strong>, <em>, <a>, <ul>, <ol>, <li>.'
+            heading_text: 'Titel'
+            heading_level: 'Niveau'
+            image_path: 'Pad of bestandsnaam'
+            image_path_help: 'Naam van een afbeelding in de uploads-map. Inline upload komt later.'
+            image_alt: 'Alt-tekst'
+            image_caption: 'Onderschrift'
+            image_alignment: 'Uitlijning'
+        alignment:
+            left: 'Links'
+            center: 'Gecentreerd'
+            right: 'Rechts'
+            full: 'Volledige breedte'
     flash:
         created: 'Artikel aangemaakt.'
         updated: 'Artikel bijgewerkt.'

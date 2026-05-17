@@ -38,27 +38,65 @@
                                             {% if change.old is defined or change.new is defined %}
                                                 {# scalar field: { old?, new? } #}
                                                 {% if change.old is defined and change.old is not null %}
-                                                    <span class="audit-trail__old">{{ change.old|json_encode }}</span>
+                                                    <span class="audit-trail__old">{{ this.formatValue(change.old) }}</span>
                                                     <twig:ux:icon name="bi:arrow-right" class="audit-trail__arrow" />
                                                 {% endif %}
                                                 {% if change.new is defined %}
-                                                    <span class="audit-trail__new">{{ change.new|json_encode }}</span>
+                                                    <span class="audit-trail__new">{{ this.formatValue(change.new) }}</span>
                                                 {% endif %}
                                             {% else %}
-                                                {# collection field: [ { old?, new? }, ... ] — e.g. roles, JSON columns #}
+                                                {# collection field. Two shapes:
+                                                   - flat items { old?, new? } (e.g. roles)
+                                                   - nested per-record diffs { field: {old?, new?}, ... } (e.g. JSON blocks) #}
                                                 <ul class="audit-trail__diff-items">
-                                                    {% for item in change %}
-                                                        <li>
-                                                            {% if item.old is defined %}
-                                                                <span class="audit-trail__old">{{ item.old|json_encode }}</span>
-                                                                <twig:ux:icon name="bi:arrow-right" class="audit-trail__arrow" />
+                                                    {% for index, item in change %}
+                                                        {% set isNested = item is iterable and (item.old is not defined and item.new is not defined) %}
+                                                        <li class="{{ isNested ? 'audit-trail__diff-item--nested' : '' }}">
+                                                            {% if isNested %}
+                                                                {% set op = this.classifyChange(item) %}
+                                                                <details class="audit-trail__nested audit-trail__nested--{{ op }}" open>
+                                                                    <summary class="audit-trail__nested-summary">
+                                                                        <span class="badge audit-trail__op-badge audit-trail__op-badge--{{ op }}">
+                                                                            {% if op == 'add' %}<twig:ux:icon name="bi:plus-circle" />{% elseif op == 'remove' %}<twig:ux:icon name="bi:dash-circle" />{% else %}<twig:ux:icon name="bi:pencil" />{% endif %}
+                                                                            {{ ('audit.block.' ~ op)|trans }}
+                                                                        </span>
+                                                                        <span class="text-muted small">#{{ loop.index }} · {{ item|keys|join(', ') }}</span>
+                                                                    </summary>
+                                                                    <dl class="audit-trail__diffs audit-trail__nested-diffs">
+                                                                        {% for subField, subChange in item %}
+                                                                            <div class="audit-trail__diff">
+                                                                                <dt><code>{{ subField }}</code></dt>
+                                                                                <dd>
+                                                                                    {% if op == 'add' %}
+                                                                                        <span class="audit-trail__new">{{ this.formatValue(subChange.new) }}</span>
+                                                                                    {% elseif op == 'remove' %}
+                                                                                        <span class="audit-trail__old">{{ this.formatValue(subChange.old) }}</span>
+                                                                                    {% else %}
+                                                                                        {% if subChange.old is defined and subChange.old is not null %}
+                                                                                            <span class="audit-trail__old">{{ this.formatValue(subChange.old) }}</span>
+                                                                                            <twig:ux:icon name="bi:arrow-right" class="audit-trail__arrow" />
+                                                                                        {% endif %}
+                                                                                        {% if subChange.new is defined %}
+                                                                                            <span class="audit-trail__new">{{ this.formatValue(subChange.new) }}</span>
+                                                                                        {% endif %}
+                                                                                    {% endif %}
+                                                                                </dd>
+                                                                            </div>
+                                                                        {% endfor %}
+                                                                    </dl>
+                                                                </details>
                                                             {% else %}
-                                                                <span class="badge bg-success-subtle text-success">+</span>
-                                                            {% endif %}
-                                                            {% if item.new is defined %}
-                                                                <span class="audit-trail__new">{{ item.new|json_encode }}</span>
-                                                            {% else %}
-                                                                <span class="badge bg-danger-subtle text-danger">−</span>
+                                                                {% if item.old is defined %}
+                                                                    <span class="audit-trail__old">{{ this.formatValue(item.old) }}</span>
+                                                                    <twig:ux:icon name="bi:arrow-right" class="audit-trail__arrow" />
+                                                                {% else %}
+                                                                    <span class="badge bg-success-subtle text-success">+</span>
+                                                                {% endif %}
+                                                                {% if item.new is defined %}
+                                                                    <span class="audit-trail__new">{{ this.formatValue(item.new) }}</span>
+                                                                {% else %}
+                                                                    <span class="badge bg-danger-subtle text-danger">−</span>
+                                                                {% endif %}
                                                             {% endif %}
                                                         </li>
                                                     {% endfor %}

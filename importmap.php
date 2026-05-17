@@ -35,4 +35,11 @@ return [
     '@popperjs/core' => [
         'version' => '2.11.8',
     ],
+    '@symfony/ux-live-component' => [
+        'path' => './vendor/symfony/ux-live-component/assets/dist/live_controller.js',
+    ],
+    '@symfony/ux-live-component/dist/live.min.css' => [
+        'path' => './vendor/symfony/ux-live-component/assets/dist/live.min.css',
+        'type' => 'css',
+    ],
 ];
