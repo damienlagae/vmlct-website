@@ -1,0 +1,3 @@
+{# Heading block — level controlled by HeadingLevel enum (h2/h3/h4) #}
+{% set tag = block.level.value %}
+<{{ tag }} class="content-block content-block--heading">{{ block.text }}</{{ tag }}>

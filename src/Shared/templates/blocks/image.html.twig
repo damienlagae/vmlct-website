@@ -1,0 +1,9 @@
+<figure class="content-block content-block--image content-block--image-{{ block.alignment.value }}">
+    <img src="{{ block.path|imagine_filter('article_card') }}"
+         alt="{{ block.alt }}"
+         loading="lazy"
+         class="img-fluid rounded" />
+    {% if block.caption %}
+        <figcaption class="text-muted small mt-2">{{ block.caption }}</figcaption>
+    {% endif %}
+</figure>

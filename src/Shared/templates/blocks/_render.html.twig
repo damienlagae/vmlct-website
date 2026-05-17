@@ -1,0 +1,4 @@
+{# Renders a list of BlockInterface objects by dispatching to per-type templates #}
+{% for block in blocks %}
+    {% include '@Shared/blocks/' ~ block.type() ~ '.html.twig' ignore missing with {block: block} %}
+{% endfor %}

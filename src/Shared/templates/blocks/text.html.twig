@@ -1,0 +1,4 @@
+{# Rich text block; sanitized at render time to neutralise any unexpected markup #}
+<div class="content-block content-block--text">
+    {{ block.html|sanitize_html('block_text')|raw }}
+</div>

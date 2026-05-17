@@ -34,9 +34,10 @@
                         <p class="lead">{{ article.excerpt }}</p>
                     {% endif %}
 
-                    {# Block-based content rendering lands in a follow-up commit #}
-                    {% if article.content is empty %}
+                    {% if blocks is empty %}
                         <p class="text-muted"><em>{{ 'news.public.body_coming_soon'|trans }}</em></p>
+                    {% else %}
+                        {% include '@Shared/blocks/_render.html.twig' with {blocks: blocks} %}
                     {% endif %}
 
                     <p class="mt-5">

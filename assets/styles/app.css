@@ -314,6 +314,46 @@ footer {
     transform: translateY(-2px);
 }
 
+/* Content blocks (News, Page) */
+.content-block {
+    margin-bottom: 1.5rem;
+}
+
+.content-block--heading {
+    color: var(--vmlct-dark);
+    font-weight: 700;
+    margin-top: 2rem;
+}
+
+.content-block--image-left {
+    float: left;
+    max-width: 50%;
+    margin-right: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.content-block--image-right {
+    float: right;
+    max-width: 50%;
+    margin-left: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.content-block--image-center {
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 80%;
+}
+
+.content-block--image-full img {
+    width: 100%;
+}
+
+.content-block--text a {
+    color: var(--vmlct-blue);
+}
+
 /* Scroll animations (added via Stimulus) */
 .scroll-animate {
     opacity: 0;
