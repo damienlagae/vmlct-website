@@ -95,9 +95,13 @@ sponsor:
         logo: 'Logo'
         logo_help: 'PNG, JPEG, WEBP of SVG. Maximaal 2 MB.'
         current_logo: 'Huidig logo'
+        no_logo: 'Nog geen logo geüpload'
         displayOrder: 'Volgorde'
         displayOrder_help: 'Laagste eerst. Sponsors met dezelfde volgorde worden alfabetisch gesorteerd.'
         active: 'Actief (zichtbaar op de site)'
+        section:
+            identity: 'Identiteit'
+            logo: 'Logo'
     flash:
         created: 'Sponsor aangemaakt.'
         updated: 'Sponsor bijgewerkt.'
@@ -242,7 +246,11 @@ team:
         photo: 'Foto'
         photo_help: 'PNG, JPEG of WEBP. Maximaal 4 MB.'
         current_photo: 'Huidige foto'
+        no_photo: 'Nog geen foto geüpload'
         active: 'Actief (zichtbaar op de site)'
+        section:
+            identity: 'Identiteit'
+            photo: 'Foto'
     flash:
         rider_created: 'Renner aangemaakt.'
         rider_updated: 'Renner bijgewerkt.'
@@ -308,6 +316,11 @@ user:
         password_change: 'Nieuw wachtwoord'
         password_help: 'Laat leeg om het huidige wachtwoord te behouden.'
         active: 'Actief (kan zich aanmelden)'
+        section:
+            identity: 'Identiteit'
+            password: 'Wachtwoord'
+            roles: 'Rollen'
+            status: 'Status'
     flash:
         created: 'Gebruiker aangemaakt.'
         updated: 'Gebruiker bijgewerkt.'

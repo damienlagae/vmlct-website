@@ -9,6 +9,7 @@ use App\Shared\Entity\TimestampableInterface;
 use App\Shared\Entity\TimestampableTrait;
 use App\Shared\Entity\UlidIdTrait;
 use App\Shared\Security\Repository\UserRepository;
+use DH\Auditor\Attribute\Auditable;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -16,6 +17,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\Table(name: '`user`')]
 #[ORM\HasLifecycleCallbacks]
+#[Auditable]
 class User implements UserInterface, PasswordAuthenticatedUserInterface, HasUlidIdInterface, TimestampableInterface
 {
     use UlidIdTrait;

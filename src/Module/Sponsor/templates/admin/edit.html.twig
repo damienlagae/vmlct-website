@@ -3,10 +3,18 @@
 {% block title %}{{ 'sponsor.admin.edit.title'|trans({'%name%': sponsor.name}) }}{% endblock %}
 
 {% block admin_content %}
-    <header class="admin-page-header mb-4">
-        <h1 class="admin-page-header__title">{{ 'sponsor.admin.edit.title'|trans({'%name%': sponsor.name}) }}</h1>
-        <p class="admin-page-header__subtitle">{{ 'sponsor.admin.edit.subtitle'|trans }}</p>
+    <header class="admin-page-header mb-4 d-flex flex-wrap align-items-center justify-content-between gap-3">
+        <div>
+            <h1 class="admin-page-header__title">{{ 'sponsor.admin.edit.title'|trans({'%name%': sponsor.name}) }}</h1>
+            <p class="admin-page-header__subtitle">{{ 'sponsor.admin.edit.subtitle'|trans }}</p>
+        </div>
+        <button type="button" class="btn btn-outline-secondary btn-sm"
+                data-bs-toggle="offcanvas" data-bs-target="#admin-audit-trail">
+            <twig:ux:icon name="bi:clock-history" /> {{ 'audit.title'|trans }}
+        </button>
     </header>
 
     {% include '@Sponsor/admin/_form.html.twig' with {form: form, submitLabel: 'sponsor.admin.actions.save'} %}
+
+    {% include '@Shared/admin/_audit_offcanvas.html.twig' with {entity: sponsor} %}
 {% endblock %}

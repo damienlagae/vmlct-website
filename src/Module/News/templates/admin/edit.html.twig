@@ -22,17 +22,5 @@
 
     {% include '@News/admin/_form.html.twig' with {form: form, submitLabel: 'news.admin.actions.save'} %}
 
-    <div class="offcanvas offcanvas-end admin-audit-trail-offcanvas" tabindex="-1" id="admin-audit-trail"
-         aria-labelledby="admin-audit-trail-label">
-        <div class="offcanvas-header border-bottom">
-            <h2 class="offcanvas-title h6 mb-0 d-flex align-items-center gap-2" id="admin-audit-trail-label">
-                <twig:ux:icon name="bi:clock-history" class="text-primary" />
-                {{ 'audit.title'|trans }}
-            </h2>
-            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-        </div>
-        <div class="offcanvas-body">
-            <twig:Admin:AuditTrail :entity="article" />
-        </div>
-    </div>
+    {% include '@Shared/admin/_audit_offcanvas.html.twig' with {entity: article} %}
 {% endblock %}

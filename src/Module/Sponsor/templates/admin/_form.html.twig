@@ -1,26 +1,50 @@
-{{ form_start(form) }}
-    <div class="card shadow-sm">
-        <div class="card-body p-4">
-            {{ form_row(form.name) }}
-            {{ form_row(form.websiteUrl) }}
-
-            {% set sponsor = form.vars.data %}
-            {% if sponsor is not null and sponsor.logoPath %}
-                <div class="mb-3">
-                    <label class="form-label d-block">{{ 'sponsor.form.current_logo'|trans }}</label>
-                    <img src="{{ sponsor.logoPath|imagine_filter('sponsor_logo') }}"
-                         alt="{{ sponsor.name }}"
-                         style="max-height: 100px;" class="border rounded p-1 bg-white" />
+{{ form_start(form, {attr: {class: 'admin-form'}}) }}
+    <div class="row g-4">
+        <div class="col-lg-8">
+            <div class="card shadow-sm">
+                <div class="card-header bg-white d-flex align-items-center gap-2 py-3">
+                    <twig:ux:icon name="bi:info-circle" class="text-primary" />
+                    <h2 class="h6 mb-0">{{ 'sponsor.form.section.identity'|trans }}</h2>
                 </div>
-            {% endif %}
+                <div class="card-body">
+                    {{ form_row(form.name) }}
+                    {{ form_row(form.websiteUrl) }}
+                    {{ form_row(form.displayOrder) }}
+                    {{ form_row(form.active) }}
+                </div>
+            </div>
+        </div>
 
-            {{ form_row(form.logoFile) }}
-            {{ form_row(form.displayOrder) }}
-            {{ form_row(form.active) }}
+        <div class="col-lg-4">
+            {% set sponsor = form.vars.data %}
+            <div class="card shadow-sm">
+                <div class="card-header bg-white d-flex align-items-center gap-2 py-3">
+                    <twig:ux:icon name="bi:image" class="text-primary" />
+                    <h2 class="h6 mb-0">{{ 'sponsor.form.section.logo'|trans }}</h2>
+                </div>
+                <div class="card-body">
+                    {% if sponsor is not null and sponsor.logoPath %}
+                        <div class="mb-3">
+                            <img src="{{ sponsor.logoPath|imagine_filter('sponsor_logo') }}"
+                                 alt="{{ sponsor.name }}"
+                                 class="img-fluid rounded border bg-white" />
+                        </div>
+                    {% else %}
+                        <div class="admin-form__placeholder mb-3">
+                            <twig:ux:icon name="bi:image" />
+                            <span>{{ 'sponsor.form.no_logo'|trans }}</span>
+                        </div>
+                    {% endif %}
+                    {{ form_row(form.logoFile) }}
+                </div>
+            </div>
         </div>
-        <div class="card-footer d-flex justify-content-between bg-white border-top">
-            <a href="{{ path('admin_sponsor_index') }}" class="btn btn-link">{{ 'admin.form.cancel'|trans }}</a>
-            <button type="submit" class="btn btn-primary">{{ submitLabel|trans }}</button>
-        </div>
+    </div>
+
+    <div class="admin-form-actions">
+        <a href="{{ path('admin_sponsor_index') }}" class="btn btn-link">{{ 'admin.form.cancel'|trans }}</a>
+        <button type="submit" class="btn btn-primary">
+            <twig:ux:icon name="bi:check2" /> {{ submitLabel|trans }}
+        </button>
     </div>
 {{ form_end(form) }}

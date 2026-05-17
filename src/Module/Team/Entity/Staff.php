@@ -9,6 +9,7 @@ use App\Shared\Entity\HasUlidIdInterface;
 use App\Shared\Entity\TimestampableInterface;
 use App\Shared\Entity\TimestampableTrait;
 use App\Shared\Entity\UlidIdTrait;
+use DH\Auditor\Attribute\Auditable;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
@@ -16,6 +17,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
 #[ORM\Entity(repositoryClass: StaffRepository::class)]
 #[ORM\HasLifecycleCallbacks]
 #[Vich\Uploadable]
+#[Auditable]
 class Staff implements HasUlidIdInterface, TimestampableInterface
 {
     use UlidIdTrait;

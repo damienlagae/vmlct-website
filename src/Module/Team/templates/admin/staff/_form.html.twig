@@ -1,28 +1,52 @@
-{{ form_start(form) }}
-    <div class="card shadow-sm">
-        <div class="card-body p-4">
-            <div class="row">
-                <div class="col-md-6">{{ form_row(form.firstName) }}</div>
-                <div class="col-md-6">{{ form_row(form.lastName) }}</div>
-            </div>
-            {{ form_row(form.role) }}
-
-            {% set staff = form.vars.data %}
-            {% if staff is not null and staff.photoPath %}
-                <div class="mb-3">
-                    <label class="form-label d-block">{{ 'team.form.current_photo'|trans }}</label>
-                    <img src="{{ staff.photoPath|imagine_filter('team_photo') }}"
-                         alt="{{ staff.fullName }}"
-                         style="max-height: 120px;" class="border rounded" />
+{{ form_start(form, {attr: {class: 'admin-form'}}) }}
+    <div class="row g-4">
+        <div class="col-lg-8">
+            <div class="card shadow-sm">
+                <div class="card-header bg-white d-flex align-items-center gap-2 py-3">
+                    <twig:ux:icon name="bi:person-vcard" class="text-primary" />
+                    <h2 class="h6 mb-0">{{ 'team.form.section.identity'|trans }}</h2>
                 </div>
-            {% endif %}
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">{{ form_row(form.firstName) }}</div>
+                        <div class="col-md-6">{{ form_row(form.lastName) }}</div>
+                    </div>
+                    {{ form_row(form.role) }}
+                    {{ form_row(form.active) }}
+                </div>
+            </div>
+        </div>
 
-            {{ form_row(form.photoFile) }}
-            {{ form_row(form.active) }}
+        <div class="col-lg-4">
+            {% set staff = form.vars.data %}
+            <div class="card shadow-sm">
+                <div class="card-header bg-white d-flex align-items-center gap-2 py-3">
+                    <twig:ux:icon name="bi:image" class="text-primary" />
+                    <h2 class="h6 mb-0">{{ 'team.form.section.photo'|trans }}</h2>
+                </div>
+                <div class="card-body">
+                    {% if staff is not null and staff.photoPath %}
+                        <div class="mb-3">
+                            <img src="{{ staff.photoPath|imagine_filter('team_photo') }}"
+                                 alt="{{ staff.fullName }}"
+                                 class="img-fluid rounded border" />
+                        </div>
+                    {% else %}
+                        <div class="admin-form__placeholder mb-3">
+                            <twig:ux:icon name="bi:person" />
+                            <span>{{ 'team.form.no_photo'|trans }}</span>
+                        </div>
+                    {% endif %}
+                    {{ form_row(form.photoFile) }}
+                </div>
+            </div>
         </div>
-        <div class="card-footer d-flex justify-content-between bg-white border-top">
-            <a href="{{ path('admin_staff_index') }}" class="btn btn-link">{{ 'admin.form.cancel'|trans }}</a>
-            <button type="submit" class="btn btn-primary">{{ submitLabel|trans }}</button>
-        </div>
+    </div>
+
+    <div class="admin-form-actions">
+        <a href="{{ path('admin_staff_index') }}" class="btn btn-link">{{ 'admin.form.cancel'|trans }}</a>
+        <button type="submit" class="btn btn-primary">
+            <twig:ux:icon name="bi:check2" /> {{ submitLabel|trans }}
+        </button>
     </div>
 {{ form_end(form) }}

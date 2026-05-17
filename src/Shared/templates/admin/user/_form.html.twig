@@ -1,18 +1,58 @@
-{{ form_start(form) }}
-    <div class="card shadow-sm">
-        <div class="card-body p-4">
-            {{ form_row(form.email) }}
-            <div class="row">
-                <div class="col-md-6">{{ form_row(form.firstName) }}</div>
-                <div class="col-md-6">{{ form_row(form.lastName) }}</div>
+{{ form_start(form, {attr: {class: 'admin-form'}}) }}
+    <div class="row g-4">
+        <div class="col-lg-8">
+            <div class="card shadow-sm mb-4">
+                <div class="card-header bg-white d-flex align-items-center gap-2 py-3">
+                    <twig:ux:icon name="bi:person" class="text-primary" />
+                    <h2 class="h6 mb-0">{{ 'user.form.section.identity'|trans }}</h2>
+                </div>
+                <div class="card-body">
+                    {{ form_row(form.email) }}
+                    <div class="row">
+                        <div class="col-md-6">{{ form_row(form.firstName) }}</div>
+                        <div class="col-md-6">{{ form_row(form.lastName) }}</div>
+                    </div>
+                </div>
             </div>
-            {{ form_row(form.plainPassword) }}
-            {{ form_row(form.roles) }}
-            {{ form_row(form.active) }}
+
+            <div class="card shadow-sm">
+                <div class="card-header bg-white d-flex align-items-center gap-2 py-3">
+                    <twig:ux:icon name="bi:key" class="text-primary" />
+                    <h2 class="h6 mb-0">{{ 'user.form.section.password'|trans }}</h2>
+                </div>
+                <div class="card-body">
+                    {{ form_row(form.plainPassword) }}
+                </div>
+            </div>
         </div>
-        <div class="card-footer d-flex justify-content-between bg-white border-top">
-            <a href="{{ path('admin_user_index') }}" class="btn btn-link">{{ 'admin.form.cancel'|trans }}</a>
-            <button type="submit" class="btn btn-primary">{{ submitLabel|trans }}</button>
+
+        <div class="col-lg-4">
+            <div class="card shadow-sm mb-3">
+                <div class="card-header bg-white d-flex align-items-center gap-2 py-3">
+                    <twig:ux:icon name="bi:shield-check" class="text-primary" />
+                    <h2 class="h6 mb-0">{{ 'user.form.section.roles'|trans }}</h2>
+                </div>
+                <div class="card-body">
+                    {{ form_row(form.roles) }}
+                </div>
+            </div>
+
+            <div class="card shadow-sm">
+                <div class="card-header bg-white d-flex align-items-center gap-2 py-3">
+                    <twig:ux:icon name="bi:toggle-on" class="text-primary" />
+                    <h2 class="h6 mb-0">{{ 'user.form.section.status'|trans }}</h2>
+                </div>
+                <div class="card-body">
+                    {{ form_row(form.active) }}
+                </div>
+            </div>
         </div>
+    </div>
+
+    <div class="admin-form-actions">
+        <a href="{{ path('admin_user_index') }}" class="btn btn-link">{{ 'admin.form.cancel'|trans }}</a>
+        <button type="submit" class="btn btn-primary">
+            <twig:ux:icon name="bi:check2" /> {{ submitLabel|trans }}
+        </button>
     </div>
 {{ form_end(form) }}
