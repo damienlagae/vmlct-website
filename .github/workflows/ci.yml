@@ -104,7 +104,7 @@ jobs:
         run: bin/console lint:yaml config translations --parse-tags
 
       - name: Lint Twig
-        run: bin/console lint:twig templates
+        run: bin/console lint:twig src/Shared/templates src/Page/templates src/Module
 
       - name: Lint Container
         run: bin/console lint:container
