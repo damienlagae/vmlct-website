@@ -89,6 +89,49 @@ modal:
 
 sponsor:
     empty: 'Nog geen sponsors om te tonen.'
+    form:
+        name: 'Naam'
+        websiteUrl: 'Website'
+        logoUrl: 'Logo URL'
+        logoUrl_help: 'Tijdelijk: volledige URL naar het logo. Wordt later vervangen door een upload.'
+        displayOrder: 'Volgorde'
+        displayOrder_help: 'Laagste eerst. Sponsors met dezelfde volgorde worden alfabetisch gesorteerd.'
+        active: 'Actief (zichtbaar op de site)'
+    flash:
+        created: 'Sponsor aangemaakt.'
+        updated: 'Sponsor bijgewerkt.'
+        deleted: 'Sponsor verwijderd.'
+    admin:
+        index:
+            title: 'Sponsors'
+            subtitle: 'Beheer de sponsors die op de publieke site verschijnen.'
+        create:
+            title: 'Nieuwe sponsor'
+            subtitle: 'Maak een sponsor aan voor de publieke site.'
+        edit:
+            title: 'Sponsor bewerken: %name%'
+            subtitle: 'Pas de gegevens van de sponsor aan.'
+        empty: 'Er zijn nog geen sponsors. Maak er een aan met de knop hierboven.'
+        stats:
+            total: 'Totaal aantal sponsors'
+            active: 'Actief'
+            inactive: 'Inactief'
+        table:
+            logo: 'Logo'
+            name: 'Naam'
+            website: 'Website'
+            order: 'Volgorde'
+            status: 'Status'
+            actions: 'Acties'
+        status:
+            active: 'Actief'
+            inactive: 'Inactief'
+        actions:
+            create: 'Sponsor toevoegen'
+            edit: 'Bewerken'
+            delete: 'Verwijderen'
+            save: 'Opslaan'
+            confirm_delete: 'Weet je zeker dat je sponsor "%name%" wilt verwijderen?'
 
 security:
     login:
@@ -127,6 +170,8 @@ admin:
             label: 'Naar de site'
             hint: 'Bekijk de publieke pagina'
     logout: 'Afmelden'
+    form:
+        cancel: 'Annuleren'
     coming_soon:
         title: 'Binnenkort beschikbaar'
         body: 'Deze sectie wordt momenteel opgebouwd en is binnenkort beschikbaar.'

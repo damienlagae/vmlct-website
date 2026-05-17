@@ -1,0 +1,15 @@
+{{ form_start(form) }}
+    <div class="card shadow-sm">
+        <div class="card-body p-4">
+            <div class="mb-3">{{ form_row(form.name) }}</div>
+            <div class="mb-3">{{ form_row(form.websiteUrl) }}</div>
+            <div class="mb-3">{{ form_row(form.logoUrl) }}</div>
+            <div class="mb-3">{{ form_row(form.displayOrder) }}</div>
+            <div class="form-check mb-0">{{ form_widget(form.active) }} {{ form_label(form.active) }}</div>
+        </div>
+        <div class="card-footer d-flex justify-content-between bg-white border-top">
+            <a href="{{ path('admin_sponsor_index') }}" class="btn btn-link">{{ 'admin.form.cancel'|trans }}</a>
+            <button type="submit" class="btn btn-primary">{{ submitLabel|trans }}</button>
+        </div>
+    </div>
+{{ form_end(form) }}

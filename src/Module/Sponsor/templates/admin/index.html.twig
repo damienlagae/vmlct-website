@@ -1,0 +1,134 @@
+{% extends '@Shared/admin/layout.html.twig' %}
+
+{% block title %}{{ 'sponsor.admin.index.title'|trans }}{% endblock %}
+
+{% block admin_content %}
+    <header class="admin-page-header mb-4 d-flex flex-wrap align-items-center justify-content-between gap-3">
+        <div>
+            <h1 class="admin-page-header__title">{{ 'sponsor.admin.index.title'|trans }}</h1>
+            <p class="admin-page-header__subtitle">{{ 'sponsor.admin.index.subtitle'|trans }}</p>
+        </div>
+        {% if is_granted(enum('App\\Module\\Sponsor\\Security\\SponsorPermissions').create.value) %}
+            <a href="{{ path('admin_sponsor_create') }}" class="btn btn-primary">
+                <twig:ux:icon name="bi:plus-lg" /> {{ 'sponsor.admin.actions.create'|trans }}
+            </a>
+        {% endif %}
+    </header>
+
+    {% for label, messages in app.flashes(['success', 'danger']) %}
+        {% for message in messages %}
+            <div class="alert alert-{{ label }} alert-dismissible fade show" role="alert">
+                {{ message|trans }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        {% endfor %}
+    {% endfor %}
+
+    <div class="row g-3 mb-4">
+        <div class="col-12 col-md-4">
+            <div class="admin-stat-card admin-stat-card--primary">
+                <div class="admin-stat-card__icon"><twig:ux:icon name="bi:list-ul" /></div>
+                <div class="admin-stat-card__body">
+                    <div class="admin-stat-card__label">{{ stats.total }}</div>
+                    <div class="admin-stat-card__hint">{{ 'sponsor.admin.stats.total'|trans }}</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-md-4">
+            <div class="admin-stat-card admin-stat-card--success">
+                <div class="admin-stat-card__icon"><twig:ux:icon name="bi:check-circle" /></div>
+                <div class="admin-stat-card__body">
+                    <div class="admin-stat-card__label">{{ stats.active }}</div>
+                    <div class="admin-stat-card__hint">{{ 'sponsor.admin.stats.active'|trans }}</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-md-4">
+            <div class="admin-stat-card admin-stat-card--neutral">
+                <div class="admin-stat-card__icon"><twig:ux:icon name="bi:slash-circle" /></div>
+                <div class="admin-stat-card__body">
+                    <div class="admin-stat-card__label">{{ stats.inactive }}</div>
+                    <div class="admin-stat-card__hint">{{ 'sponsor.admin.stats.inactive'|trans }}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card shadow-sm">
+        <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0">
+                <thead>
+                    <tr>
+                        <th scope="col" style="width: 64px;">{{ 'sponsor.admin.table.logo'|trans }}</th>
+                        <th scope="col">{{ 'sponsor.admin.table.name'|trans }}</th>
+                        <th scope="col">{{ 'sponsor.admin.table.website'|trans }}</th>
+                        <th scope="col" style="width: 100px;">{{ 'sponsor.admin.table.order'|trans }}</th>
+                        <th scope="col" style="width: 120px;">{{ 'sponsor.admin.table.status'|trans }}</th>
+                        <th scope="col" class="text-end" style="width: 140px;">{{ 'sponsor.admin.table.actions'|trans }}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for sponsor in sponsors %}
+                        <tr>
+                            <td>
+                                {% if sponsor.logoUrl %}
+                                    <img src="{{ sponsor.logoUrl }}" alt="{{ sponsor.name }}" height="32" />
+                                {% else %}
+                                    <span class="text-muted"><twig:ux:icon name="bi:image" /></span>
+                                {% endif %}
+                            </td>
+                            <td>
+                                <strong>{{ sponsor.name }}</strong>
+                            </td>
+                            <td>
+                                {% if sponsor.websiteUrl %}
+                                    <a href="{{ sponsor.websiteUrl }}" target="_blank" rel="noopener" class="text-truncate d-inline-block" style="max-width: 280px;">
+                                        {{ sponsor.websiteUrl }}
+                                    </a>
+                                {% else %}
+                                    <span class="text-muted">—</span>
+                                {% endif %}
+                            </td>
+                            <td>{{ sponsor.displayOrder }}</td>
+                            <td>
+                                {% if sponsor.active %}
+                                    <span class="badge bg-success-subtle text-success">{{ 'sponsor.admin.status.active'|trans }}</span>
+                                {% else %}
+                                    <span class="badge bg-secondary-subtle text-secondary">{{ 'sponsor.admin.status.inactive'|trans }}</span>
+                                {% endif %}
+                            </td>
+                            <td class="text-end">
+                                {% if is_granted(enum('App\\Module\\Sponsor\\Security\\SponsorPermissions').edit.value, sponsor) %}
+                                    <a href="{{ path('admin_sponsor_edit', {id: sponsor.id}) }}"
+                                       class="btn btn-sm btn-outline-primary"
+                                       title="{{ 'sponsor.admin.actions.edit'|trans }}">
+                                        <twig:ux:icon name="bi:pencil" />
+                                    </a>
+                                {% endif %}
+                                {% if is_granted(enum('App\\Module\\Sponsor\\Security\\SponsorPermissions').delete.value, sponsor) %}
+                                    <form method="post" action="{{ path('admin_sponsor_delete', {id: sponsor.id}) }}"
+                                          class="d-inline"
+                                          data-controller="confirm"
+                                          data-confirm-message-value="{{ 'sponsor.admin.actions.confirm_delete'|trans({'%name%': sponsor.name}) }}">
+                                        <input type="hidden" name="_token" value="{{ csrf_token('delete-sponsor-' ~ sponsor.id) }}" />
+                                        <button type="submit"
+                                                class="btn btn-sm btn-outline-danger"
+                                                title="{{ 'sponsor.admin.actions.delete'|trans }}">
+                                            <twig:ux:icon name="bi:trash" />
+                                        </button>
+                                    </form>
+                                {% endif %}
+                            </td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="6" class="text-center text-muted py-4">
+                                {{ 'sponsor.admin.empty'|trans }}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}
