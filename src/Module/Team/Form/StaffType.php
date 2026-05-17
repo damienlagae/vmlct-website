@@ -39,8 +39,7 @@ final class StaffType extends AbstractType
                 'required' => false,
                 'allow_delete' => true,
                 'download_uri' => false,
-                'image_uri' => true,
-                'imagine_pattern' => 'team_photo',
+                'image_uri' => false,
                 'help' => 'team.form.photo_help',
                 'attr' => ['data-controller' => 'image-preview', 'accept' => 'image/png,image/jpeg,image/webp'],
                 'constraints' => [

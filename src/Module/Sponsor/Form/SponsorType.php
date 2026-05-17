@@ -35,8 +35,7 @@ final class SponsorType extends AbstractType
                 'required' => false,
                 'allow_delete' => true,
                 'download_uri' => false,
-                'image_uri' => true,
-                'imagine_pattern' => 'sponsor_logo',
+                'image_uri' => false,
                 'help' => 'sponsor.form.logo_help',
                 'attr' => ['data-controller' => 'image-preview', 'accept' => 'image/png,image/jpeg,image/webp,image/svg+xml'],
                 'constraints' => [

@@ -9,6 +9,17 @@
                 <div class="col-md-6">{{ form_row(form.dateOfBirth) }}</div>
                 <div class="col-md-6">{{ form_row(form.category) }}</div>
             </div>
+
+            {% set rider = form.vars.data %}
+            {% if rider is not null and rider.photoPath %}
+                <div class="mb-3">
+                    <label class="form-label d-block">{{ 'team.form.current_photo'|trans }}</label>
+                    <img src="{{ rider.photoPath|imagine_filter('team_photo') }}"
+                         alt="{{ rider.fullName }}"
+                         style="max-height: 120px;" class="border rounded" />
+                </div>
+            {% endif %}
+
             {{ form_row(form.photoFile) }}
             {{ form_row(form.active) }}
         </div>

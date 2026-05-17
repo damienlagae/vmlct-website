@@ -6,6 +6,17 @@
                 <div class="col-md-6">{{ form_row(form.lastName) }}</div>
             </div>
             {{ form_row(form.role) }}
+
+            {% set staff = form.vars.data %}
+            {% if staff is not null and staff.photoPath %}
+                <div class="mb-3">
+                    <label class="form-label d-block">{{ 'team.form.current_photo'|trans }}</label>
+                    <img src="{{ staff.photoPath|imagine_filter('team_photo') }}"
+                         alt="{{ staff.fullName }}"
+                         style="max-height: 120px;" class="border rounded" />
+                </div>
+            {% endif %}
+
             {{ form_row(form.photoFile) }}
             {{ form_row(form.active) }}
         </div>
