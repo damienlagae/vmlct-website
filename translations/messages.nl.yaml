@@ -280,6 +280,8 @@ admin:
         label: 'Beheer navigatie'
         dashboard: 'Dashboard'
         team: 'Team'
+        staff: 'Staff'
+        riders: 'Renners'
         sponsors: 'Sponsors'
         users: 'Gebruikers'
         coming_soon: 'Binnenkort beschikbaar'
