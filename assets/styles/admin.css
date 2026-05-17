@@ -1,6 +1,6 @@
 /* Admin shell layout */
 :root {
-    --admin-header-height: 64px;
+    --admin-header-height: 84px;
     --admin-sidebar-width: 240px;
     --admin-bg: #f5f7fa;
     --admin-surface: #fff;
@@ -27,44 +27,27 @@ body:has(.admin-shell) {
 .admin-header__inner {
     display: flex;
     align-items: center;
-    gap: 1rem;
-    padding: 0 1.25rem;
     height: 100%;
 }
 
 .admin-header__brand {
+    width: var(--admin-sidebar-width);
+    flex-shrink: 0;
     display: flex;
     align-items: center;
-    gap: 0.75rem;
+    justify-content: center;
     color: #fff;
     text-decoration: none;
-    padding-right: 1.5rem;
-    border-right: 1px solid rgba(255, 255, 255, 0.12);
     height: 100%;
+    border-right: 1px solid rgba(255, 255, 255, 0.12);
 }
 
 .admin-header__brand-logo {
     background: #fff;
     border-radius: 8px;
-    padding: 4px 8px;
+    padding: 6px 14px;
     display: inline-flex;
     align-items: center;
-}
-
-.admin-header__brand-text {
-    display: flex;
-    flex-direction: column;
-    line-height: 1.1;
-}
-
-.admin-header__brand-text strong {
-    font-weight: 700;
-    font-size: 1rem;
-}
-
-.admin-header__brand-text small {
-    color: rgba(255, 255, 255, 0.7);
-    font-size: 0.8rem;
 }
 
 .admin-header__nav {
@@ -72,6 +55,7 @@ body:has(.admin-shell) {
     align-items: center;
     gap: 0.25rem;
     margin-left: auto;
+    padding-left: 1.25rem;
 }
 
 .admin-header__nav-link {
@@ -92,7 +76,7 @@ body:has(.admin-shell) {
 }
 
 .admin-header__user {
-    margin-left: 0.5rem;
+    margin-right: 1.25rem;
 }
 
 .admin-header__user-btn {

@@ -143,7 +143,6 @@ security:
 
 admin:
     header:
-        subtitle: 'Beheer'
         nav_label: 'Hoofdnavigatie'
         view_site: 'Site bekijken'
         profile: 'Mijn profiel'
