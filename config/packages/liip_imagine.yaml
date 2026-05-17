@@ -1,0 +1,17 @@
+liip_imagine:
+    driver: 'gd'
+    loaders:
+        default:
+            flysystem:
+                filesystem_service: 'default.storage'
+    data_loader: default
+    resolvers:
+        default:
+            web_path:
+                web_root: '%kernel.project_dir%/public'
+                cache_prefix: 'media/cache'
+    cache: default
+
+# Per-module filter sets live in dedicated files alongside this one
+# (e.g. sponsor_imagine.yaml, team_imagine.yaml) so each module owns
+# its own image transformations next to where it's declared.
