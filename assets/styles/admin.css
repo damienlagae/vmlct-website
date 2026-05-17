@@ -210,8 +210,9 @@ body:has(.admin-shell) {
 
 /* Audit trail */
 .admin-audit-trail-offcanvas {
-    width: 480px;
-    max-width: 90vw;
+    width: 60vw;
+    min-width: 480px;
+    max-width: 1200px;
 }
 
 .audit-trail-card__icon {
