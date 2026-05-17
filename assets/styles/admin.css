@@ -395,7 +395,6 @@ body:has(.admin-shell) {
 
 .admin-main__inner {
     padding: 1.5rem 2rem;
-    max-width: 1400px;
 }
 
 .admin-page-header__title {
