@@ -37,3 +37,7 @@ parameters:
         -
             identifier: doctrine.associationType
             path: src/Entity
+        -
+            identifier: trait.unused
+            paths:
+                - src/Shared/Entity/*
