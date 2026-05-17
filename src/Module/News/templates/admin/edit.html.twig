@@ -15,4 +15,8 @@
     </header>
 
     {% include '@News/admin/_form.html.twig' with {form: form, submitLabel: 'news.admin.actions.save'} %}
+
+    <div class="mt-5">
+        <twig:Admin:AuditTrail :entity="article" />
+    </div>
 {% endblock %}
