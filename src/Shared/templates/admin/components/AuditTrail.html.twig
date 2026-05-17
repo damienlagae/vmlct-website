@@ -1,64 +1,55 @@
 {% set entries = this.entries %}
 
-<div class="card shadow-sm audit-trail-card">
-    <div class="card-header bg-white d-flex align-items-center gap-2 py-3">
-        <twig:ux:icon name="bi:clock-history" class="audit-trail-card__icon" />
-        <h2 class="h6 mb-0">{{ 'audit.title'|trans }}</h2>
-        {% if entries|length > 0 %}
-            <span class="badge bg-secondary-subtle text-secondary ms-auto">{{ entries|length }}</span>
-        {% endif %}
-    </div>
-    <div class="card-body">
-        {% if entries is empty %}
-            <p class="text-muted small mb-0">{{ 'audit.empty'|trans }}</p>
-        {% else %}
-            <ol class="audit-trail__list">
-                {% for entry in entries %}
-                    {% set diffs = entry.getDiffs() %}
-                    <li class="audit-trail__entry">
-                        <div class="audit-trail__marker audit-trail__marker--{{ entry.type }}" aria-hidden="true">
-                            {% if entry.type == 'insert' %}<twig:ux:icon name="bi:plus-lg" />
-                            {% elseif entry.type == 'update' %}<twig:ux:icon name="bi:pencil" />
-                            {% elseif entry.type == 'remove' %}<twig:ux:icon name="bi:trash" />
-                            {% else %}<twig:ux:icon name="bi:link-45deg" />{% endif %}
-                        </div>
-                        <div class="audit-trail__body">
-                            <header class="audit-trail__head">
-                                <strong>{{ ('audit.action.' ~ entry.type)|trans }}</strong>
-                                <span class="audit-trail__meta">
-                                    {% if entry.username %}
-                                        <twig:ux:icon name="bi:person" /> {{ entry.username }}
-                                    {% endif %}
-                                    {% if entry.createdAt %}
-                                        <twig:ux:icon name="bi:dot" />
-                                        <time datetime="{{ entry.createdAt|date('c') }}">
-                                            {{ entry.createdAt|format_datetime(locale='nl', pattern='dd/MM/yyyy HH:mm') }}
-                                        </time>
-                                    {% endif %}
-                                </span>
-                            </header>
-                            {% if diffs is iterable and diffs is not empty %}
-                                <dl class="audit-trail__diffs">
-                                    {% for field, change in diffs %}
-                                        <div class="audit-trail__diff">
-                                            <dt><code>{{ field }}</code></dt>
-                                            <dd>
-                                                {% if change.old is defined and change.old is not null %}
-                                                    <span class="audit-trail__old">{{ change.old|json_encode }}</span>
-                                                    <twig:ux:icon name="bi:arrow-right" class="audit-trail__arrow" />
-                                                {% endif %}
-                                                {% if change.new is defined %}
-                                                    <span class="audit-trail__new">{{ change.new|json_encode }}</span>
-                                                {% endif %}
-                                            </dd>
-                                        </div>
-                                    {% endfor %}
-                                </dl>
-                            {% endif %}
-                        </div>
-                    </li>
-                {% endfor %}
-            </ol>
-        {% endif %}
-    </div>
+<div class="audit-trail">
+    {% if entries is empty %}
+        <p class="text-muted small mb-0">{{ 'audit.empty'|trans }}</p>
+    {% else %}
+        <ol class="audit-trail__list">
+            {% for entry in entries %}
+                {% set diffs = entry.getDiffs() %}
+                <li class="audit-trail__entry">
+                    <div class="audit-trail__marker audit-trail__marker--{{ entry.type }}" aria-hidden="true">
+                        {% if entry.type == 'insert' %}<twig:ux:icon name="bi:plus-lg" />
+                        {% elseif entry.type == 'update' %}<twig:ux:icon name="bi:pencil" />
+                        {% elseif entry.type == 'remove' %}<twig:ux:icon name="bi:trash" />
+                        {% else %}<twig:ux:icon name="bi:link-45deg" />{% endif %}
+                    </div>
+                    <div class="audit-trail__body">
+                        <header class="audit-trail__head">
+                            <strong>{{ ('audit.action.' ~ entry.type)|trans }}</strong>
+                            <span class="audit-trail__meta">
+                                {% if entry.username %}
+                                    <twig:ux:icon name="bi:person" /> {{ entry.username }}
+                                {% endif %}
+                                {% if entry.createdAt %}
+                                    <twig:ux:icon name="bi:dot" />
+                                    <time datetime="{{ entry.createdAt|date('c') }}">
+                                        {{ entry.createdAt|format_datetime(locale='nl', pattern='dd/MM/yyyy HH:mm') }}
+                                    </time>
+                                {% endif %}
+                            </span>
+                        </header>
+                        {% if diffs is iterable and diffs is not empty %}
+                            <dl class="audit-trail__diffs">
+                                {% for field, change in diffs %}
+                                    <div class="audit-trail__diff">
+                                        <dt><code>{{ field }}</code></dt>
+                                        <dd>
+                                            {% if change.old is defined and change.old is not null %}
+                                                <span class="audit-trail__old">{{ change.old|json_encode }}</span>
+                                                <twig:ux:icon name="bi:arrow-right" class="audit-trail__arrow" />
+                                            {% endif %}
+                                            {% if change.new is defined %}
+                                                <span class="audit-trail__new">{{ change.new|json_encode }}</span>
+                                            {% endif %}
+                                        </dd>
+                                    </div>
+                                {% endfor %}
+                            </dl>
+                        {% endif %}
+                    </div>
+                </li>
+            {% endfor %}
+        </ol>
+    {% endif %}
 </div>

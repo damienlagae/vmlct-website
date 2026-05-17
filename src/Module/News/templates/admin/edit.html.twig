@@ -3,20 +3,36 @@
 {% block title %}{{ 'news.admin.edit.title'|trans({'%title%': article.title}) }}{% endblock %}
 
 {% block admin_content %}
-    <header class="admin-page-header mb-4">
-        <h1 class="admin-page-header__title">{{ 'news.admin.edit.title'|trans({'%title%': article.title}) }}</h1>
-        {% if article.isPublished %}
-            <p class="admin-page-header__subtitle">
-                <a href="{{ path('news_show', {slug: article.slug}) }}" target="_blank" rel="noopener">
-                    <twig:ux:icon name="bi:eye" /> {{ 'news.admin.edit.view_public'|trans }}
-                </a>
-            </p>
-        {% endif %}
+    <header class="admin-page-header mb-4 d-flex flex-wrap align-items-center justify-content-between gap-3">
+        <div>
+            <h1 class="admin-page-header__title">{{ 'news.admin.edit.title'|trans({'%title%': article.title}) }}</h1>
+            {% if article.isPublished %}
+                <p class="admin-page-header__subtitle">
+                    <a href="{{ path('news_show', {slug: article.slug}) }}" target="_blank" rel="noopener">
+                        <twig:ux:icon name="bi:eye" /> {{ 'news.admin.edit.view_public'|trans }}
+                    </a>
+                </p>
+            {% endif %}
+        </div>
+        <button type="button" class="btn btn-outline-secondary btn-sm"
+                data-bs-toggle="offcanvas" data-bs-target="#admin-audit-trail">
+            <twig:ux:icon name="bi:clock-history" /> {{ 'audit.title'|trans }}
+        </button>
     </header>
 
     {% include '@News/admin/_form.html.twig' with {form: form, submitLabel: 'news.admin.actions.save'} %}
 
-    <div class="mt-5">
-        <twig:Admin:AuditTrail :entity="article" />
+    <div class="offcanvas offcanvas-end admin-audit-trail-offcanvas" tabindex="-1" id="admin-audit-trail"
+         aria-labelledby="admin-audit-trail-label">
+        <div class="offcanvas-header border-bottom">
+            <h2 class="offcanvas-title h6 mb-0 d-flex align-items-center gap-2" id="admin-audit-trail-label">
+                <twig:ux:icon name="bi:clock-history" class="text-primary" />
+                {{ 'audit.title'|trans }}
+            </h2>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+            <twig:Admin:AuditTrail :entity="article" />
+        </div>
     </div>
 {% endblock %}
