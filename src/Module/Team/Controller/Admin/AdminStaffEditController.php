@@ -8,9 +8,7 @@ use App\Module\Team\Entity\Staff;
 use App\Module\Team\Form\StaffType;
 use App\Module\Team\Security\TeamPermissions;
 use App\Shared\Admin\Controller\AbstractAdminController;
-use App\Shared\Media\Uploader;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -20,18 +18,12 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 #[IsGranted(TeamPermissions::edit->value, subject: 'staff')]
 final class AdminStaffEditController extends AbstractAdminController
 {
-    public function __invoke(Request $request, Staff $staff, EntityManagerInterface $em, Uploader $uploader): Response
+    public function __invoke(Request $request, Staff $staff, EntityManagerInterface $em): Response
     {
         $form = $this->createForm(StaffType::class, $staff);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $photo = $form->get('photo')->getData();
-            if ($photo instanceof UploadedFile) {
-                $uploader->delete($staff->getPhotoPath());
-                $staff->setPhotoPath($uploader->upload($photo, 'staff'));
-            }
-
             $em->flush();
 
             $this->addFlash('success', 'team.flash.staff_updated');

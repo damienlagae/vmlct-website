@@ -7,7 +7,6 @@ namespace App\Module\Sponsor\Form;
 use App\Module\Sponsor\Entity\Sponsor;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
-use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\UrlType;
@@ -15,6 +14,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints as Assert;
+use Vich\UploaderBundle\Form\Type\VichImageType;
 
 final class SponsorType extends AbstractType
 {
@@ -30,11 +30,15 @@ final class SponsorType extends AbstractType
                 'required' => false,
                 'constraints' => [new Assert\Length(max: 500)],
             ])
-            ->add('logo', FileType::class, [
+            ->add('logoFile', VichImageType::class, [
                 'label' => 'sponsor.form.logo',
-                'mapped' => false,
                 'required' => false,
+                'allow_delete' => true,
+                'download_uri' => false,
+                'image_uri' => true,
+                'imagine_pattern' => 'sponsor_logo',
                 'help' => 'sponsor.form.logo_help',
+                'attr' => ['data-controller' => 'image-preview', 'accept' => 'image/png,image/jpeg,image/webp,image/svg+xml'],
                 'constraints' => [
                     new Assert\Image(
                         maxSize: '2M',

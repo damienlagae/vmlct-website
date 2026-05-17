@@ -10,9 +10,12 @@ use App\Shared\Entity\TimestampableInterface;
 use App\Shared\Entity\TimestampableTrait;
 use App\Shared\Entity\UlidIdTrait;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 #[ORM\Entity(repositoryClass: SponsorRepository::class)]
 #[ORM\HasLifecycleCallbacks]
+#[Vich\Uploadable]
 class Sponsor implements HasUlidIdInterface, TimestampableInterface
 {
     use UlidIdTrait;
@@ -26,6 +29,9 @@ class Sponsor implements HasUlidIdInterface, TimestampableInterface
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $logoPath = null;
+
+    #[Vich\UploadableField(mapping: 'sponsor_logo', fileNameProperty: 'logoPath')]
+    private ?File $logoFile = null;
 
     #[ORM\Column]
     private int $displayOrder = 0;
@@ -66,6 +72,21 @@ class Sponsor implements HasUlidIdInterface, TimestampableInterface
     public function setLogoPath(?string $logoPath): void
     {
         $this->logoPath = $logoPath;
+    }
+
+    public function getLogoFile(): ?File
+    {
+        return $this->logoFile;
+    }
+
+    public function setLogoFile(?File $logoFile): void
+    {
+        $this->logoFile = $logoFile;
+
+        // Force Doctrine to detect a change so the lifecycle listeners run.
+        if (null !== $logoFile) {
+            $this->updatedAt = new \DateTimeImmutable();
+        }
     }
 
     public function getDisplayOrder(): int

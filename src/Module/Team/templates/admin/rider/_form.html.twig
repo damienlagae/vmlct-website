@@ -9,17 +9,7 @@
                 <div class="col-md-6">{{ form_row(form.dateOfBirth) }}</div>
                 <div class="col-md-6">{{ form_row(form.category) }}</div>
             </div>
-            {% if form.parent and form.parent.vars.data is not null and form.parent.vars.data.photoPath %}
-                <div class="mb-3">
-                    <label class="form-label">{{ 'team.form.current_photo'|trans }}</label>
-                    <div>
-                        <img src="{{ form.parent.vars.data.photoPath|imagine_filter('team_photo') }}"
-                             alt="{{ form.parent.vars.data.fullName }}"
-                             style="max-height: 120px;" class="border rounded" />
-                    </div>
-                </div>
-            {% endif %}
-            {{ form_row(form.photo) }}
+            {{ form_row(form.photoFile) }}
             {{ form_row(form.active) }}
         </div>
         <div class="card-footer d-flex justify-content-between bg-white border-top">

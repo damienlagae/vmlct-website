@@ -8,9 +8,7 @@ use App\Module\Team\Entity\Staff;
 use App\Module\Team\Form\StaffType;
 use App\Module\Team\Security\TeamPermissions;
 use App\Shared\Admin\Controller\AbstractAdminController;
-use App\Shared\Media\Uploader;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -20,7 +18,7 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 #[IsGranted(TeamPermissions::create->value)]
 final class AdminStaffCreateController extends AbstractAdminController
 {
-    public function __invoke(Request $request, EntityManagerInterface $em, Uploader $uploader): Response
+    public function __invoke(Request $request, EntityManagerInterface $em): Response
     {
         $form = $this->createForm(StaffType::class);
         $form->handleRequest($request);
@@ -28,11 +26,6 @@ final class AdminStaffCreateController extends AbstractAdminController
         if ($form->isSubmitted() && $form->isValid()) {
             $staff = $form->getData();
             \assert($staff instanceof Staff);
-
-            $photo = $form->get('photo')->getData();
-            if ($photo instanceof UploadedFile) {
-                $staff->setPhotoPath($uploader->upload($photo, 'staff'));
-            }
 
             $em->persist($staff);
             $em->flush();

@@ -11,9 +11,12 @@ use App\Shared\Entity\TimestampableTrait;
 use App\Shared\Entity\UlidIdTrait;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 #[ORM\Entity(repositoryClass: RiderRepository::class)]
 #[ORM\HasLifecycleCallbacks]
+#[Vich\Uploadable]
 class Rider implements HasUlidIdInterface, TimestampableInterface
 {
     use UlidIdTrait;
@@ -33,6 +36,9 @@ class Rider implements HasUlidIdInterface, TimestampableInterface
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $photoPath = null;
+
+    #[Vich\UploadableField(mapping: 'rider_photo', fileNameProperty: 'photoPath')]
+    private ?File $photoFile = null;
 
     #[ORM\Column]
     private bool $active = true;
@@ -98,6 +104,20 @@ class Rider implements HasUlidIdInterface, TimestampableInterface
     public function setPhotoPath(?string $photoPath): void
     {
         $this->photoPath = $photoPath;
+    }
+
+    public function getPhotoFile(): ?File
+    {
+        return $this->photoFile;
+    }
+
+    public function setPhotoFile(?File $photoFile): void
+    {
+        $this->photoFile = $photoFile;
+
+        if (null !== $photoFile) {
+            $this->updatedAt = new \DateTimeImmutable();
+        }
     }
 
     public function isActive(): bool

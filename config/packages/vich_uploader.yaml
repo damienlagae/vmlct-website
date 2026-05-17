@@ -1,0 +1,27 @@
+vich_uploader:
+    db_driver: orm
+    storage: flysystem
+    metadata:
+        type: attribute
+
+    mappings:
+        sponsor_logo:
+            upload_destination: default.storage
+            namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
+            inject_on_load: false
+            delete_on_remove: true
+            delete_on_update: true
+
+        rider_photo:
+            upload_destination: default.storage
+            namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
+            inject_on_load: false
+            delete_on_remove: true
+            delete_on_update: true
+
+        staff_photo:
+            upload_destination: default.storage
+            namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
+            inject_on_load: false
+            delete_on_remove: true
+            delete_on_update: true

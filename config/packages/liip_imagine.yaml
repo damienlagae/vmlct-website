@@ -20,10 +20,10 @@ liip_imagine:
         sponsor_logo:
             quality: 85
             filters:
-                thumbnail: { size: [250, 250], mode: inset }
-                background: { size: [250, 250], position: center, color: '#ffffff' }
+                thumbnail: { size: [400, 400], mode: inset }
+                background: { size: [400, 400], position: center, color: '#ffffff' }
 
         team_photo:
             quality: 85
             filters:
-                thumbnail: { size: [400, 400], mode: outbound }
+                thumbnail: { size: [600, 600], mode: outbound }
