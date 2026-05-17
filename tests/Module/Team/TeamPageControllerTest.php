@@ -73,7 +73,7 @@ final class TeamPageControllerTest extends WebTestCase
 
         self::assertResponseIsSuccessful();
         $html = (string) $client->getResponse()->getContent();
-        self::assertStringContainsString('Nog geen begeleiders', $html);
+        self::assertStringContainsString('Nog geen omkadering', $html);
         self::assertStringContainsString('Nog geen renners', $html);
     }
 }

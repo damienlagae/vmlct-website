@@ -145,8 +145,8 @@ team:
     public:
         title: 'Onze ploeg'
         intro: 'Maak kennis met de renners en de mensen achter het team.'
-        staff_heading: 'Begeleiding'
-        staff_empty: 'Nog geen begeleiders om te tonen.'
+        staff_heading: 'Omkadering'
+        staff_empty: 'Nog geen omkadering om te tonen.'
         riders_heading: 'Renners'
         riders_empty: 'Nog geen renners om te tonen.'
     category:
@@ -174,17 +174,17 @@ team:
         rider_created: 'Renner aangemaakt.'
         rider_updated: 'Renner bijgewerkt.'
         rider_deleted: 'Renner verwijderd.'
-        staff_created: 'Begeleider aangemaakt.'
-        staff_updated: 'Begeleider bijgewerkt.'
-        staff_deleted: 'Begeleider verwijderd.'
+        staff_created: 'Omkaderingslid aangemaakt.'
+        staff_updated: 'Omkaderingslid bijgewerkt.'
+        staff_deleted: 'Omkaderingslid verwijderd.'
     admin:
         dashboard:
             title: 'Team'
-            subtitle: 'Beheer renners en begeleiding van het team.'
+            subtitle: 'Beheer renners en omkadering van het team.'
             riders: 'renners'
             riders_hint: 'Bekijk en beheer alle renners.'
-            staff: 'begeleiders'
-            staff_hint: 'Bekijk en beheer de staff.'
+            staff: 'omkadering'
+            staff_hint: 'Bekijk en beheer de omkadering.'
         actions:
             save: 'Opslaan'
         status:
@@ -210,16 +210,16 @@ team:
                 confirm_delete: 'Weet je zeker dat je renner "%name%" wilt verwijderen?'
         staff:
             index:
-                title: 'Begeleiding'
-                subtitle: 'Beheer de begeleiders van het team.'
+                title: 'Omkadering'
+                subtitle: 'Beheer de omkadering van het team.'
             create:
-                title: 'Nieuwe begeleider'
+                title: 'Nieuw omkaderingslid'
             edit:
-                title: 'Begeleider bewerken: %name%'
-            empty: 'Nog geen begeleiders aangemaakt.'
+                title: 'Omkaderingslid bewerken: %name%'
+            empty: 'Nog geen omkadering aangemaakt.'
             actions:
-                create: 'Begeleider toevoegen'
-                confirm_delete: 'Weet je zeker dat je begeleider "%name%" wilt verwijderen?'
+                create: 'Omkadering toevoegen'
+                confirm_delete: 'Weet je zeker dat je omkaderingslid "%name%" wilt verwijderen?'
 
 user:
     form:
@@ -280,7 +280,7 @@ admin:
         label: 'Beheer navigatie'
         dashboard: 'Dashboard'
         team: 'Team'
-        staff: 'Staff'
+        staff: 'Omkadering'
         riders: 'Renners'
         sponsors: 'Sponsors'
         users: 'Gebruikers'

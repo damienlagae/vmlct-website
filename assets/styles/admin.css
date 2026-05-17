@@ -1,6 +1,6 @@
 /* Admin shell layout */
 :root {
-    --admin-header-height: 84px;
+    --admin-header-height: 100px;
     --admin-sidebar-width: 240px;
     --admin-bg: #f5f7fa;
     --admin-surface: #fff;

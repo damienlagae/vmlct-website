@@ -35,7 +35,7 @@ final class AdminTeamControllerTest extends WebTestCase
         self::assertResponseStatusCodeSame(Response::HTTP_OK);
         $html = (string) $client->getResponse()->getContent();
         self::assertStringContainsString('3 renners', $html);
-        self::assertStringContainsString('2 begeleiders', $html);
+        self::assertStringContainsString('2 omkadering', $html);
     }
 
     public function testDashboardForbiddenForAnonymous(): void
