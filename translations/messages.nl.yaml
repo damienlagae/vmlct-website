@@ -142,6 +142,70 @@ security:
         password: 'Wachtwoord'
         submit: 'Aanmelden'
 
+audit:
+    title: 'Activiteit'
+    empty: 'Nog geen activiteit voor dit item.'
+    action:
+        insert: 'aangemaakt'
+        update: 'bijgewerkt'
+        remove: 'verwijderd'
+        associate: 'gekoppeld'
+        dissociate: 'losgekoppeld'
+
+news:
+    public:
+        title: 'Nieuws'
+        intro: 'Het laatste nieuws van het team.'
+        empty: 'Er zijn nog geen artikels.'
+        pagination: 'Paginering'
+        prev: 'Vorige'
+        next: 'Volgende'
+        body_coming_soon: 'De inhoud van dit artikel komt binnenkort beschikbaar.'
+        back_to_list: 'Terug naar de lijst'
+    form:
+        title: 'Titel'
+        slug: 'Slug'
+        slug_help: 'Laat leeg om automatisch te genereren vanuit de titel. Enkel kleine letters, cijfers en koppeltekens.'
+        slug_invalid: 'Enkel kleine letters, cijfers en koppeltekens toegestaan.'
+        excerpt: 'Samenvatting'
+        cover: 'Coverafbeelding'
+        cover_help: 'PNG, JPEG of WEBP. Maximaal 5 MB.'
+        current_cover: 'Huidige cover'
+        publishedAt: 'Publicatiedatum'
+        publishedAt_help: 'Laat leeg voor een draft. Een datum in de toekomst is toegestaan (verschijnt zodra die datum bereikt is).'
+    flash:
+        created: 'Artikel aangemaakt.'
+        updated: 'Artikel bijgewerkt.'
+        deleted: 'Artikel verwijderd.'
+    admin:
+        index:
+            title: 'Artikels'
+            subtitle: 'Beheer de nieuwsartikels van het team.'
+        create:
+            title: 'Nieuw artikel'
+            subtitle: 'Maak een nieuw artikel aan. De volledige inhoud kan je aanvullen na het opslaan.'
+        edit:
+            title: 'Artikel bewerken: %title%'
+            view_public: 'Bekijk publieke versie'
+        empty: 'Nog geen artikels.'
+        stats:
+            total: 'Totaal'
+            published: 'Gepubliceerd'
+            draft: 'Drafts'
+        table:
+            title: 'Titel'
+            author: 'Auteur'
+            publishedAt: 'Gepubliceerd op'
+            status: 'Status'
+            actions: 'Acties'
+        status:
+            published: 'Gepubliceerd'
+            draft: 'Draft'
+        actions:
+            create: 'Artikel toevoegen'
+            save: 'Opslaan'
+            confirm_delete: 'Weet je zeker dat je het artikel "%title%" wilt verwijderen?'
+
 team:
     public:
         title: 'Onze ploeg'
@@ -281,6 +345,7 @@ admin:
     sidebar:
         label: 'Beheer navigatie'
         dashboard: 'Dashboard'
+        news: 'Nieuws'
         team: 'Team'
         staff: 'Omkadering'
         riders: 'Renners'

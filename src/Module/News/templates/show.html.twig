@@ -1,0 +1,51 @@
+{% extends '@Shared/base.html.twig' %}
+
+{% block title %}{{ article.title }}{% endblock %}
+
+{% block body %}
+    <article class="py-5">
+        <div class="container">
+            <header class="mb-4 text-center">
+                <h1 class="section-title">{{ article.title }}</h1>
+                <div class="title-underline mx-auto"></div>
+                <p class="text-muted mt-3">
+                    {% if article.publishedAt %}
+                        <time datetime="{{ article.publishedAt|date('c') }}">
+                            {{ article.publishedAt|format_datetime(locale='nl', pattern='dd MMMM yyyy') }}
+                        </time>
+                    {% endif %}
+                    {% if article.author %}
+                        &middot; {{ article.author.fullName }}
+                    {% endif %}
+                </p>
+            </header>
+
+            {% if article.coverPath %}
+                <figure class="mb-5 text-center">
+                    <img src="{{ article.coverPath|imagine_filter('article_cover') }}"
+                         alt="{{ article.title }}"
+                         class="img-fluid rounded shadow-sm" />
+                </figure>
+            {% endif %}
+
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    {% if article.excerpt %}
+                        <p class="lead">{{ article.excerpt }}</p>
+                    {% endif %}
+
+                    {# Block-based content rendering lands in a follow-up commit #}
+                    {% if article.content is empty %}
+                        <p class="text-muted"><em>{{ 'news.public.body_coming_soon'|trans }}</em></p>
+                    {% endif %}
+
+                    <p class="mt-5">
+                        <a href="{{ path('news_index') }}" class="btn btn-outline-secondary btn-sm">
+                            <twig:ux:icon name="bi:arrow-left" /> {{ 'news.public.back_to_list'|trans }}
+                        </a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </article>
+{% endblock %}

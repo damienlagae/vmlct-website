@@ -7,6 +7,7 @@ twig:
         '%kernel.project_dir%/src/Page/templates': Page
         '%kernel.project_dir%/src/Module/Sponsor/templates': Sponsor
         '%kernel.project_dir%/src/Module/Team/templates': Team
+        '%kernel.project_dir%/src/Module/News/templates': News
 
 when@test:
     twig:

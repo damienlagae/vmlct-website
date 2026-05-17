@@ -1,0 +1,26 @@
+{{ form_start(form) }}
+    <div class="card shadow-sm">
+        <div class="card-body p-4">
+            {{ form_row(form.title) }}
+            {{ form_row(form.slug) }}
+            {{ form_row(form.excerpt) }}
+
+            {% set article = form.vars.data %}
+            {% if article is not null and article.coverPath %}
+                <div class="mb-3">
+                    <label class="form-label d-block">{{ 'news.form.current_cover'|trans }}</label>
+                    <img src="{{ article.coverPath|imagine_filter('article_card') }}"
+                         alt="{{ article.title }}"
+                         style="max-height: 140px;" class="border rounded" />
+                </div>
+            {% endif %}
+
+            {{ form_row(form.coverFile) }}
+            {{ form_row(form.publishedAt) }}
+        </div>
+        <div class="card-footer d-flex justify-content-between bg-white border-top">
+            <a href="{{ path('admin_article_index') }}" class="btn btn-link">{{ 'admin.form.cancel'|trans }}</a>
+            <button type="submit" class="btn btn-primary">{{ submitLabel|trans }}</button>
+        </div>
+    </div>
+{{ form_end(form) }}

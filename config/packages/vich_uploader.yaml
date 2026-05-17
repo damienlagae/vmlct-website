@@ -25,3 +25,10 @@ vich_uploader:
             inject_on_load: false
             delete_on_remove: true
             delete_on_update: true
+
+        article_cover:
+            upload_destination: default.storage
+            namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
+            inject_on_load: false
+            delete_on_remove: true
+            delete_on_update: true

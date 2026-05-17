@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Shared\Security;
 
+use App\Module\News\Security\NewsPermissions;
 use App\Module\Sponsor\Security\SponsorPermissions;
 use App\Module\Team\Security\TeamPermissions;
 use App\Shared\Security\Permissions\UserPermissions;
@@ -42,6 +43,12 @@ final class PermissionMapProvider
         TeamPermissions::create->value => ['ROLE_ADMIN'],
         TeamPermissions::edit->value => ['ROLE_ADMIN'],
         TeamPermissions::delete->value => ['ROLE_SUPER_ADMIN'],
+
+        // NEWS
+        NewsPermissions::view->value => ['ROLE_USER'],
+        NewsPermissions::create->value => ['ROLE_ADMIN'],
+        NewsPermissions::edit->value => ['ROLE_ADMIN'],
+        NewsPermissions::delete->value => ['ROLE_SUPER_ADMIN'],
     ];
 
     /**

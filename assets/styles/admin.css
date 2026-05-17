@@ -208,6 +208,71 @@ body:has(.admin-shell) {
     color: var(--vmlct-blue);
 }
 
+/* Audit trail */
+.audit-trail__list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    border-left: 2px solid var(--admin-border);
+    padding-left: 1rem;
+}
+
+.audit-trail__entry {
+    display: flex;
+    gap: 0.75rem;
+    padding-bottom: 1rem;
+    align-items: flex-start;
+}
+
+.audit-trail__marker {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 0.85rem;
+    flex-shrink: 0;
+    margin-left: -1.85rem;
+}
+
+.audit-trail__marker--insert  { background: #2f9e6e; }
+.audit-trail__marker--update  { background: var(--vmlct-blue); }
+.audit-trail__marker--remove  { background: #c0392b; }
+.audit-trail__marker--associate,
+.audit-trail__marker--dissociate { background: #6c5ce7; }
+
+.audit-trail__head {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    align-items: baseline;
+    margin-bottom: 0.25rem;
+}
+
+.audit-trail__diffs {
+    margin-top: 0.25rem;
+    font-size: 0.85rem;
+}
+
+.audit-trail__diff {
+    display: grid;
+    grid-template-columns: 160px 1fr;
+    gap: 0.5rem;
+    padding: 0.15rem 0;
+}
+
+.audit-trail__diff dt {
+    color: var(--admin-text-muted);
+    font-weight: 500;
+}
+
+.audit-trail__diff dd {
+    margin: 0;
+    word-break: break-word;
+}
+
 /* Main */
 .admin-main {
     flex: 1 1 auto;

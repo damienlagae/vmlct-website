@@ -1,0 +1,18 @@
+{% extends '@Shared/admin/layout.html.twig' %}
+
+{% block title %}{{ 'news.admin.edit.title'|trans({'%title%': article.title}) }}{% endblock %}
+
+{% block admin_content %}
+    <header class="admin-page-header mb-4">
+        <h1 class="admin-page-header__title">{{ 'news.admin.edit.title'|trans({'%title%': article.title}) }}</h1>
+        {% if article.isPublished %}
+            <p class="admin-page-header__subtitle">
+                <a href="{{ path('news_show', {slug: article.slug}) }}" target="_blank" rel="noopener">
+                    <twig:ux:icon name="bi:eye" /> {{ 'news.admin.edit.view_public'|trans }}
+                </a>
+            </p>
+        {% endif %}
+    </header>
+
+    {% include '@News/admin/_form.html.twig' with {form: form, submitLabel: 'news.admin.actions.save'} %}
+{% endblock %}
