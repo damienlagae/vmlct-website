@@ -6,47 +6,52 @@
     <section class="py-5">
         <div class="container">
             <header class="text-center mb-5">
-                <h2 class="section-title">{{ 'news.public.title'|trans }}</h2>
-                <div class="title-underline"></div>
+                <h1 class="section-title">{{ 'news.public.title'|trans }}</h1>
+                <div class="title-underline mx-auto"></div>
                 <p class="text-muted mt-3">{{ 'news.public.intro'|trans }}</p>
             </header>
 
             {% if total == 0 %}
                 <p class="text-muted text-center">{{ 'news.public.empty'|trans }}</p>
             {% else %}
-                <div class="row g-4">
+                <div class="news-list">
                     {% for article in articles %}
-                        <div class="col-12 col-md-6 col-lg-4">
-                            <article class="card h-100 border-0 shadow-sm">
+                        <article class="news-row{% if loop.index is even %} news-row--reversed{% endif %}">
+                            <a href="{{ path('news_show', {slug: article.slug}) }}" class="news-row__media">
                                 {% if article.coverPath %}
-                                    <a href="{{ path('news_show', {slug: article.slug}) }}">
-                                        <img src="{{ article.coverPath|imagine_filter('article_card') }}"
-                                             alt="{{ article.title }}" class="card-img-top" />
-                                    </a>
+                                    <img src="{{ article.coverPath|imagine_filter('article_card') }}"
+                                         alt="{{ article.title }}"
+                                         loading="lazy" />
                                 {% else %}
-                                    <div class="ratio ratio-16x9 bg-light d-flex align-items-center justify-content-center">
-                                        <twig:ux:icon name="bi:newspaper" class="text-muted" style="font-size: 3rem;" />
-                                    </div>
+                                    <span class="news-row__placeholder">
+                                        <twig:ux:icon name="bi:newspaper" />
+                                    </span>
                                 {% endif %}
-                                <div class="card-body d-flex flex-column">
-                                    <h3 class="h5">
-                                        <a href="{{ path('news_show', {slug: article.slug}) }}" class="text-decoration-none stretched-link">
-                                            {{ article.title }}
-                                        </a>
-                                    </h3>
-                                    {% if article.excerpt %}
-                                        <p class="text-muted small">{{ article.excerpt }}</p>
-                                    {% endif %}
-                                    {% if article.publishedAt %}
-                                        <p class="small text-muted mt-auto mb-0">
-                                            <time datetime="{{ article.publishedAt|date('c') }}">
-                                                {{ article.publishedAt|format_datetime(locale='nl', pattern='dd MMMM yyyy') }}
-                                            </time>
-                                        </p>
-                                    {% endif %}
+                            </a>
+                            <div class="news-row__body">
+                                {% if article.publishedAt %}
+                                    <p class="news-row__date">
+                                        <twig:ux:icon name="bi:calendar3" />
+                                        <time datetime="{{ article.publishedAt|date('c') }}">
+                                            {{ article.publishedAt|format_datetime(locale='nl', pattern='dd MMMM yyyy') }}
+                                        </time>
+                                    </p>
+                                {% endif %}
+                                <h2 class="news-row__title">
+                                    <a href="{{ path('news_show', {slug: article.slug}) }}">{{ article.title }}</a>
+                                </h2>
+                                {% if article.excerpt %}
+                                    <p class="news-row__excerpt">{{ article.excerpt }}</p>
+                                {% endif %}
+                                <div class="news-row__footer">
+                                    <a href="{{ path('news_show', {slug: article.slug}) }}"
+                                       class="news-row__more">
+                                        {{ 'news.public.read_more'|trans }}
+                                        <twig:ux:icon name="bi:arrow-right" />
+                                    </a>
                                 </div>
-                            </article>
-                        </div>
+                            </div>
+                        </article>
                     {% endfor %}
                 </div>
 

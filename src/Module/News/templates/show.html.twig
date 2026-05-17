@@ -3,50 +3,53 @@
 {% block title %}{{ article.title }}{% endblock %}
 
 {% block body %}
-    <article class="py-5">
-        <div class="container">
-            <header class="mb-4 text-center">
-                <h1 class="section-title">{{ article.title }}</h1>
-                <div class="title-underline mx-auto"></div>
-                <p class="text-muted mt-3">
-                    {% if article.publishedAt %}
-                        <time datetime="{{ article.publishedAt|date('c') }}">
-                            {{ article.publishedAt|format_datetime(locale='nl', pattern='dd MMMM yyyy') }}
-                        </time>
-                    {% endif %}
-                    {% if article.author %}
-                        &middot; {{ article.author.fullName }}
-                    {% endif %}
-                </p>
-            </header>
+    <article class="news-article">
+        {% if article.coverPath %}
+            {% set heroUrl = article.coverPath|imagine_filter('article_hero') %}
+            <figure class="news-article__hero"
+                    data-controller="hero-blur"
+                    data-hero-blur-src-value="{{ heroUrl }}">
+                <img class="news-article__hero-img" src="{{ heroUrl }}" alt="{{ article.title }}" />
+            </figure>
+        {% endif %}
 
-            {% if article.coverPath %}
-                <figure class="mb-5 text-center">
-                    <img src="{{ article.coverPath|imagine_filter('article_cover') }}"
-                         alt="{{ article.title }}"
-                         class="img-fluid rounded shadow-sm" />
-                </figure>
-            {% endif %}
+        <div class="news-article__body{% if article.coverPath is empty %} news-article__body--no-cover{% endif %}">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-lg-9">
+                        <header class="news-article__header-card">
+                            <h1 class="news-article__title">{{ article.title }}</h1>
+                            {% if article.publishedAt %}
+                                <p class="news-article__meta">
+                                    <span class="news-article__meta-tag">{{ 'news.public.tag'|trans }}</span>
+                                    <span class="news-article__meta-sep" aria-hidden="true">·</span>
+                                    <time datetime="{{ article.publishedAt|date('c') }}">
+                                        {{ article.publishedAt|format_datetime(locale='nl', pattern='dd MMMM yyyy') }}
+                                    </time>
+                                </p>
+                            {% endif %}
+                        </header>
 
-            <div class="row justify-content-center">
-                <div class="col-lg-8">
-                    {% if article.excerpt %}
-                        <p class="lead">{{ article.excerpt }}</p>
-                    {% endif %}
+                        <div class="news-article__body-inner">
+                            {% if article.excerpt %}
+                                <p class="news-article__excerpt">{{ article.excerpt }}</p>
+                            {% endif %}
 
-                    <div class="article-content">
-                        {% if blocks is empty %}
-                            <p class="text-muted"><em>{{ 'news.public.body_coming_soon'|trans }}</em></p>
-                        {% else %}
-                            {% include '@Shared/blocks/_render.html.twig' with {blocks: blocks} %}
-                        {% endif %}
+                            <div class="article-content">
+                                {% if blocks is empty %}
+                                    <p class="text-muted"><em>{{ 'news.public.body_coming_soon'|trans }}</em></p>
+                                {% else %}
+                                    {% include '@Shared/blocks/_render.html.twig' with {blocks: blocks} %}
+                                {% endif %}
+                            </div>
+
+                            <p class="news-article__back">
+                                <a href="{{ path('news_index') }}" class="btn btn-outline-secondary btn-sm">
+                                    <twig:ux:icon name="bi:arrow-left" /> {{ 'news.public.back_to_list'|trans }}
+                                </a>
+                            </p>
+                        </div>
                     </div>
-
-                    <p class="mt-5">
-                        <a href="{{ path('news_index') }}" class="btn btn-outline-secondary btn-sm">
-                            <twig:ux:icon name="bi:arrow-left" /> {{ 'news.public.back_to_list'|trans }}
-                        </a>
-                    </p>
                 </div>
             </div>
         </div>

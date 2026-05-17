@@ -168,6 +168,8 @@ news:
         pagination: 'Paginering'
         prev: 'Vorige'
         next: 'Volgende'
+        read_more: 'Lees meer'
+        tag: 'Nieuws'
         body_coming_soon: 'De inhoud van dit artikel komt binnenkort beschikbaar.'
         back_to_list: 'Terug naar de lijst'
     form:
