@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Module\Uitslagen\Entity;
 
 use App\Module\Programme\Entity\Race;
+use App\Module\Programme\Entity\RaceStage;
 use App\Module\Team\Entity\Rider;
 use App\Module\Uitslagen\Repository\ResultRepository;
 use App\Shared\Entity\HasUlidIdInterface;
@@ -16,12 +17,9 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * A single rider's result at a race. The race must exist in the Race
- * table — regional events not in the public Programme are still created
- * as Race rows (admins simply pick whether to surface them publicly).
- *
- * For multi-stage races, `stageNumber` identifies which stage the rank
- * refers to. Leave it null for single-day events.
+ * A single rider's outcome on a specific RaceStage. Every result is
+ * attached to a stage (an implicit single-stage exists for one-day
+ * races); the race is reached through `$stage->getRace()`.
  */
 #[ORM\Entity(repositoryClass: ResultRepository::class)]
 #[Auditable]
@@ -34,16 +32,9 @@ class Result implements HasUlidIdInterface, TimestampableInterface
     #[ORM\JoinColumn(nullable: false, onDelete: 'CASCADE')]
     private Rider $rider;
 
-    #[ORM\ManyToOne(targetEntity: Race::class)]
+    #[ORM\ManyToOne(targetEntity: RaceStage::class)]
     #[ORM\JoinColumn(nullable: false, onDelete: 'CASCADE')]
-    private Race $race;
-
-    /**
-     * Stage number for multi-stage races (1-indexed). Null for single-day
-     * events.
-     */
-    #[ORM\Column(type: Types::SMALLINT, nullable: true)]
-    private ?int $stageNumber = null;
+    private RaceStage $stage;
 
     #[ORM\Column(type: Types::INTEGER)]
     private int $rank;
@@ -51,10 +42,10 @@ class Result implements HasUlidIdInterface, TimestampableInterface
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $notes = null;
 
-    public function __construct(Rider $rider, Race $race, int $rank)
+    public function __construct(Rider $rider, RaceStage $stage, int $rank)
     {
         $this->rider = $rider;
-        $this->race = $race;
+        $this->stage = $stage;
         $this->rank = $rank;
     }
 
@@ -68,24 +59,19 @@ class Result implements HasUlidIdInterface, TimestampableInterface
         $this->rider = $rider;
     }
 
+    public function getStage(): RaceStage
+    {
+        return $this->stage;
+    }
+
+    public function setStage(RaceStage $stage): void
+    {
+        $this->stage = $stage;
+    }
+
     public function getRace(): Race
     {
-        return $this->race;
-    }
-
-    public function setRace(Race $race): void
-    {
-        $this->race = $race;
-    }
-
-    public function getStageNumber(): ?int
-    {
-        return $this->stageNumber;
-    }
-
-    public function setStageNumber(?int $stageNumber): void
-    {
-        $this->stageNumber = $stageNumber;
+        return $this->stage->getRace();
     }
 
     public function getRank(): int

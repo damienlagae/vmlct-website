@@ -43,12 +43,17 @@
                     <tbody>
                         {% for result in results %}
                             <tr>
-                                <td><strong>{{ result.race.name }}</strong></td>
-                                <td>{{ result.race.startDate|format_datetime(locale='nl', pattern='dd/MM/yyyy') }}</td>
+                                <td>
+                                    <strong>{{ result.race.name }}</strong>
+                                    {% if result.stage.name %}
+                                        <div class="small text-muted">{{ result.stage.name }}</div>
+                                    {% endif %}
+                                </td>
+                                <td>{{ result.stage.effectiveDate|format_datetime(locale='nl', pattern='dd/MM/yyyy') }}</td>
                                 <td>{{ result.rider.fullName }}</td>
                                 <td class="text-center">
-                                    {% if result.stageNumber %}
-                                        <span class="badge bg-secondary-subtle text-secondary">{{ result.stageNumber }}</span>
+                                    {% if result.stage.race.multiStage %}
+                                        <span class="badge bg-secondary-subtle text-secondary">{{ result.stage.position }}</span>
                                     {% else %}
                                         <span class="text-muted">—</span>
                                     {% endif %}

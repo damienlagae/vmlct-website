@@ -6,6 +6,7 @@ namespace App\Tests\Module\Uitslagen;
 
 use App\Module\Programme\Entity\RaceDiscipline;
 use App\Module\Programme\Factory\RaceFactory;
+use App\Module\Programme\Factory\RaceStageFactory;
 use App\Module\Team\Factory\RiderFactory;
 use App\Module\Uitslagen\Factory\ResultFactory;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
@@ -17,7 +18,7 @@ final class UitslagenPublicTest extends WebTestCase
     use Factories;
     use ResetDatabase;
 
-    public function testIndexShowsRecentResultsGroupedByRace(): void
+    public function testIndexShowsRecentResultsGroupedByStage(): void
     {
         $client = self::createClient();
 
@@ -27,8 +28,9 @@ final class UitslagenPublicTest extends WebTestCase
             'location' => 'Kruibeke',
             'discipline' => RaceDiscipline::Road,
         ]);
+        $stage = RaceStageFactory::createOne(['race' => $race, 'position' => 1]);
         $rider = RiderFactory::createOne(['firstName' => 'Lars', 'lastName' => 'Test']);
-        ResultFactory::createOne(['rider' => $rider, 'race' => $race, 'rank' => 3]);
+        ResultFactory::createOne(['rider' => $rider, 'stage' => $stage, 'rank' => 3]);
 
         $client->request('GET', '/uitslagen');
 
@@ -37,7 +39,6 @@ final class UitslagenPublicTest extends WebTestCase
         self::assertStringContainsString('Regiokoers Kruibeke', $html);
         self::assertStringContainsString('Lars Test', $html);
         self::assertStringContainsString('Kruibeke', $html);
-        // Rank 3 = bronze podium slot
         self::assertStringContainsString('uitslagen-podium__slot--rank3', $html);
     }
 
@@ -51,17 +52,18 @@ final class UitslagenPublicTest extends WebTestCase
             'endDate' => new \DateTimeImmutable('-1 week +1 day'),
             'discipline' => RaceDiscipline::Road,
         ]);
+        $stage1 = RaceStageFactory::createOne(['race' => $race, 'name' => 'Prologue', 'position' => 1]);
+        $stage2 = RaceStageFactory::createOne(['race' => $race, 'name' => 'Etappe 1', 'position' => 2]);
         $rider = RiderFactory::createOne();
-        ResultFactory::createOne(['rider' => $rider, 'race' => $race, 'stageNumber' => 1, 'rank' => 1]);
-        ResultFactory::createOne(['rider' => $rider, 'race' => $race, 'stageNumber' => 2, 'rank' => 2]);
+        ResultFactory::createOne(['rider' => $rider, 'stage' => $stage1, 'rank' => 1]);
+        ResultFactory::createOne(['rider' => $rider, 'stage' => $stage2, 'rank' => 2]);
 
         $client->request('GET', '/uitslagen');
         $html = (string) $client->getResponse()->getContent();
 
-        // Two groups → two `uitslagen-group__title` headers + stage suffixes.
         self::assertSame(2, substr_count($html, 'uitslagen-group__title'));
+        self::assertStringContainsString('Prologue', $html);
         self::assertStringContainsString('Etappe 1', $html);
-        self::assertStringContainsString('Etappe 2', $html);
     }
 
     public function testEmptyStateRendered(): void

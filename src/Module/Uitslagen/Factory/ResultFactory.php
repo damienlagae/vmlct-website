@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Module\Uitslagen\Factory;
 
-use App\Module\Programme\Factory\RaceFactory;
+use App\Module\Programme\Factory\RaceStageFactory;
 use App\Module\Team\Factory\RiderFactory;
 use App\Module\Uitslagen\Entity\Result;
 use Zenstruck\Foundry\Persistence\PersistentObjectFactory;
@@ -26,7 +26,7 @@ final class ResultFactory extends PersistentObjectFactory
     {
         return [
             'rider' => RiderFactory::new(),
-            'race' => RaceFactory::new()->past(),
+            'stage' => RaceStageFactory::new(),
             'rank' => self::faker()->numberBetween(1, 30),
         ];
     }

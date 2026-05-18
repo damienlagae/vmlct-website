@@ -18,7 +18,7 @@ final class UitslagenIndexController extends AbstractController
 
         return $this->render('@Uitslagen/index.html.twig', [
             'results' => $results,
-            'groups' => ResultRepository::groupByRaceStage($results),
+            'groups' => ResultRepository::groupByStage($results),
         ]);
     }
 }

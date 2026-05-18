@@ -7,7 +7,9 @@ namespace App\Module\Uitslagen\Story;
 use App\Module\Programme\Entity\Race;
 use App\Module\Programme\Entity\RaceCategory;
 use App\Module\Programme\Entity\RaceDiscipline;
+use App\Module\Programme\Entity\RaceStage;
 use App\Module\Programme\Factory\RaceFactory;
+use App\Module\Programme\Factory\RaceStageFactory;
 use App\Module\Team\Factory\RiderFactory;
 use App\Module\Uitslagen\Factory\ResultFactory;
 use Zenstruck\Foundry\Attribute\AsFixture;
@@ -20,7 +22,7 @@ final class UitslagenStory extends Story
     {
         $riders = RiderFactory::createMany(6);
 
-        // Single-day regional race + a tight top-3.
+        // Single-day regional race — 1 implicit stage with no name/date.
         $regional = RaceFactory::createOne([
             'name' => 'Regiokoers Kruibeke',
             'startDate' => new \DateTimeImmutable('-3 weeks'),
@@ -28,12 +30,14 @@ final class UitslagenStory extends Story
             'discipline' => RaceDiscipline::Road,
             'categories' => [RaceCategory::Nieuwelingen],
         ]);
-        $finishOrder = [$riders[0], $riders[1], $riders[2], $riders[3]];
-        foreach ($finishOrder as $i => $rider) {
+        \assert($regional instanceof Race);
+        $stage1 = RaceStageFactory::createOne(['race' => $regional, 'position' => 1]);
+        \assert($stage1 instanceof RaceStage);
+        foreach ([1, 2, 3, 4] as $i => $rank) {
             ResultFactory::createOne([
-                'rider' => $rider,
-                'race' => $regional,
-                'rank' => $i + 1,
+                'rider' => $riders[$i],
+                'stage' => $stage1,
+                'rank' => $rank,
             ]);
         }
 
@@ -47,9 +51,23 @@ final class UitslagenStory extends Story
             'categories' => [RaceCategory::Junioren],
         ]);
         \assert($stageRace instanceof Race);
-        ResultFactory::createOne(['rider' => $riders[4], 'race' => $stageRace, 'stageNumber' => 1, 'rank' => 2]);
-        ResultFactory::createOne(['rider' => $riders[5], 'race' => $stageRace, 'stageNumber' => 1, 'rank' => 5]);
-        ResultFactory::createOne(['rider' => $riders[4], 'race' => $stageRace, 'stageNumber' => 2, 'rank' => 1]);
-        ResultFactory::createOne(['rider' => $riders[5], 'race' => $stageRace, 'stageNumber' => 2, 'rank' => 8]);
+        $st1 = RaceStageFactory::createOne([
+            'race' => $stageRace,
+            'name' => 'Etappe 1 — Beveren → Sint-Niklaas',
+            'stageDate' => new \DateTimeImmutable('-1 month'),
+            'position' => 1,
+        ]);
+        $st2 = RaceStageFactory::createOne([
+            'race' => $stageRace,
+            'name' => 'Etappe 2 — Sint-Niklaas → Beveren',
+            'stageDate' => new \DateTimeImmutable('-1 month +1 day'),
+            'position' => 2,
+        ]);
+        \assert($st1 instanceof RaceStage);
+        \assert($st2 instanceof RaceStage);
+        ResultFactory::createOne(['rider' => $riders[4], 'stage' => $st1, 'rank' => 2]);
+        ResultFactory::createOne(['rider' => $riders[5], 'stage' => $st1, 'rank' => 5]);
+        ResultFactory::createOne(['rider' => $riders[4], 'stage' => $st2, 'rank' => 1]);
+        ResultFactory::createOne(['rider' => $riders[5], 'stage' => $st2, 'rank' => 8]);
     }
 }

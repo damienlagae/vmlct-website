@@ -17,8 +17,8 @@
                 <div class="uitslagen-list">
                     {% for groupKey, groupResults in groups %}
                         {% set head = groupResults|first %}
-                        {% set race = head.race %}
-                        {% set stage = head.stageNumber %}
+                        {% set stage = head.stage %}
+                        {% set race = stage.race %}
                         {% set sorted = groupResults|sort((a, b) => a.rank <=> b.rank) %}
                         {% set podium = sorted|slice(0, 3) %}
                         {% set rest = sorted|slice(3) %}
@@ -28,16 +28,15 @@
                                 <div>
                                     <h2 class="uitslagen-group__title">
                                         {{ race.name }}
-                                        {% if stage %}
-                                            <span class="uitslagen-group__stage">— {{ 'uitslagen.public.stage'|trans({'%n%': stage}) }}</span>
+                                        {% if stage.name %}
+                                            <span class="uitslagen-group__stage">— {{ stage.name }}</span>
+                                        {% elseif race.multiStage %}
+                                            <span class="uitslagen-group__stage">— {{ 'uitslagen.public.stage'|trans({'%n%': stage.position}) }}</span>
                                         {% endif %}
                                     </h2>
                                     <p class="uitslagen-group__meta">
                                         <span><twig:ux:icon name="bi:calendar3" />
-                                            {{ race.startDate|format_datetime(locale='nl', pattern='dd MMMM yyyy') }}
-                                            {% if race.endDate and race.isMultiStage %}
-                                                → {{ race.endDate|format_datetime(locale='nl', pattern='dd MMM yyyy') }}
-                                            {% endif %}
+                                            {{ stage.effectiveDate|format_datetime(locale='nl', pattern='dd MMMM yyyy') }}
                                         </span>
                                         <span><twig:ux:icon name="bi:geo-alt" /> {{ race.location }}</span>
                                         <span><twig:ux:icon name="bi:tag" /> {{ ('uitslagen.discipline.' ~ race.discipline.value)|trans }}</span>
