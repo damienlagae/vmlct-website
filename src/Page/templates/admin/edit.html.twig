@@ -1,0 +1,26 @@
+{% extends '@Shared/admin/layout.html.twig' %}
+
+{% block title %}{{ 'page.admin.edit.title'|trans({'%title%': page.title}) }}{% endblock %}
+
+{% block admin_content %}
+    <header class="admin-page-header mb-4 d-flex flex-wrap align-items-center justify-content-between gap-3">
+        <div>
+            <h1 class="admin-page-header__title">{{ 'page.admin.edit.title'|trans({'%title%': page.title}) }}</h1>
+            {% if page.isPublished %}
+                <p class="admin-page-header__subtitle">
+                    <a href="{{ path('page_show', {path: page.path}) }}" target="_blank" rel="noopener">
+                        <twig:ux:icon name="bi:eye" /> {{ 'page.admin.edit.view_public'|trans }}
+                    </a>
+                </p>
+            {% endif %}
+        </div>
+        <button type="button" class="btn btn-outline-secondary btn-sm"
+                data-bs-toggle="offcanvas" data-bs-target="#admin-audit-trail">
+            <twig:ux:icon name="bi:clock-history" /> {{ 'audit.title'|trans }}
+        </button>
+    </header>
+
+    {% include '@Page/admin/_form.html.twig' with {form: form, submitLabel: 'page.admin.actions.save'} %}
+
+    {% include '@Shared/admin/_audit_offcanvas.html.twig' with {entity: page} %}
+{% endblock %}

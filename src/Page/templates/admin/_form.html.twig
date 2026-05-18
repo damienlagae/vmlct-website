@@ -1,0 +1,56 @@
+{{ form_start(form, {attr: {class: 'admin-form'}}) }}
+    {% do form.content.setRendered(true) %}
+    <div class="row g-4">
+        <div class="col-lg-8">
+            <div class="card shadow-sm">
+                <div class="card-header bg-white d-flex align-items-center gap-2 py-3">
+                    <twig:ux:icon name="bi:file-earmark-text" class="text-primary" />
+                    <h2 class="h6 mb-0">{{ 'page.form.section.content'|trans }}</h2>
+                </div>
+                <div class="card-body">
+                    {{ form_row(form.title) }}
+                    {{ form_row(form.path) }}
+                    {{ form_row(form.excerpt) }}
+
+                    <hr class="my-4" />
+
+                    <h3 class="h6 text-uppercase text-muted mb-3">{{ 'page.form.section.blocks'|trans }}</h3>
+                    <twig:Content:Editor
+                        :blocks="form.vars.data.content ?? []"
+                        :fieldName="form.content.vars.full_name"
+                    />
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-4">
+            <div class="card shadow-sm mb-3">
+                <div class="card-header bg-white d-flex align-items-center gap-2 py-3">
+                    <twig:ux:icon name="bi:calendar-event" class="text-primary" />
+                    <h2 class="h6 mb-0">{{ 'page.form.section.publication'|trans }}</h2>
+                </div>
+                <div class="card-body">
+                    {{ form_row(form.publishedAt) }}
+                </div>
+            </div>
+
+            <div class="card shadow-sm">
+                <div class="card-header bg-white d-flex align-items-center gap-2 py-3">
+                    <twig:ux:icon name="bi:search" class="text-primary" />
+                    <h2 class="h6 mb-0">{{ 'page.form.section.seo'|trans }}</h2>
+                </div>
+                <div class="card-body">
+                    {{ form_row(form.metaTitle) }}
+                    {{ form_row(form.metaDescription) }}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="admin-form-actions">
+        <a href="{{ path('admin_page_index') }}" class="btn btn-link">{{ 'admin.form.cancel'|trans }}</a>
+        <button type="submit" class="btn btn-primary">
+            <twig:ux:icon name="bi:check2" /> {{ submitLabel|trans }}
+        </button>
+    </div>
+{{ form_end(form) }}

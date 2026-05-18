@@ -29,6 +29,7 @@ final class AdminSidebar
         return [
             ['label' => 'admin.sidebar.dashboard', 'route' => 'admin_dashboard', 'icon' => 'bi:speedometer2', 'match' => ['admin_dashboard']],
             ['label' => 'admin.sidebar.news', 'route' => 'admin_article_index', 'icon' => 'bi:newspaper', 'match' => ['admin_article_index', 'admin_article_create', 'admin_article_edit']],
+            ['label' => 'admin.sidebar.pages', 'route' => 'admin_page_index', 'icon' => 'bi:file-earmark-text', 'match' => ['admin_page_index', 'admin_page_create', 'admin_page_edit']],
             [
                 'label' => 'admin.sidebar.team',
                 'route' => 'admin_team_dashboard',

@@ -600,6 +600,33 @@ footer {
     border-top: 1px solid #e2e8f0;
 }
 
+/* Public Page detail (static dynamic pages) */
+.page-article__header {
+    padding: 3.5rem 0 1.5rem;
+    background: #fff;
+}
+
+.page-article__lead {
+    max-width: 720px;
+    margin: 1.25rem auto 0;
+    font-size: 1.1rem;
+    color: #475569;
+    line-height: 1.55;
+}
+
+.page-article__body {
+    background: #f8fafc;
+    padding: 3rem 0 4rem;
+}
+
+.page-article__body-inner {
+    background: #fff;
+    border: 1px solid #e2e8f0;
+    border-radius: 14px;
+    padding: 2.5rem clamp(1.25rem, 3vw, 3rem);
+    box-shadow: 0 10px 30px rgba(var(--vmlct-dark-rgb), 0.06);
+}
+
 /* Content blocks (News, Page) */
 .article-content {
     /* Containment: floats from image blocks must not leak past the
