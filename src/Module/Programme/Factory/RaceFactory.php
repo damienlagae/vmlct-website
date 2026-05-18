@@ -26,9 +26,9 @@ final class RaceFactory extends PersistentObjectFactory
     {
         return [
             'name' => self::faker()->unique()->company(),
-            'startsAt' => \DateTimeImmutable::createFromMutable(self::faker()->dateTimeBetween('-3 months', '+3 months')),
+            'startDate' => \DateTimeImmutable::createFromMutable(self::faker()->dateTimeBetween('-3 months', '+3 months'))->setTime(0, 0),
             'location' => self::faker()->city(),
-            'discipline' => self::faker()->randomElement(RaceDiscipline::cases()),
+            'discipline' => RaceDiscipline::Road,
             'categories' => [self::faker()->randomElement(RaceCategory::cases())],
         ];
     }
@@ -36,14 +36,14 @@ final class RaceFactory extends PersistentObjectFactory
     public function upcoming(): self
     {
         return $this->with([
-            'startsAt' => \DateTimeImmutable::createFromMutable(self::faker()->dateTimeBetween('+1 week', '+3 months')),
+            'startDate' => \DateTimeImmutable::createFromMutable(self::faker()->dateTimeBetween('+1 week', '+3 months'))->setTime(0, 0),
         ]);
     }
 
     public function past(): self
     {
         return $this->with([
-            'startsAt' => \DateTimeImmutable::createFromMutable(self::faker()->dateTimeBetween('-6 months', '-1 day')),
+            'startDate' => \DateTimeImmutable::createFromMutable(self::faker()->dateTimeBetween('-6 months', '-1 day'))->setTime(0, 0),
         ]);
     }
 }

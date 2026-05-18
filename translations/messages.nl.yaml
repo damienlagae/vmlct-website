@@ -479,7 +479,9 @@ programme:
         junioren: 'Junioren'
     form:
         name: 'Naam'
-        startsAt: 'Datum & uur'
+        startDate: 'Startdatum'
+        endDate: 'Einddatum'
+        endDate_help: 'Vul enkel in voor meerdaagse koersen.'
         location: 'Locatie'
         discipline: 'Discipline'
         categories: 'Categorieën'
@@ -513,7 +515,7 @@ programme:
             past: 'Voorbije koersen (max. 50)'
         table:
             name: 'Naam'
-            startsAt: 'Datum'
+            startDate: 'Datum'
             location: 'Locatie'
             discipline: 'Discipline'
             actions: 'Acties'
@@ -527,17 +529,7 @@ uitslagen:
         title: 'Uitslagen'
         intro: 'Recente prestaties van onze renners.'
         empty: 'Nog geen uitslagen om te tonen.'
-        table:
-            race: 'Koers'
-            date: 'Datum'
-            rider: 'Renner'
-            status: 'Status'
-            rank: 'Plaats'
-    status:
-        finished: 'Aankomst'
-        dnf: 'Opgave (DNF)'
-        dns: 'Niet gestart (DNS)'
-        dsq: 'Gediskwalificeerd (DSQ)'
+        stage: 'Etappe %n%'
     discipline:
         road: 'Weg'
         track: 'Piste'
@@ -545,19 +537,11 @@ uitslagen:
     form:
         rider: 'Renner'
         rider_placeholder: 'Kies een renner…'
-        race: 'Geplande koers'
-        race_placeholder: 'Geen — handmatige koersinfo hieronder'
-        race_help: 'Optioneel — link met een koers uit het programma.'
-        race_fallback_hint: 'Als de koers niet in het programma staat, vul dan de gegevens hieronder zelf in.'
-        raceName: 'Naam van de koers'
-        raceName_help: 'Verplicht wanneer geen geplande koers gekozen is.'
-        raceDate: 'Datum koers'
-        raceLocation: 'Locatie'
-        discipline: 'Discipline'
-        discipline_placeholder: 'Kies een discipline…'
-        status: 'Status'
+        race: 'Koers'
+        race_placeholder: 'Kies een koers…'
+        stageNumber: 'Etappe'
+        stageNumber_help: 'Laat leeg voor een eendaagse koers. Vul 1, 2, … in voor meerdaagse koersen.'
         rank: 'Plaats'
-        rank_help: 'Laat leeg bij DNF / DNS / DSQ.'
         notes: 'Opmerkingen'
         section:
             race: 'Koersinfo'
@@ -576,12 +560,11 @@ uitslagen:
         edit:
             title: 'Uitslag bewerken — %rider%'
         empty: 'Nog geen uitslagen aangemaakt.'
-        linked: 'Gekoppeld'
         table:
             race: 'Koers'
             date: 'Datum'
             rider: 'Renner'
-            status: 'Status'
+            stage: 'Etappe'
             rank: 'Plaats'
             actions: 'Acties'
         actions:

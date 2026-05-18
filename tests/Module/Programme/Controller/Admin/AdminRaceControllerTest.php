@@ -62,7 +62,7 @@ final class AdminRaceControllerTest extends WebTestCase
 
         $form = $crawler->selectButton('Opslaan')->form();
         $form['race[name]']->setValue('Heuvelse Pijl');
-        $form['race[startsAt]']->setValue((new \DateTimeImmutable('+1 month'))->format('Y-m-d\TH:i'));
+        $form['race[startDate]']->setValue((new \DateTimeImmutable('+1 month'))->format('Y-m-d'));
         $form['race[location]']->setValue('Beveren');
         $form['race[discipline]']->setValue(RaceDiscipline::Road->value);
         $form['race[categories][2]']->tick(); // 3rd checkbox = nieuwelingen

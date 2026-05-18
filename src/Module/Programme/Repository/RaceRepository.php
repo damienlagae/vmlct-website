@@ -19,14 +19,19 @@ final class RaceRepository extends ServiceEntityRepository
     }
 
     /**
+     * Upcoming = the race's last day (endDate when set, otherwise startDate)
+     * is today or later. DQL has no COALESCE so we OR the two cases.
+     *
      * @return list<Race>
      */
     public function findUpcoming(): array
     {
+        $today = new \DateTimeImmutable('today');
+
         return array_values($this->createQueryBuilder('r')
-            ->andWhere('r.startsAt >= :now')
-            ->setParameter('now', new \DateTimeImmutable())
-            ->orderBy('r.startsAt', 'ASC')
+            ->andWhere('(r.endDate IS NOT NULL AND r.endDate >= :today) OR (r.endDate IS NULL AND r.startDate >= :today)')
+            ->setParameter('today', $today)
+            ->orderBy('r.startDate', 'ASC')
             ->getQuery()
             ->getResult());
     }
@@ -36,18 +41,19 @@ final class RaceRepository extends ServiceEntityRepository
      */
     public function findPast(int $limit = 20): array
     {
+        $today = new \DateTimeImmutable('today');
+
         return array_values($this->createQueryBuilder('r')
-            ->andWhere('r.startsAt < :now')
-            ->setParameter('now', new \DateTimeImmutable())
-            ->orderBy('r.startsAt', 'DESC')
+            ->andWhere('(r.endDate IS NOT NULL AND r.endDate < :today) OR (r.endDate IS NULL AND r.startDate < :today)')
+            ->setParameter('today', $today)
+            ->orderBy('r.startDate', 'DESC')
             ->setMaxResults($limit)
             ->getQuery()
             ->getResult());
     }
 
     /**
-     * Groups a list of races by their `Y-m` start month, preserving the
-     * input order inside each group.
+     * Groups races by their `Y-m` start month, preserving order.
      *
      * @param list<Race> $races
      *
@@ -57,7 +63,7 @@ final class RaceRepository extends ServiceEntityRepository
     {
         $grouped = [];
         foreach ($races as $race) {
-            $key = $race->getStartsAt()->format('Y-m');
+            $key = $race->getStartDate()->format('Y-m');
             $grouped[$key] ??= [];
             $grouped[$key][] = $race;
         }

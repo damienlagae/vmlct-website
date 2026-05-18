@@ -15,35 +15,32 @@
                 <p class="text-muted text-center">{{ 'uitslagen.public.empty'|trans }}</p>
             {% else %}
                 <div class="uitslagen-list">
-                    {% for groupKey, groupResults in resultsByRace %}
+                    {% for groupKey, groupResults in groups %}
                         {% set head = groupResults|first %}
-                        {% set finished = [] %}
-                        {% set others = [] %}
-                        {% for r in groupResults %}
-                            {% if r.status.value == 'finished' %}{% set finished = finished|merge([r]) %}{% else %}{% set others = others|merge([r]) %}{% endif %}
-                        {% endfor %}
-                        {% set finished = finished|sort((a, b) => (a.rank ?? 9999) <=> (b.rank ?? 9999)) %}
-                        {% set podium = finished|slice(0, 3) %}
-                        {% set rest = finished|slice(3) %}
+                        {% set race = head.race %}
+                        {% set stage = head.stageNumber %}
+                        {% set sorted = groupResults|sort((a, b) => a.rank <=> b.rank) %}
+                        {% set podium = sorted|slice(0, 3) %}
+                        {% set rest = sorted|slice(3) %}
 
                         <article class="uitslagen-group">
                             <header class="uitslagen-group__header">
                                 <div>
-                                    <h2 class="uitslagen-group__title">{{ head.effectiveRaceName ?? '—' }}</h2>
+                                    <h2 class="uitslagen-group__title">
+                                        {{ race.name }}
+                                        {% if stage %}
+                                            <span class="uitslagen-group__stage">— {{ 'uitslagen.public.stage'|trans({'%n%': stage}) }}</span>
+                                        {% endif %}
+                                    </h2>
                                     <p class="uitslagen-group__meta">
-                                        {% if head.effectiveRaceDate %}
-                                            <span><twig:ux:icon name="bi:calendar3" />
-                                                {{ head.effectiveRaceDate|format_datetime(locale='nl', pattern='dd MMMM yyyy') }}
-                                            </span>
-                                        {% endif %}
-                                        {% if head.effectiveRaceLocation %}
-                                            <span><twig:ux:icon name="bi:geo-alt" /> {{ head.effectiveRaceLocation }}</span>
-                                        {% endif %}
-                                        {% if head.effectiveDiscipline %}
-                                            <span><twig:ux:icon name="bi:tag" />
-                                                {{ ('uitslagen.discipline.' ~ head.effectiveDiscipline.value)|trans }}
-                                            </span>
-                                        {% endif %}
+                                        <span><twig:ux:icon name="bi:calendar3" />
+                                            {{ race.startDate|format_datetime(locale='nl', pattern='dd MMMM yyyy') }}
+                                            {% if race.endDate and race.isMultiStage %}
+                                                → {{ race.endDate|format_datetime(locale='nl', pattern='dd MMM yyyy') }}
+                                            {% endif %}
+                                        </span>
+                                        <span><twig:ux:icon name="bi:geo-alt" /> {{ race.location }}</span>
+                                        <span><twig:ux:icon name="bi:tag" /> {{ ('uitslagen.discipline.' ~ race.discipline.value)|trans }}</span>
                                     </p>
                                 </div>
                                 <span class="uitslagen-group__count">
@@ -64,17 +61,11 @@
                                 </div>
                             {% endif %}
 
-                            {% if rest|length > 0 or others|length > 0 %}
+                            {% if rest|length > 0 %}
                                 <ul class="uitslagen-tail list-unstyled">
                                     {% for r in rest %}
                                         <li class="uitslagen-tail__item">
                                             <span class="uitslagen-tail__rank">{{ r.rank }}</span>
-                                            <span class="uitslagen-tail__name">{{ r.rider.fullName }}</span>
-                                        </li>
-                                    {% endfor %}
-                                    {% for r in others %}
-                                        <li class="uitslagen-tail__item uitslagen-tail__item--{{ r.status.value }}">
-                                            <span class="uitslagen-tail__rank">{{ r.status.value|upper }}</span>
                                             <span class="uitslagen-tail__name">{{ r.rider.fullName }}</span>
                                         </li>
                                     {% endfor %}

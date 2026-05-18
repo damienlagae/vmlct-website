@@ -14,10 +14,9 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * A planned (large) race event published on the public `/programma` page.
- *
- * Regional/local results that don't have a counterpart Race here are
- * tracked in the Uitslagen module via Result with a nullable `race`.
+ * A race in the team's racing calendar. Dates are tracked at day
+ * precision: `startDate` for single-day events, plus an optional
+ * `endDate` to model multi-stage races (Tour-like).
  */
 #[ORM\Entity(repositoryClass: RaceRepository::class)]
 #[Auditable]
@@ -29,8 +28,14 @@ class Race implements HasUlidIdInterface, TimestampableInterface
     #[ORM\Column(length: 200)]
     private string $name;
 
-    #[ORM\Column(type: Types::DATETIME_IMMUTABLE)]
-    private \DateTimeImmutable $startsAt;
+    #[ORM\Column(type: Types::DATE_IMMUTABLE)]
+    private \DateTimeImmutable $startDate;
+
+    /**
+     * Last stage date for multi-day races. `null` for single-day events.
+     */
+    #[ORM\Column(type: Types::DATE_IMMUTABLE, nullable: true)]
+    private ?\DateTimeImmutable $endDate = null;
 
     #[ORM\Column(length: 150)]
     private string $location;
@@ -39,9 +44,7 @@ class Race implements HasUlidIdInterface, TimestampableInterface
     private RaceDiscipline $discipline;
 
     /**
-     * Targeted categories. Persisted as a JSON list of enum string values
-     * (e.g. `['junioren', 'nieuwelingen']`); exposed to callers as
-     * `RaceCategory` enum cases through `getCategories()`.
+     * Targeted categories. Persisted as a JSON list of enum string values.
      *
      * @var list<string>
      */
@@ -54,10 +57,10 @@ class Race implements HasUlidIdInterface, TimestampableInterface
     #[ORM\Column(length: 500, nullable: true)]
     private ?string $externalUrl = null;
 
-    public function __construct(string $name, \DateTimeImmutable $startsAt, string $location, RaceDiscipline $discipline)
+    public function __construct(string $name, \DateTimeImmutable $startDate, string $location, RaceDiscipline $discipline)
     {
         $this->name = $name;
-        $this->startsAt = $startsAt;
+        $this->startDate = $startDate;
         $this->location = $location;
         $this->discipline = $discipline;
     }
@@ -72,14 +75,29 @@ class Race implements HasUlidIdInterface, TimestampableInterface
         $this->name = $name;
     }
 
-    public function getStartsAt(): \DateTimeImmutable
+    public function getStartDate(): \DateTimeImmutable
     {
-        return $this->startsAt;
+        return $this->startDate;
     }
 
-    public function setStartsAt(\DateTimeImmutable $startsAt): void
+    public function setStartDate(\DateTimeImmutable $startDate): void
     {
-        $this->startsAt = $startsAt;
+        $this->startDate = $startDate;
+    }
+
+    public function getEndDate(): ?\DateTimeImmutable
+    {
+        return $this->endDate;
+    }
+
+    public function setEndDate(?\DateTimeImmutable $endDate): void
+    {
+        $this->endDate = $endDate;
+    }
+
+    public function isMultiStage(): bool
+    {
+        return null !== $this->endDate && $this->endDate->format('Y-m-d') !== $this->startDate->format('Y-m-d');
     }
 
     public function getLocation(): string
@@ -155,6 +173,9 @@ class Race implements HasUlidIdInterface, TimestampableInterface
 
     public function isUpcoming(): bool
     {
-        return $this->startsAt > new \DateTimeImmutable();
+        $todayStart = new \DateTimeImmutable('today');
+        $lastDay = $this->endDate ?? $this->startDate;
+
+        return $lastDay >= $todayStart;
     }
 }

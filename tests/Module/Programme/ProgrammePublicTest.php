@@ -42,6 +42,25 @@ final class ProgrammePublicTest extends WebTestCase
         self::assertStringContainsString('Junioren', $html);
     }
 
+    public function testMultiStageRaceRendersDateRange(): void
+    {
+        $client = self::createClient();
+
+        RaceFactory::createOne([
+            'name' => 'Driedaagse',
+            'startDate' => new \DateTimeImmutable('+1 week'),
+            'endDate' => new \DateTimeImmutable('+1 week +2 days'),
+            'location' => 'Waasland',
+            'discipline' => RaceDiscipline::Road,
+        ]);
+
+        $client->request('GET', '/programma');
+
+        self::assertResponseIsSuccessful();
+        $html = (string) $client->getResponse()->getContent();
+        self::assertStringContainsString('race-card__until', $html);
+    }
+
     public function testIndexShowsEmptyStateWhenNoRaces(): void
     {
         $client = self::createClient();

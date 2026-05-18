@@ -22,8 +22,8 @@
                                 {% for race in nextRaces %}
                                     <li class="racing-recap__item">
                                         <div class="racing-recap__date">
-                                            <span class="racing-recap__day">{{ race.startsAt|date('d') }}</span>
-                                            <span class="racing-recap__month">{{ race.startsAt|format_datetime(locale='nl', pattern='MMM') }}</span>
+                                            <span class="racing-recap__day">{{ race.startDate|date('d') }}</span>
+                                            <span class="racing-recap__month">{{ race.startDate|format_datetime(locale='nl', pattern='MMM') }}</span>
                                         </div>
                                         <div class="racing-recap__body">
                                             <strong>{{ race.name }}</strong>
@@ -52,19 +52,13 @@
                                 {% for result in recentResults %}
                                     <li class="racing-recap__item">
                                         <div class="racing-recap__rank">
-                                            {% if result.rank %}
-                                                <span class="racing-recap__rank-number">{{ result.rank }}</span>
-                                            {% else %}
-                                                <span class="racing-recap__rank-status">{{ result.status.value|upper }}</span>
-                                            {% endif %}
+                                            <span class="racing-recap__rank-number">{{ result.rank }}</span>
                                         </div>
                                         <div class="racing-recap__body">
                                             <strong>{{ result.rider.fullName }}</strong>
                                             <div class="racing-recap__meta small">
-                                                <span>{{ result.effectiveRaceName ?? '—' }}</span>
-                                                {% if result.effectiveRaceDate %}
-                                                    <span>· {{ result.effectiveRaceDate|format_datetime(locale='nl', pattern='dd MMM') }}</span>
-                                                {% endif %}
+                                                <span>{{ result.race.name }}</span>
+                                                <span>· {{ result.race.startDate|format_datetime(locale='nl', pattern='dd MMM') }}</span>
                                             </div>
                                         </div>
                                     </li>

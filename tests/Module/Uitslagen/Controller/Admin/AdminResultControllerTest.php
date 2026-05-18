@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Tests\Module\Uitslagen\Controller\Admin;
 
+use App\Module\Programme\Factory\RaceFactory;
 use App\Module\Team\Factory\RiderFactory;
-use App\Module\Uitslagen\Entity\ResultStatus;
 use App\Module\Uitslagen\Factory\ResultFactory;
 use App\Module\Uitslagen\Repository\ResultRepository;
 use App\Shared\Security\Factory\UserFactory;
@@ -42,11 +42,8 @@ final class AdminResultControllerTest extends WebTestCase
         $client->loginUser(UserFactory::new()->admin()->create());
 
         $rider = RiderFactory::createOne(['firstName' => 'Tim', 'lastName' => 'Demo']);
-        ResultFactory::createOne([
-            'rider' => $rider,
-            'raceName' => 'Test race',
-            'rank' => 2,
-        ]);
+        $race = RaceFactory::new()->past()->create(['name' => 'Test race']);
+        ResultFactory::createOne(['rider' => $rider, 'race' => $race, 'rank' => 2]);
 
         $client->request('GET', '/admin/uitslagen');
         $html = (string) $client->getResponse()->getContent();
@@ -56,7 +53,28 @@ final class AdminResultControllerTest extends WebTestCase
         self::assertStringContainsString('Tim Demo', $html);
     }
 
-    public function testCreateRequiresRaceNameWhenNoLinkedRace(): void
+    public function testCreatePersistsAResult(): void
+    {
+        $client = self::createClient();
+        $client->loginUser(UserFactory::new()->admin()->create());
+
+        $rider = RiderFactory::createOne(['firstName' => 'Tim', 'lastName' => 'Demo']);
+        $race = RaceFactory::new()->past()->create(['name' => 'Target race']);
+
+        $crawler = $client->request('GET', '/admin/uitslagen/new');
+        $form = $crawler->selectButton('Opslaan')->form();
+        $form['result[rider]']->setValue((string) $rider->getId());
+        $form['result[race]']->setValue((string) $race->getId());
+        $form['result[rank]']->setValue('5');
+
+        $client->submit($form);
+
+        self::assertResponseRedirects('/admin/uitslagen');
+        $repo = static::getContainer()->get(ResultRepository::class);
+        self::assertSame(1, $repo->count([]));
+    }
+
+    public function testCreateRejectsWithoutRace(): void
     {
         $client = self::createClient();
         $client->loginUser(UserFactory::new()->admin()->create());
@@ -66,8 +84,8 @@ final class AdminResultControllerTest extends WebTestCase
         $crawler = $client->request('GET', '/admin/uitslagen/new');
         $form = $crawler->selectButton('Opslaan')->form();
         $form['result[rider]']->setValue((string) $rider->getId());
-        $form['result[status]']->setValue(ResultStatus::Finished->value);
-        // raceName left empty AND race left empty → must trigger validation error
+        $form['result[rank]']->setValue('1');
+        // race field left empty
 
         $client->submit($form);
 
@@ -76,39 +94,14 @@ final class AdminResultControllerTest extends WebTestCase
         self::assertSame(0, $repo->count([]));
     }
 
-    public function testCreatePersistsResultWithStandaloneRaceInfo(): void
-    {
-        $client = self::createClient();
-        $client->loginUser(UserFactory::new()->admin()->create());
-
-        $rider = RiderFactory::createOne(['firstName' => 'Tim', 'lastName' => 'Demo']);
-
-        $crawler = $client->request('GET', '/admin/uitslagen/new');
-        $form = $crawler->selectButton('Opslaan')->form();
-        $form['result[rider]']->setValue((string) $rider->getId());
-        $form['result[raceName]']->setValue('Standalone Race');
-        $form['result[raceDate]']->setValue((new \DateTimeImmutable('-1 week'))->format('Y-m-d'));
-        $form['result[status]']->setValue(ResultStatus::Finished->value);
-        $form['result[rank]']->setValue('5');
-
-        $client->submit($form);
-
-        self::assertResponseRedirects('/admin/uitslagen');
-        $repo = static::getContainer()->get(ResultRepository::class);
-        self::assertSame(1, $repo->count([]));
-
-        $stored = $repo->findOneBy(['raceName' => 'Standalone Race']);
-        self::assertNotNull($stored);
-        self::assertSame(5, $stored->getRank());
-        self::assertSame('Standalone Race', $stored->getEffectiveRaceName());
-    }
-
     public function testDeleteRemovesResult(): void
     {
         $client = self::createClient();
         $client->loginUser(UserFactory::new()->superAdmin()->create());
 
-        $result = ResultFactory::createOne(['raceName' => 'Doomed race']);
+        $race = RaceFactory::new()->past()->create(['name' => 'Doomed race']);
+        $rider = RiderFactory::createOne();
+        $result = ResultFactory::createOne(['rider' => $rider, 'race' => $race, 'rank' => 1]);
         $id = $result->getId();
 
         $client->request('GET', '/admin/uitslagen');

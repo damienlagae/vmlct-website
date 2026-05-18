@@ -8,11 +8,7 @@
                 </div>
                 <div class="card-body">
                     {{ form_row(form.race) }}
-                    <p class="text-muted small">{{ 'uitslagen.form.race_fallback_hint'|trans }}</p>
-                    {{ form_row(form.raceName) }}
-                    {{ form_row(form.raceDate) }}
-                    {{ form_row(form.raceLocation) }}
-                    {{ form_row(form.discipline) }}
+                    {{ form_row(form.stageNumber) }}
                 </div>
             </div>
         </div>
@@ -25,7 +21,6 @@
                 </div>
                 <div class="card-body">
                     {{ form_row(form.rider) }}
-                    {{ form_row(form.status) }}
                     {{ form_row(form.rank) }}
                     {{ form_row(form.notes) }}
                 </div>

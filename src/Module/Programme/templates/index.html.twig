@@ -60,7 +60,7 @@
                         {% for monthKey, monthRaces in bucket.months %}
                             {% set sample = monthRaces|first %}
                             <h3 class="programme-month">
-                                {{ sample.startsAt|format_datetime(locale='nl', pattern='MMMM yyyy')|capitalize }}
+                                {{ sample.startDate|format_datetime(locale='nl', pattern='MMMM yyyy')|capitalize }}
                             </h3>
                             <div class="row g-3 programme-month-group" data-programme-filter-target="group">
                                 {% for race in monthRaces %}
@@ -72,9 +72,11 @@
                                          data-categories="{{ catKeys|join(',') }}">
                                         <article class="race-card race-card--{{ bucket.modifier }}">
                                             <div class="race-card__date">
-                                                <span class="race-card__day">{{ race.startsAt|date('d') }}</span>
-                                                <span class="race-card__month">{{ race.startsAt|format_datetime(locale='nl', pattern='MMM') }}</span>
-                                                <span class="race-card__time">{{ race.startsAt|date('H:i') }}</span>
+                                                <span class="race-card__day">{{ race.startDate|date('d') }}</span>
+                                                <span class="race-card__month">{{ race.startDate|format_datetime(locale='nl', pattern='MMM') }}</span>
+                                                {% if race.endDate and race.isMultiStage %}
+                                                    <span class="race-card__until">→ {{ race.endDate|date('d') }}/{{ race.endDate|format_datetime(locale='nl', pattern='MMM') }}</span>
+                                                {% endif %}
                                             </div>
                                             <div class="race-card__body">
                                                 <h4 class="race-card__title">

@@ -17,25 +17,27 @@ final class ProgrammeStory extends Story
     {
         RaceFactory::createOne([
             'name' => 'Heuvelse Pijl',
-            'startsAt' => new \DateTimeImmutable('+2 weeks 10:00'),
+            'startDate' => new \DateTimeImmutable('+2 weeks'),
             'location' => 'Beveren',
             'discipline' => RaceDiscipline::Road,
             'categories' => [RaceCategory::Nieuwelingen, RaceCategory::Junioren],
             'description' => 'Klassieker met start en aankomst in Beveren.',
         ]);
 
+        // Multi-day stage race example
         RaceFactory::createOne([
-            'name' => 'Memorial Van Moer',
-            'startsAt' => new \DateTimeImmutable('+5 weeks 14:00'),
-            'location' => 'Lokeren',
+            'name' => 'Ronde van het Waasland',
+            'startDate' => new \DateTimeImmutable('+5 weeks'),
+            'endDate' => new \DateTimeImmutable('+5 weeks +2 days'),
+            'location' => 'Waasland (3 etappes)',
             'discipline' => RaceDiscipline::Road,
             'categories' => [RaceCategory::Aspiranten, RaceCategory::Nieuwelingen],
-            'externalUrl' => 'https://example.com/memorial-van-moer',
+            'description' => 'Drie-etappekoers door het Waasland.',
         ]);
 
         RaceFactory::createOne([
             'name' => 'Veldritcross Beveren',
-            'startsAt' => new \DateTimeImmutable('-2 weeks 11:00'),
+            'startDate' => new \DateTimeImmutable('-2 weeks'),
             'location' => 'Beveren',
             'discipline' => RaceDiscipline::Cyclocross,
             'categories' => [RaceCategory::Miniemen, RaceCategory::Aspiranten],
@@ -44,7 +46,7 @@ final class ProgrammeStory extends Story
 
         RaceFactory::createOne([
             'name' => 'Pistedag Gent',
-            'startsAt' => new \DateTimeImmutable('-1 month 19:00'),
+            'startDate' => new \DateTimeImmutable('-1 month'),
             'location' => 'Gent — Eddy Merckxpiste',
             'discipline' => RaceDiscipline::Track,
             'categories' => [RaceCategory::Junioren],

@@ -19,22 +19,18 @@ final class ResultRepository extends ServiceEntityRepository
     }
 
     /**
-     * Recent results, most recent first. Sorts on the on-row `raceDate`
-     * with a `createdAt` fallback for rows the editor hasn't dated yet.
-     * Linked planned races have their `startsAt` mirrored into `raceDate`
-     * by the admin form on save, so the ordering stays consistent across
-     * standalone and linked results.
+     * Recent results, most recent race first then stage / rank ascending.
      *
      * @return list<Result>
      */
-    public function findRecent(int $limit = 50): array
+    public function findRecent(int $limit = 200): array
     {
         return array_values($this->createQueryBuilder('r')
-            ->leftJoin('r.race', 'race')
-            ->leftJoin('r.rider', 'rider')
+            ->innerJoin('r.race', 'race')
+            ->innerJoin('r.rider', 'rider')
             ->addSelect('race', 'rider')
-            ->orderBy('r.raceDate', 'DESC')
-            ->addOrderBy('r.createdAt', 'DESC')
+            ->orderBy('race.startDate', 'DESC')
+            ->addOrderBy('r.stageNumber', 'ASC')
             ->addOrderBy('r.rank', 'ASC')
             ->setMaxResults($limit)
             ->getQuery()
@@ -42,24 +38,21 @@ final class ResultRepository extends ServiceEntityRepository
     }
 
     /**
-     * Groups results by race (linked Race id first, fallback to standalone
-     * raceName+raceDate) preserving the input order so groups appear in the
-     * date order produced by `findRecent()`.
+     * Groups results by race + stageNumber so a multi-stage race produces
+     * one group per stage. Single-day races collapse into one group with
+     * stage = null. Preserves the caller-side ordering.
+     *
+     * Key: `<raceId>|<stageNumber|''>`.
      *
      * @param list<Result> $results
      *
      * @return array<string, list<Result>>
      */
-    public static function groupByRace(array $results): array
+    public static function groupByRaceStage(array $results): array
     {
         $grouped = [];
         foreach ($results as $result) {
-            $race = $result->getRace();
-            if (null !== $race) {
-                $key = 'r:'.$race->getId();
-            } else {
-                $key = 'n:'.($result->getRaceName() ?? '?').'|'.($result->getRaceDate()?->format('Y-m-d') ?? '');
-            }
+            $key = $result->getRace()->getId().'|'.($result->getStageNumber() ?? '');
             $grouped[$key] ??= [];
             $grouped[$key][] = $result;
         }

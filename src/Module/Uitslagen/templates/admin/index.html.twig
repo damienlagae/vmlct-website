@@ -35,30 +35,25 @@
                             <th>{{ 'uitslagen.admin.table.race'|trans }}</th>
                             <th>{{ 'uitslagen.admin.table.date'|trans }}</th>
                             <th>{{ 'uitslagen.admin.table.rider'|trans }}</th>
-                            <th>{{ 'uitslagen.admin.table.status'|trans }}</th>
-                            <th class="text-end">{{ 'uitslagen.admin.table.rank'|trans }}</th>
+                            <th class="text-center" style="width: 80px;">{{ 'uitslagen.admin.table.stage'|trans }}</th>
+                            <th class="text-end" style="width: 80px;">{{ 'uitslagen.admin.table.rank'|trans }}</th>
                             <th class="text-end" style="width: 140px;">{{ 'uitslagen.admin.table.actions'|trans }}</th>
                         </tr>
                     </thead>
                     <tbody>
                         {% for result in results %}
                             <tr>
-                                <td>
-                                    <strong>{{ result.effectiveRaceName ?? '—' }}</strong>
-                                    {% if result.race %}
-                                        <span class="badge bg-info-subtle text-info ms-1">{{ 'uitslagen.admin.linked'|trans }}</span>
-                                    {% endif %}
-                                </td>
-                                <td>
-                                    {% if result.effectiveRaceDate %}
-                                        {{ result.effectiveRaceDate|format_datetime(locale='nl', pattern='dd/MM/yyyy') }}
+                                <td><strong>{{ result.race.name }}</strong></td>
+                                <td>{{ result.race.startDate|format_datetime(locale='nl', pattern='dd/MM/yyyy') }}</td>
+                                <td>{{ result.rider.fullName }}</td>
+                                <td class="text-center">
+                                    {% if result.stageNumber %}
+                                        <span class="badge bg-secondary-subtle text-secondary">{{ result.stageNumber }}</span>
                                     {% else %}
                                         <span class="text-muted">—</span>
                                     {% endif %}
                                 </td>
-                                <td>{{ result.rider.fullName }}</td>
-                                <td>{{ ('uitslagen.status.' ~ result.status.value)|trans }}</td>
-                                <td class="text-end">{{ result.rank ?? '—' }}</td>
+                                <td class="text-end"><strong>{{ result.rank }}</strong></td>
                                 <td class="text-end">
                                     {% if is_granted(enum('App\\Module\\Uitslagen\\Security\\UitslagenPermissions').edit.value, result) %}
                                         <a href="{{ path('admin_result_edit', {id: result.id}) }}" class="btn btn-sm btn-outline-primary">
@@ -69,7 +64,7 @@
                                         <form method="post" action="{{ path('admin_result_delete', {id: result.id}) }}"
                                               class="d-inline"
                                               data-controller="confirm"
-                                              data-confirm-message-value="{{ 'uitslagen.admin.actions.confirm_delete'|trans({'%name%': result.effectiveRaceName ?? '?'}) }}">
+                                              data-confirm-message-value="{{ 'uitslagen.admin.actions.confirm_delete'|trans({'%name%': result.race.name}) }}">
                                             <input type="hidden" name="_token" value="{{ csrf_token('delete-result-' ~ result.id) }}" />
                                             <button type="submit" class="btn btn-sm btn-outline-danger">
                                                 <twig:ux:icon name="bi:trash" />

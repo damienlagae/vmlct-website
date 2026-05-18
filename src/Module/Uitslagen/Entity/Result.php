@@ -16,9 +16,12 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Single rider result. Optionally tied to a planned `Race` in the
- * Programme module; when not (regional or one-off events) the race
- * info travels on the row itself (`raceName`, `raceDate`, ...).
+ * A single rider's result at a race. The race must exist in the Race
+ * table — regional events not in the public Programme are still created
+ * as Race rows (admins simply pick whether to surface them publicly).
+ *
+ * For multi-stage races, `stageNumber` identifies which stage the rank
+ * refers to. Leave it null for single-day events.
  */
 #[ORM\Entity(repositoryClass: ResultRepository::class)]
 #[Auditable]
@@ -31,38 +34,28 @@ class Result implements HasUlidIdInterface, TimestampableInterface
     #[ORM\JoinColumn(nullable: false, onDelete: 'CASCADE')]
     private Rider $rider;
 
-    /**
-     * Optional link to a planned Race. If null, the race details below
-     * are authoritative (regional / external race not in the agenda).
-     */
     #[ORM\ManyToOne(targetEntity: Race::class)]
-    #[ORM\JoinColumn(nullable: true, onDelete: 'SET NULL')]
-    private ?Race $race = null;
+    #[ORM\JoinColumn(nullable: false, onDelete: 'CASCADE')]
+    private Race $race;
 
-    #[ORM\Column(length: 200, nullable: true)]
-    private ?string $raceName = null;
+    /**
+     * Stage number for multi-stage races (1-indexed). Null for single-day
+     * events.
+     */
+    #[ORM\Column(type: Types::SMALLINT, nullable: true)]
+    private ?int $stageNumber = null;
 
-    #[ORM\Column(type: Types::DATE_IMMUTABLE, nullable: true)]
-    private ?\DateTimeImmutable $raceDate = null;
-
-    #[ORM\Column(length: 150, nullable: true)]
-    private ?string $raceLocation = null;
-
-    #[ORM\Column(length: 16, enumType: ResultDiscipline::class, nullable: true)]
-    private ?ResultDiscipline $discipline = null;
-
-    #[ORM\Column(length: 16, enumType: ResultStatus::class)]
-    private ResultStatus $status = ResultStatus::Finished;
-
-    #[ORM\Column(type: Types::INTEGER, nullable: true)]
-    private ?int $rank = null;
+    #[ORM\Column(type: Types::INTEGER)]
+    private int $rank;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $notes = null;
 
-    public function __construct(Rider $rider)
+    public function __construct(Rider $rider, Race $race, int $rank)
     {
         $this->rider = $rider;
+        $this->race = $race;
+        $this->rank = $rank;
     }
 
     public function getRider(): Rider
@@ -75,72 +68,32 @@ class Result implements HasUlidIdInterface, TimestampableInterface
         $this->rider = $rider;
     }
 
-    public function getRace(): ?Race
+    public function getRace(): Race
     {
         return $this->race;
     }
 
-    public function setRace(?Race $race): void
+    public function setRace(Race $race): void
     {
         $this->race = $race;
     }
 
-    public function getRaceName(): ?string
+    public function getStageNumber(): ?int
     {
-        return $this->raceName;
+        return $this->stageNumber;
     }
 
-    public function setRaceName(?string $raceName): void
+    public function setStageNumber(?int $stageNumber): void
     {
-        $this->raceName = $raceName;
+        $this->stageNumber = $stageNumber;
     }
 
-    public function getRaceDate(): ?\DateTimeImmutable
-    {
-        return $this->raceDate;
-    }
-
-    public function setRaceDate(?\DateTimeImmutable $raceDate): void
-    {
-        $this->raceDate = $raceDate;
-    }
-
-    public function getRaceLocation(): ?string
-    {
-        return $this->raceLocation;
-    }
-
-    public function setRaceLocation(?string $raceLocation): void
-    {
-        $this->raceLocation = $raceLocation;
-    }
-
-    public function getDiscipline(): ?ResultDiscipline
-    {
-        return $this->discipline;
-    }
-
-    public function setDiscipline(?ResultDiscipline $discipline): void
-    {
-        $this->discipline = $discipline;
-    }
-
-    public function getStatus(): ResultStatus
-    {
-        return $this->status;
-    }
-
-    public function setStatus(ResultStatus $status): void
-    {
-        $this->status = $status;
-    }
-
-    public function getRank(): ?int
+    public function getRank(): int
     {
         return $this->rank;
     }
 
-    public function setRank(?int $rank): void
+    public function setRank(int $rank): void
     {
         $this->rank = $rank;
     }
@@ -153,34 +106,5 @@ class Result implements HasUlidIdInterface, TimestampableInterface
     public function setNotes(?string $notes): void
     {
         $this->notes = $notes;
-    }
-
-    /**
-     * Race label / date / location resolved from the link first, then
-     * the on-row fallback fields. Returns nullable strings so the public
-     * template can render `—` when truly missing.
-     */
-    public function getEffectiveRaceName(): ?string
-    {
-        return $this->race?->getName() ?? $this->raceName;
-    }
-
-    public function getEffectiveRaceDate(): ?\DateTimeImmutable
-    {
-        return $this->race?->getStartsAt() ?? $this->raceDate;
-    }
-
-    public function getEffectiveRaceLocation(): ?string
-    {
-        return $this->race?->getLocation() ?? $this->raceLocation;
-    }
-
-    public function getEffectiveDiscipline(): ?ResultDiscipline
-    {
-        if (null !== $this->race) {
-            return ResultDiscipline::tryFrom($this->race->getDiscipline()->value);
-        }
-
-        return $this->discipline;
     }
 }

@@ -8,7 +8,10 @@
                 </div>
                 <div class="card-body">
                     {{ form_row(form.name) }}
-                    {{ form_row(form.startsAt) }}
+                    <div class="row">
+                        <div class="col-md-6">{{ form_row(form.startDate) }}</div>
+                        <div class="col-md-6">{{ form_row(form.endDate) }}</div>
+                    </div>
                     {{ form_row(form.location) }}
                     {{ form_row(form.description) }}
                     {{ form_row(form.externalUrl) }}

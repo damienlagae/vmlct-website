@@ -61,7 +61,7 @@
                         <thead>
                             <tr>
                                 <th>{{ 'programme.admin.table.name'|trans }}</th>
-                                <th style="width: 180px;">{{ 'programme.admin.table.startsAt'|trans }}</th>
+                                <th style="width: 180px;">{{ 'programme.admin.table.startDate'|trans }}</th>
                                 <th>{{ 'programme.admin.table.location'|trans }}</th>
                                 <th style="width: 140px;">{{ 'programme.admin.table.discipline'|trans }}</th>
                                 <th class="text-end" style="width: 140px;">{{ 'programme.admin.table.actions'|trans }}</th>
@@ -81,9 +81,12 @@
                                         {% endif %}
                                     </td>
                                     <td>
-                                        <time datetime="{{ race.startsAt|date('c') }}">
-                                            {{ race.startsAt|format_datetime(locale='nl', pattern='dd/MM/yyyy HH:mm') }}
+                                        <time datetime="{{ race.startDate|date('Y-m-d') }}">
+                                            {{ race.startDate|format_datetime(locale='nl', pattern='dd/MM/yyyy') }}
                                         </time>
+                                        {% if race.endDate and race.isMultiStage %}
+                                            <span class="small text-muted"> → {{ race.endDate|format_datetime(locale='nl', pattern='dd/MM/yyyy') }}</span>
+                                        {% endif %}
                                     </td>
                                     <td>{{ race.location }}</td>
                                     <td>
