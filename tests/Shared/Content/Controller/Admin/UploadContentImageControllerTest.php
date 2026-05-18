@@ -89,10 +89,14 @@ final class UploadContentImageControllerTest extends WebTestCase
         $tmp = tempnam(sys_get_temp_dir(), 'png');
         self::assertNotFalse($tmp);
 
-        $im = imagecreatetruecolor(10, 10);
-        self::assertNotFalse($im);
-        imagepng($im, $tmp);
-        imagedestroy($im);
+        // 1x1 transparent PNG — hardcoded so the test stays independent
+        // from the GD extension (which we still need in prod for Liip).
+        $png = base64_decode(
+            'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg==',
+            true,
+        );
+        self::assertNotFalse($png);
+        file_put_contents($tmp, $png);
 
         return $tmp;
     }

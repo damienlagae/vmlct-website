@@ -5,11 +5,16 @@ RUN apt-get update && apt-get install -y \
         unzip \
         libicu-dev \
         libzip-dev \
+        libpng-dev \
+        libjpeg-dev \
+        libwebp-dev \
+    && docker-php-ext-configure gd --with-jpeg --with-webp \
     && docker-php-ext-install \
         intl \
         zip \
         pdo \
         pdo_mysql \
+        gd \
     && pecl install pcov \
     && docker-php-ext-enable pcov \
     && apt-get clean \
