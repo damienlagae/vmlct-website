@@ -444,6 +444,78 @@ body:has(.admin-shell) {
     border-left: 3px solid #3b82f6;
 }
 
+/* Side-by-side preview pane (admin edit screens) */
+.admin-with-preview {
+    display: block;
+}
+
+.admin-with-preview__pane {
+    display: none;
+}
+
+@media (min-width: 1400px) {
+    .admin-with-preview--open {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+        gap: 1.5rem;
+        align-items: start;
+    }
+
+    .admin-with-preview--open .admin-with-preview__pane {
+        display: flex;
+        flex-direction: column;
+        position: sticky;
+        top: 1rem;
+        height: calc(100vh - 7rem);
+        border: 1px solid var(--admin-border);
+        border-radius: 10px;
+        background: #fff;
+        box-shadow: 0 6px 20px rgba(var(--vmlct-dark-rgb), 0.06);
+        overflow: hidden;
+    }
+}
+
+.admin-with-preview__pane-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.5rem 0.75rem;
+    border-bottom: 1px solid var(--admin-border);
+    background: #f8fafc;
+}
+
+.admin-with-preview__pane-title {
+    font-weight: 600;
+    font-size: 0.85rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    color: var(--admin-text-muted);
+}
+
+.admin-with-preview__iframe {
+    flex: 1 1 auto;
+    width: 100%;
+    border: 0;
+    display: block;
+    background: #f8fafc;
+}
+
+/* On screens too narrow for side-by-side, surface the preview below the
+   form whenever the toggle is on. */
+@media (max-width: 1399.98px) {
+    .admin-with-preview--open .admin-with-preview__pane {
+        display: flex;
+        flex-direction: column;
+        margin-top: 1.5rem;
+        height: 75vh;
+        border: 1px solid var(--admin-border);
+        border-radius: 10px;
+        background: #fff;
+        overflow: hidden;
+    }
+}
+
 /* Trix WYSIWYG in the block editor */
 trix-editor.trix-content {
     min-height: 7rem;

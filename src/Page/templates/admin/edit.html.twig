@@ -3,24 +3,62 @@
 {% block title %}{{ 'page.admin.edit.title'|trans({'%title%': page.title}) }}{% endblock %}
 
 {% block admin_content %}
-    <header class="admin-page-header mb-4 d-flex flex-wrap align-items-center justify-content-between gap-3">
-        <div>
-            <h1 class="admin-page-header__title">{{ 'page.admin.edit.title'|trans({'%title%': page.title}) }}</h1>
-            {% if page.isPublished %}
-                <p class="admin-page-header__subtitle">
-                    <a href="{{ path('page_show', {path: page.path}) }}" target="_blank" rel="noopener">
-                        <twig:ux:icon name="bi:eye" /> {{ 'page.admin.edit.view_public'|trans }}
-                    </a>
-                </p>
-            {% endif %}
-        </div>
-        <button type="button" class="btn btn-outline-secondary btn-sm"
-                data-bs-toggle="offcanvas" data-bs-target="#admin-audit-trail">
-            <twig:ux:icon name="bi:clock-history" /> {{ 'audit.title'|trans }}
-        </button>
-    </header>
+    {% set previewUrl = path('admin_page_preview', {id: page.id}) %}
 
-    {% include '@Page/admin/_form.html.twig' with {form: form, submitLabel: 'page.admin.actions.save'} %}
+    <div data-controller="admin-preview"
+         data-admin-preview-key-value="page"
+         data-admin-preview-url-value="{{ previewUrl }}">
+        <header class="admin-page-header mb-4 d-flex flex-wrap align-items-center justify-content-between gap-3">
+            <div>
+                <h1 class="admin-page-header__title">{{ 'page.admin.edit.title'|trans({'%title%': page.title}) }}</h1>
+                {% if page.isPublished %}
+                    <p class="admin-page-header__subtitle">
+                        <a href="{{ path('page_show', {path: page.path}) }}" target="_blank" rel="noopener">
+                            <twig:ux:icon name="bi:eye" /> {{ 'page.admin.edit.view_public'|trans }}
+                        </a>
+                    </p>
+                {% endif %}
+            </div>
+            <div class="d-flex flex-wrap gap-2">
+                <button type="button"
+                        class="btn btn-outline-secondary btn-sm"
+                        data-action="admin-preview#toggle"
+                        data-admin-preview-target="toggle"
+                        aria-pressed="false"
+                        title="{{ 'admin.preview.toggle'|trans }}">
+                    <twig:ux:icon name="bi:layout-sidebar-reverse" /> {{ 'admin.preview.toggle'|trans }}
+                </button>
+                <button type="button" class="btn btn-outline-secondary btn-sm"
+                        data-bs-toggle="offcanvas" data-bs-target="#admin-audit-trail">
+                    <twig:ux:icon name="bi:clock-history" /> {{ 'audit.title'|trans }}
+                </button>
+            </div>
+        </header>
+
+        <div class="admin-with-preview" data-admin-preview-target="wrapper">
+            <div class="admin-with-preview__form">
+                {% include '@Page/admin/_form.html.twig' with {form: form, submitLabel: 'page.admin.actions.save'} %}
+            </div>
+            <aside class="admin-with-preview__pane">
+                <div class="admin-with-preview__pane-header">
+                    <span class="admin-with-preview__pane-title">
+                        <twig:ux:icon name="bi:eye" /> {{ 'admin.preview.title'|trans }}
+                    </span>
+                    <button type="button"
+                            class="btn btn-sm btn-outline-secondary"
+                            data-action="admin-preview#refresh"
+                            title="{{ 'admin.preview.refresh'|trans }}">
+                        <twig:ux:icon name="bi:arrow-clockwise" />
+                    </button>
+                </div>
+                <iframe data-admin-preview-target="frame"
+                        src="{{ previewUrl }}"
+                        title="{{ 'admin.preview.title'|trans }}"
+                        class="admin-with-preview__iframe"
+                        loading="lazy"></iframe>
+            </aside>
+        </div>
+    </div>
 
     {% include '@Shared/admin/_audit_offcanvas.html.twig' with {entity: page} %}
 {% endblock %}
