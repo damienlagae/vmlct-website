@@ -146,6 +146,38 @@ security:
         password: 'Wachtwoord'
         submit: 'Aanmelden'
 
+content:
+    editor:
+        empty: 'Nog geen blokken. Voeg er een toe met de knoppen hieronder.'
+        add: 'Blok toevoegen:'
+        block:
+            text: 'Tekst'
+            heading: 'Tussentitel'
+            image: 'Afbeelding'
+        actions:
+            up: 'Naar boven'
+            down: 'Naar beneden'
+            remove: 'Verwijderen'
+        field:
+            text_html: 'Tekst'
+            text_html_help: 'Gebruik de werkbalk om de tekst op te maken.'
+            heading_text: 'Titel'
+            heading_level: 'Niveau'
+            image_empty: 'Nog geen afbeelding'
+            image_file: 'Afbeelding'
+            image_file_help: 'PNG, JPEG of WEBP. Maximaal 5 MB.'
+            image_uploading: 'Bezig met uploaden…'
+            image_uploaded: 'Geüpload.'
+            image_upload_failed: 'Upload mislukt.'
+            image_alt: 'Alt-tekst'
+            image_caption: 'Onderschrift'
+            image_alignment: 'Uitlijning'
+        alignment:
+            left: 'Links'
+            center: 'Gecentreerd'
+            right: 'Rechts'
+            full: 'Volledige breedte'
+
 audit:
     title: 'Activiteit'
     empty: 'Nog geen activiteit voor dit item.'
@@ -191,36 +223,6 @@ news:
             author: 'Auteur'
         no_cover: 'Nog geen cover geüpload'
         body_placeholder_hint: 'De block-editor voor de volledige inhoud komt in een volgende update.'
-    editor:
-        empty: 'Nog geen blokken. Voeg er een toe met de knoppen hieronder.'
-        add: 'Blok toevoegen:'
-        block:
-            text: 'Tekst'
-            heading: 'Tussentitel'
-            image: 'Afbeelding'
-        actions:
-            up: 'Naar boven'
-            down: 'Naar beneden'
-            remove: 'Verwijderen'
-        field:
-            text_html: 'Tekst'
-            text_html_help: 'Gebruik de werkbalk om de tekst op te maken.'
-            heading_text: 'Titel'
-            heading_level: 'Niveau'
-            image_empty: 'Nog geen afbeelding'
-            image_file: 'Afbeelding'
-            image_file_help: 'PNG, JPEG of WEBP. Maximaal 5 MB.'
-            image_uploading: 'Bezig met uploaden…'
-            image_uploaded: 'Geüpload.'
-            image_upload_failed: 'Upload mislukt.'
-            image_alt: 'Alt-tekst'
-            image_caption: 'Onderschrift'
-            image_alignment: 'Uitlijning'
-        alignment:
-            left: 'Links'
-            center: 'Gecentreerd'
-            right: 'Rechts'
-            full: 'Volledige breedte'
     flash:
         created: 'Artikel aangemaakt.'
         updated: 'Artikel bijgewerkt.'
@@ -394,6 +396,59 @@ user:
             save: 'Opslaan'
             confirm_delete: 'Weet je zeker dat je gebruiker "%email%" wilt verwijderen?'
 
+page:
+    public:
+        body_coming_soon: 'De inhoud van deze pagina komt binnenkort beschikbaar.'
+    form:
+        title: 'Titel'
+        path: 'Pad'
+        path_help: 'Het pad waarop deze pagina te bereiken is. Enkel kleine letters, cijfers, koppeltekens en slashes (bv. `over` of `uitrusting/wielen`).'
+        path_invalid: 'Enkel kleine letters, cijfers, koppeltekens en slashes toegelaten.'
+        excerpt: 'Korte inleiding'
+        publishedAt: 'Publicatiedatum'
+        publishedAt_help: 'Laat leeg voor een draft. Een datum in de toekomst is toegestaan.'
+        metaTitle: 'SEO-titel'
+        metaTitle_help: 'Optioneel — gebruikt als <title>. Laat leeg om de pagina-titel te gebruiken.'
+        metaDescription: 'SEO-beschrijving'
+        metaDescription_help: 'Optioneel — gebruikt voor de meta description en Open Graph. Houd het onder 160 tekens.'
+        section:
+            content: 'Inhoud'
+            blocks: 'Blokken'
+            publication: 'Publicatie'
+            seo: 'SEO'
+    flash:
+        created: 'Pagina aangemaakt.'
+        updated: 'Pagina bijgewerkt.'
+        deleted: 'Pagina verwijderd.'
+    admin:
+        index:
+            title: "Pagina's"
+            subtitle: 'Beheer de statische pagina’s van de site.'
+        create:
+            title: 'Nieuwe pagina'
+            subtitle: 'Maak een nieuwe pagina aan met blokken.'
+        edit:
+            title: 'Pagina bewerken: %title%'
+            view_public: 'Bekijk publieke versie'
+        empty: 'Nog geen pagina’s aangemaakt.'
+        stats:
+            total: 'Totaal'
+            published: 'Gepubliceerd'
+            draft: 'Drafts'
+        table:
+            title: 'Titel'
+            path: 'Pad'
+            publishedAt: 'Gepubliceerd op'
+            status: 'Status'
+            actions: 'Acties'
+        status:
+            published: 'Gepubliceerd'
+            draft: 'Draft'
+        actions:
+            create: 'Pagina toevoegen'
+            save: 'Opslaan'
+            confirm_delete: 'Weet je zeker dat je pagina "%title%" wilt verwijderen?'
+
 admin:
     header:
         nav_label: 'Hoofdnavigatie'
@@ -403,6 +458,7 @@ admin:
         label: 'Beheer navigatie'
         dashboard: 'Dashboard'
         news: 'Nieuws'
+        pages: "Pagina's"
         team: 'Team'
         staff: 'Omkadering'
         riders: 'Renners'
@@ -428,6 +484,10 @@ admin:
     logout: 'Afmelden'
     form:
         cancel: 'Annuleren'
+    preview:
+        title: 'Voorbeeld'
+        toggle: 'Voorbeeld'
+        refresh: 'Voorbeeld vernieuwen'
     coming_soon:
         title: 'Binnenkort beschikbaar'
         body: 'Deze sectie wordt momenteel opgebouwd en is binnenkort beschikbaar.'

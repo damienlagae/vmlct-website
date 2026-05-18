@@ -3,7 +3,7 @@
 
     {% if blocks is empty %}
         <div class="alert alert-light border small mb-3" data-testid="content-editor-empty">
-            <twig:ux:icon name="bi:info-circle" /> {{ 'news.editor.empty'|trans }}
+            <twig:ux:icon name="bi:info-circle" /> {{ 'content.editor.empty'|trans }}
         </div>
     {% endif %}
 
@@ -13,7 +13,7 @@
                 <div class="card-header d-flex justify-content-between align-items-center bg-light py-2">
                     <span class="d-inline-flex align-items-center gap-2 small text-muted">
                         <twig:ux:icon name="bi:grip-vertical" />
-                        <strong class="text-uppercase">{{ ('news.editor.block.' ~ block.type)|trans }}</strong>
+                        <strong class="text-uppercase">{{ ('content.editor.block.' ~ block.type)|trans }}</strong>
                         <span class="badge text-bg-light">#{{ index + 1 }}</span>
                     </span>
                     <div class="btn-group btn-group-sm" role="group">
@@ -22,8 +22,8 @@
                                 data-live-action-param="moveUp"
                                 data-live-index-param="{{ index }}"
                                 {% if index == 0 %}disabled{% endif %}
-                                title="{{ 'news.editor.actions.up'|trans }}"
-                                aria-label="{{ 'news.editor.actions.up'|trans }}">
+                                title="{{ 'content.editor.actions.up'|trans }}"
+                                aria-label="{{ 'content.editor.actions.up'|trans }}">
                             <twig:ux:icon name="bi:arrow-up" />
                         </button>
                         <button type="button" class="btn btn-outline-secondary"
@@ -31,46 +31,46 @@
                                 data-live-action-param="moveDown"
                                 data-live-index-param="{{ index }}"
                                 {% if index == blocks|length - 1 %}disabled{% endif %}
-                                title="{{ 'news.editor.actions.down'|trans }}"
-                                aria-label="{{ 'news.editor.actions.down'|trans }}">
+                                title="{{ 'content.editor.actions.down'|trans }}"
+                                aria-label="{{ 'content.editor.actions.down'|trans }}">
                             <twig:ux:icon name="bi:arrow-down" />
                         </button>
                         <button type="button" class="btn btn-outline-danger"
                                 data-action="live#action"
                                 data-live-action-param="deleteBlock"
                                 data-live-index-param="{{ index }}"
-                                title="{{ 'news.editor.actions.remove'|trans }}"
-                                aria-label="{{ 'news.editor.actions.remove'|trans }}">
+                                title="{{ 'content.editor.actions.remove'|trans }}"
+                                aria-label="{{ 'content.editor.actions.remove'|trans }}">
                             <twig:ux:icon name="bi:trash" />
                         </button>
                     </div>
                 </div>
                 <div class="card-body">
-                    {% include '@News/admin/components/blocks/_' ~ block.type ~ '.html.twig' ignore missing with {block: block, index: index} only %}
+                    {% include '@Shared/admin/content-editor/blocks/_' ~ block.type ~ '.html.twig' ignore missing with {block: block, index: index} only %}
                 </div>
             </li>
         {% endfor %}
     </ol>
 
     <div class="content-editor__add-bar d-flex flex-wrap align-items-center gap-2">
-        <span class="text-muted small me-2">{{ 'news.editor.add'|trans }}</span>
+        <span class="text-muted small me-2">{{ 'content.editor.add'|trans }}</span>
         <button type="button" class="btn btn-outline-primary btn-sm"
                 data-action="live#action"
                 data-live-action-param="appendBlock"
                 data-live-type-param="text">
-            <twig:ux:icon name="bi:paragraph" /> {{ 'news.editor.block.text'|trans }}
+            <twig:ux:icon name="bi:paragraph" /> {{ 'content.editor.block.text'|trans }}
         </button>
         <button type="button" class="btn btn-outline-primary btn-sm"
                 data-action="live#action"
                 data-live-action-param="appendBlock"
                 data-live-type-param="heading">
-            <twig:ux:icon name="bi:type-h2" /> {{ 'news.editor.block.heading'|trans }}
+            <twig:ux:icon name="bi:type-h2" /> {{ 'content.editor.block.heading'|trans }}
         </button>
         <button type="button" class="btn btn-outline-primary btn-sm"
                 data-action="live#action"
                 data-live-action-param="appendBlock"
                 data-live-type-param="image">
-            <twig:ux:icon name="bi:image" /> {{ 'news.editor.block.image'|trans }}
+            <twig:ux:icon name="bi:image" /> {{ 'content.editor.block.image'|trans }}
         </button>
     </div>
 </div>

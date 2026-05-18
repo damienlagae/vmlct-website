@@ -1,7 +1,7 @@
 {% set blockId = block.id|default('text-' ~ index) %}
 <div class="mb-0">
     <label class="form-label small text-uppercase fw-semibold" for="block-text-{{ blockId }}">
-        {{ 'news.editor.field.text_html'|trans }}
+        {{ 'content.editor.field.text_html'|trans }}
     </label>
     <input type="hidden"
            id="block-text-input-{{ blockId }}"
@@ -15,5 +15,5 @@
                      data-controller="trix-sync"
                      class="trix-content form-control"></trix-editor>
     </div>
-    <div class="form-text">{{ 'news.editor.field.text_html_help'|trans }}</div>
+    <div class="form-text">{{ 'content.editor.field.text_html_help'|trans }}</div>
 </div>

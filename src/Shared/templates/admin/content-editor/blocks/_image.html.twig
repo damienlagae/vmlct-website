@@ -12,7 +12,7 @@
                 <img data-content-image-upload-target="preview" hidden alt="" class="img-fluid rounded border" />
                 <div class="admin-form__placeholder">
                     <twig:ux:icon name="bi:image" />
-                    <span class="small">{{ 'news.editor.field.image_empty'|trans }}</span>
+                    <span class="small">{{ 'content.editor.field.image_empty'|trans }}</span>
                 </div>
             {% endif %}
         </div>
@@ -24,7 +24,7 @@
 
             <div class="mb-3">
                 <label class="form-label small text-uppercase fw-semibold" for="block-image-file-{{ blockId }}">
-                    {{ 'news.editor.field.image_file'|trans }}
+                    {{ 'content.editor.field.image_file'|trans }}
                 </label>
                 <input id="block-image-file-{{ blockId }}"
                        type="file"
@@ -34,17 +34,17 @@
                        data-action="change->content-image-upload#upload">
                 <small class="form-text text-muted"
                        data-content-image-upload-target="status"
-                       data-uploading="{{ 'news.editor.field.image_uploading'|trans }}"
-                       data-done="{{ 'news.editor.field.image_uploaded'|trans }}"
-                       data-error="{{ 'news.editor.field.image_upload_failed'|trans }}">
-                    {{ 'news.editor.field.image_file_help'|trans }}
+                       data-uploading="{{ 'content.editor.field.image_uploading'|trans }}"
+                       data-done="{{ 'content.editor.field.image_uploaded'|trans }}"
+                       data-error="{{ 'content.editor.field.image_upload_failed'|trans }}">
+                    {{ 'content.editor.field.image_file_help'|trans }}
                 </small>
             </div>
 
             <div class="row g-3">
                 <div class="col-md-7">
                     <label class="form-label small text-uppercase fw-semibold" for="block-image-alt-{{ blockId }}">
-                        {{ 'news.editor.field.image_alt'|trans }}
+                        {{ 'content.editor.field.image_alt'|trans }}
                     </label>
                     <input id="block-image-alt-{{ blockId }}"
                            type="text"
@@ -54,21 +54,21 @@
                 </div>
                 <div class="col-md-5">
                     <label class="form-label small text-uppercase fw-semibold" for="block-image-alignment-{{ blockId }}">
-                        {{ 'news.editor.field.image_alignment'|trans }}
+                        {{ 'content.editor.field.image_alignment'|trans }}
                     </label>
                     {% set currentAlignment = block.alignment|default('center') %}
                     <select id="block-image-alignment-{{ blockId }}"
                             class="form-select"
                             data-model="blocks.{{ index }}.alignment">
-                        <option value="left"{% if currentAlignment == 'left' %} selected{% endif %}>{{ 'news.editor.alignment.left'|trans }}</option>
-                        <option value="center"{% if currentAlignment == 'center' %} selected{% endif %}>{{ 'news.editor.alignment.center'|trans }}</option>
-                        <option value="right"{% if currentAlignment == 'right' %} selected{% endif %}>{{ 'news.editor.alignment.right'|trans }}</option>
-                        <option value="full"{% if currentAlignment == 'full' %} selected{% endif %}>{{ 'news.editor.alignment.full'|trans }}</option>
+                        <option value="left"{% if currentAlignment == 'left' %} selected{% endif %}>{{ 'content.editor.alignment.left'|trans }}</option>
+                        <option value="center"{% if currentAlignment == 'center' %} selected{% endif %}>{{ 'content.editor.alignment.center'|trans }}</option>
+                        <option value="right"{% if currentAlignment == 'right' %} selected{% endif %}>{{ 'content.editor.alignment.right'|trans }}</option>
+                        <option value="full"{% if currentAlignment == 'full' %} selected{% endif %}>{{ 'content.editor.alignment.full'|trans }}</option>
                     </select>
                 </div>
                 <div class="col-12">
                     <label class="form-label small text-uppercase fw-semibold" for="block-image-caption-{{ blockId }}">
-                        {{ 'news.editor.field.image_caption'|trans }}
+                        {{ 'content.editor.field.image_caption'|trans }}
                     </label>
                     <input id="block-image-caption-{{ blockId }}"
                            type="text"

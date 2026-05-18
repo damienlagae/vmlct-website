@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Module\News\Twig\Component;
+namespace App\Tests\Shared\Content\Twig\Component;
 
-use App\Module\News\Twig\Component\ContentEditor;
+use App\Shared\Content\Twig\Component\ContentEditor;
 use PHPUnit\Framework\TestCase;
 
 final class ContentEditorTest extends TestCase

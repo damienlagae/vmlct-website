@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Module\News\Twig\Component;
+namespace App\Shared\Content\Twig\Component;
 
 use Symfony\Component\Uid\Ulid;
 use Symfony\UX\LiveComponent\Attribute\AsLiveComponent;
@@ -11,14 +11,20 @@ use Symfony\UX\LiveComponent\Attribute\LiveArg;
 use Symfony\UX\LiveComponent\Attribute\LiveProp;
 use Symfony\UX\LiveComponent\DefaultActionTrait;
 
-#[AsLiveComponent(name: 'News:ContentEditor', template: '@News/admin/components/ContentEditor.html.twig')]
+/**
+ * Shared block editor for any entity whose `content` is a list of structured
+ * block payloads (Article, Page, ...). Renders a hidden JSON input that the
+ * surrounding form picks up through its DataTransformer; live actions add /
+ * remove / move blocks server-side and re-render via Live Component.
+ */
+#[AsLiveComponent(name: 'Content:Editor', template: '@Shared/admin/content-editor/index.html.twig')]
 final class ContentEditor
 {
     use DefaultActionTrait;
 
     /**
-     * Block payloads carried as plain arrays so they can be JSON-serialised
-     * for the hidden form input that feeds the surrounding ArticleType form.
+     * Block payloads, ordered. Each entry carries at least `type`, an `id`
+     * (ULID) assigned at creation, and type-specific fields.
      *
      * @var list<array<string, mixed>>
      */

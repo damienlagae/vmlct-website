@@ -15,7 +15,7 @@
                     <hr class="my-4" />
 
                     <h3 class="h6 text-uppercase text-muted mb-3">{{ 'news.form.section.blocks'|trans }}</h3>
-                    <twig:News:ContentEditor
+                    <twig:Content:Editor
                         :blocks="form.vars.data.content ?? []"
                         :fieldName="form.content.vars.full_name"
                     />
