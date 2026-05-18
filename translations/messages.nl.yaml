@@ -8,6 +8,13 @@ home:
     subtitle: 'Een jeugdwielerploeg uit het Waasland die zich richt op de ontwikkeling van jonge wielertalenten.'
     cta: 'Meer informatie'
 
+    racing:
+        title: 'Op de baan'
+        upcoming: 'Volgende koersen'
+        recent_results: 'Recente uitslagen'
+        see_all_programme: 'Volledig programma'
+        see_all_uitslagen: 'Alle uitslagen'
+
     announcement:
         title: 'Vernieuwde website in 2027'
         body: 'Onze website krijgt een volledig nieuwe look. Omwille van het drukke wielerseizoen lanceren we de vernieuwde versie in <strong>2027</strong> — we nemen er graag de tijd voor om het goed te doen.'
@@ -406,6 +413,8 @@ menu:
             home: 'Home'
             news: 'Nieuws'
             team: 'Ploeg'
+            programme: 'Programma'
+            uitslagen: 'Uitslagen'
     form:
         label: 'Label'
         targetType: 'Type doel'
@@ -454,6 +463,11 @@ programme:
         past: 'Voorbije koersen'
         upcoming_empty: 'Nog geen koersen aangekondigd.'
         past_empty: 'Nog geen voorbije koersen.'
+        filter:
+            discipline: 'Discipline'
+            category: 'Categorie'
+            all: 'Alle'
+            empty: 'Geen koersen die aan deze filter voldoen.'
     discipline:
         road: 'Weg'
         track: 'Piste'

@@ -1,0 +1,79 @@
+{# Recap section: next races + recent results. Hidden entirely when both
+   lists are empty — keeps the home tight on a freshly-installed site. #}
+{% if nextRaces is not empty or recentResults is not empty %}
+    <section id="racing" class="py-5 racing-recap">
+        <div class="container">
+            <header class="text-center mb-5">
+                <h2 class="section-title">{{ 'home.racing.title'|trans }}</h2>
+                <div class="title-underline mx-auto"></div>
+            </header>
+
+            <div class="row g-4">
+                {% if nextRaces is not empty %}
+                    <div class="col-lg-6">
+                        <div class="racing-recap__card racing-recap__card--upcoming">
+                            <header class="racing-recap__card-header">
+                                <span><twig:ux:icon name="bi:calendar-event" /> {{ 'home.racing.upcoming'|trans }}</span>
+                                <a href="{{ path('programme_index') }}" class="racing-recap__more">
+                                    {{ 'home.racing.see_all_programme'|trans }} <twig:ux:icon name="bi:arrow-right" />
+                                </a>
+                            </header>
+                            <ul class="racing-recap__list list-unstyled">
+                                {% for race in nextRaces %}
+                                    <li class="racing-recap__item">
+                                        <div class="racing-recap__date">
+                                            <span class="racing-recap__day">{{ race.startsAt|date('d') }}</span>
+                                            <span class="racing-recap__month">{{ race.startsAt|format_datetime(locale='nl', pattern='MMM') }}</span>
+                                        </div>
+                                        <div class="racing-recap__body">
+                                            <strong>{{ race.name }}</strong>
+                                            <div class="racing-recap__meta small">
+                                                <span><twig:ux:icon name="bi:geo-alt" /> {{ race.location }}</span>
+                                                <span><twig:ux:icon name="bi:tag" /> {{ ('programme.discipline.' ~ race.discipline.value)|trans }}</span>
+                                            </div>
+                                        </div>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                {% endif %}
+
+                {% if recentResults is not empty %}
+                    <div class="col-lg-6">
+                        <div class="racing-recap__card racing-recap__card--results">
+                            <header class="racing-recap__card-header">
+                                <span><twig:ux:icon name="bi:trophy" /> {{ 'home.racing.recent_results'|trans }}</span>
+                                <a href="{{ path('uitslagen_index') }}" class="racing-recap__more">
+                                    {{ 'home.racing.see_all_uitslagen'|trans }} <twig:ux:icon name="bi:arrow-right" />
+                                </a>
+                            </header>
+                            <ul class="racing-recap__list list-unstyled">
+                                {% for result in recentResults %}
+                                    <li class="racing-recap__item">
+                                        <div class="racing-recap__rank">
+                                            {% if result.rank %}
+                                                <span class="racing-recap__rank-number">{{ result.rank }}</span>
+                                            {% else %}
+                                                <span class="racing-recap__rank-status">{{ result.status.value|upper }}</span>
+                                            {% endif %}
+                                        </div>
+                                        <div class="racing-recap__body">
+                                            <strong>{{ result.rider.fullName }}</strong>
+                                            <div class="racing-recap__meta small">
+                                                <span>{{ result.effectiveRaceName ?? '—' }}</span>
+                                                {% if result.effectiveRaceDate %}
+                                                    <span>· {{ result.effectiveRaceDate|format_datetime(locale='nl', pattern='dd MMM') }}</span>
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </section>
+{% endif %}

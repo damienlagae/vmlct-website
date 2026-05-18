@@ -14,9 +14,14 @@ final class ProgrammeIndexController extends AbstractController
 {
     public function __invoke(RaceRepository $repository): Response
     {
+        $upcoming = $repository->findUpcoming();
+        $past = $repository->findPast(20);
+
         return $this->render('@Programme/index.html.twig', [
-            'upcoming' => $repository->findUpcoming(),
-            'past' => $repository->findPast(10),
+            'upcoming' => $upcoming,
+            'past' => $past,
+            'upcomingByMonth' => RaceRepository::groupByMonth($upcoming),
+            'pastByMonth' => RaceRepository::groupByMonth($past),
         ]);
     }
 }

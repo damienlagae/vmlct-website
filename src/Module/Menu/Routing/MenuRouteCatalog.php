@@ -24,6 +24,8 @@ final class MenuRouteCatalog
         'home' => 'menu.target.route.home',
         'news_index' => 'menu.target.route.news',
         'team_index' => 'menu.target.route.team',
+        'programme_index' => 'menu.target.route.programme',
+        'uitslagen_index' => 'menu.target.route.uitslagen',
     ];
 
     /**

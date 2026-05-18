@@ -44,4 +44,24 @@ final class RaceRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult());
     }
+
+    /**
+     * Groups a list of races by their `Y-m` start month, preserving the
+     * input order inside each group.
+     *
+     * @param list<Race> $races
+     *
+     * @return array<string, list<Race>>
+     */
+    public static function groupByMonth(array $races): array
+    {
+        $grouped = [];
+        foreach ($races as $race) {
+            $key = $race->getStartsAt()->format('Y-m');
+            $grouped[$key] ??= [];
+            $grouped[$key][] = $race;
+        }
+
+        return $grouped;
+    }
 }

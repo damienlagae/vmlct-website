@@ -14,8 +14,11 @@ final class UitslagenIndexController extends AbstractController
 {
     public function __invoke(ResultRepository $repository): Response
     {
+        $results = $repository->findRecent(50);
+
         return $this->render('@Uitslagen/index.html.twig', [
-            'results' => $repository->findRecent(50),
+            'results' => $results,
+            'resultsByRace' => ResultRepository::groupByRace($results),
         ]);
     }
 }

@@ -5,7 +5,7 @@
 {% block body %}
     <section class="py-5">
         <div class="container">
-            <header class="text-center mb-5">
+            <header class="text-center mb-4">
                 <h1 class="section-title">{{ 'uitslagen.public.title'|trans }}</h1>
                 <div class="title-underline mx-auto"></div>
                 <p class="text-muted mt-3">{{ 'uitslagen.public.intro'|trans }}</p>
@@ -14,55 +14,74 @@
             {% if results is empty %}
                 <p class="text-muted text-center">{{ 'uitslagen.public.empty'|trans }}</p>
             {% else %}
-                <div class="card shadow-sm">
-                    <div class="table-responsive">
-                        <table class="table table-hover align-middle mb-0">
-                            <thead>
-                                <tr>
-                                    <th>{{ 'uitslagen.public.table.race'|trans }}</th>
-                                    <th>{{ 'uitslagen.public.table.date'|trans }}</th>
-                                    <th>{{ 'uitslagen.public.table.rider'|trans }}</th>
-                                    <th class="text-center">{{ 'uitslagen.public.table.status'|trans }}</th>
-                                    <th class="text-end">{{ 'uitslagen.public.table.rank'|trans }}</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {% for result in results %}
-                                    <tr>
-                                        <td>
-                                            <strong>{{ result.effectiveRaceName ?? '—' }}</strong>
-                                            {% if result.effectiveRaceLocation %}
-                                                <div class="small text-muted">{{ result.effectiveRaceLocation }}</div>
-                                            {% endif %}
-                                        </td>
-                                        <td>
-                                            {% if result.effectiveRaceDate %}
-                                                <time datetime="{{ result.effectiveRaceDate|date('c') }}">
-                                                    {{ result.effectiveRaceDate|format_datetime(locale='nl', pattern='dd MMM yyyy') }}
-                                                </time>
-                                            {% else %}
-                                                <span class="text-muted">—</span>
-                                            {% endif %}
-                                        </td>
-                                        <td>{{ result.rider.fullName }}</td>
-                                        <td class="text-center">
-                                            {% set status = result.status.value %}
-                                            <span class="badge bg-{{ status == 'finished' ? 'success' : 'secondary' }}-subtle text-{{ status == 'finished' ? 'success' : 'secondary' }}">
-                                                {{ ('uitslagen.status.' ~ status)|trans }}
+                <div class="uitslagen-list">
+                    {% for groupKey, groupResults in resultsByRace %}
+                        {% set head = groupResults|first %}
+                        {% set finished = [] %}
+                        {% set others = [] %}
+                        {% for r in groupResults %}
+                            {% if r.status.value == 'finished' %}{% set finished = finished|merge([r]) %}{% else %}{% set others = others|merge([r]) %}{% endif %}
+                        {% endfor %}
+                        {% set finished = finished|sort((a, b) => (a.rank ?? 9999) <=> (b.rank ?? 9999)) %}
+                        {% set podium = finished|slice(0, 3) %}
+                        {% set rest = finished|slice(3) %}
+
+                        <article class="uitslagen-group">
+                            <header class="uitslagen-group__header">
+                                <div>
+                                    <h2 class="uitslagen-group__title">{{ head.effectiveRaceName ?? '—' }}</h2>
+                                    <p class="uitslagen-group__meta">
+                                        {% if head.effectiveRaceDate %}
+                                            <span><twig:ux:icon name="bi:calendar3" />
+                                                {{ head.effectiveRaceDate|format_datetime(locale='nl', pattern='dd MMMM yyyy') }}
                                             </span>
-                                        </td>
-                                        <td class="text-end">
-                                            {% if result.rank %}
-                                                <strong>{{ result.rank }}</strong>
-                                            {% else %}
-                                                <span class="text-muted">—</span>
-                                            {% endif %}
-                                        </td>
-                                    </tr>
-                                {% endfor %}
-                            </tbody>
-                        </table>
-                    </div>
+                                        {% endif %}
+                                        {% if head.effectiveRaceLocation %}
+                                            <span><twig:ux:icon name="bi:geo-alt" /> {{ head.effectiveRaceLocation }}</span>
+                                        {% endif %}
+                                        {% if head.effectiveDiscipline %}
+                                            <span><twig:ux:icon name="bi:tag" />
+                                                {{ ('uitslagen.discipline.' ~ head.effectiveDiscipline.value)|trans }}
+                                            </span>
+                                        {% endif %}
+                                    </p>
+                                </div>
+                                <span class="uitslagen-group__count">
+                                    {{ groupResults|length }} {{ groupResults|length == 1 ? 'renner' : 'renners' }}
+                                </span>
+                            </header>
+
+                            {% if podium|length > 0 %}
+                                <div class="uitslagen-podium">
+                                    {% for r in podium %}
+                                        <div class="uitslagen-podium__slot uitslagen-podium__slot--rank{{ r.rank }}">
+                                            <div class="uitslagen-podium__medal">
+                                                {% if r.rank == 1 %}🥇{% elseif r.rank == 2 %}🥈{% elseif r.rank == 3 %}🥉{% else %}{{ r.rank }}{% endif %}
+                                            </div>
+                                            <div class="uitslagen-podium__name">{{ r.rider.fullName }}</div>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+
+                            {% if rest|length > 0 or others|length > 0 %}
+                                <ul class="uitslagen-tail list-unstyled">
+                                    {% for r in rest %}
+                                        <li class="uitslagen-tail__item">
+                                            <span class="uitslagen-tail__rank">{{ r.rank }}</span>
+                                            <span class="uitslagen-tail__name">{{ r.rider.fullName }}</span>
+                                        </li>
+                                    {% endfor %}
+                                    {% for r in others %}
+                                        <li class="uitslagen-tail__item uitslagen-tail__item--{{ r.status.value }}">
+                                            <span class="uitslagen-tail__rank">{{ r.status.value|upper }}</span>
+                                            <span class="uitslagen-tail__name">{{ r.rider.fullName }}</span>
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            {% endif %}
+                        </article>
+                    {% endfor %}
                 </div>
             {% endif %}
         </div>

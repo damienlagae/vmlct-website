@@ -5,65 +5,118 @@
 {% block body %}
     <section class="py-5">
         <div class="container">
-            <header class="text-center mb-5">
+            <header class="text-center mb-4">
                 <h1 class="section-title">{{ 'programme.public.title'|trans }}</h1>
                 <div class="title-underline mx-auto"></div>
                 <p class="text-muted mt-3">{{ 'programme.public.intro'|trans }}</p>
             </header>
 
-            {% set buckets = [
-                {key: 'upcoming', label: 'programme.public.upcoming', races: upcoming, empty: 'programme.public.upcoming_empty'},
-                {key: 'past', label: 'programme.public.past', races: past, empty: 'programme.public.past_empty'},
-            ] %}
-
-            {% for bucket in buckets %}
-                <h2 class="h4 mt-5 mb-3">{{ bucket.label|trans }}</h2>
-                {% if bucket.races is empty %}
-                    <p class="text-muted">{{ bucket.empty|trans }}</p>
-                {% else %}
-                    <ul class="race-list list-unstyled">
-                        {% for race in bucket.races %}
-                            <li class="race-list__item">
-                                <div class="race-list__date">
-                                    <span class="race-list__day">{{ race.startsAt|date('d') }}</span>
-                                    <span class="race-list__month">{{ race.startsAt|format_datetime(locale='nl', pattern='MMM') }}</span>
-                                    <span class="race-list__year">{{ race.startsAt|date('Y') }}</span>
-                                </div>
-                                <div class="race-list__body">
-                                    <h3 class="race-list__name">
-                                        {% if race.externalUrl %}
-                                            <a href="{{ race.externalUrl }}" target="_blank" rel="noopener">
-                                                {{ race.name }}
-                                                <twig:ux:icon name="bi:box-arrow-up-right" />
-                                            </a>
-                                        {% else %}
-                                            {{ race.name }}
-                                        {% endif %}
-                                    </h3>
-                                    <p class="race-list__meta">
-                                        <span><twig:ux:icon name="bi:geo-alt" /> {{ race.location }}</span>
-                                        <span><twig:ux:icon name="bi:tag" /> {{ ('programme.discipline.' ~ race.discipline.value)|trans }}</span>
-                                        <span class="race-list__time">
-                                            <twig:ux:icon name="bi:clock" />
-                                            {{ race.startsAt|date('H:i') }}
-                                        </span>
-                                    </p>
-                                    {% if race.categories|length > 0 %}
-                                        <p class="race-list__categories">
-                                            {% for cat in race.categories %}
-                                                <span class="badge bg-light text-dark">{{ ('programme.category.' ~ cat.value)|trans }}</span>
-                                            {% endfor %}
-                                        </p>
-                                    {% endif %}
-                                    {% if race.description %}
-                                        <p class="race-list__description">{{ race.description|nl2br }}</p>
-                                    {% endif %}
-                                </div>
-                            </li>
+            {% if upcoming is empty and past is empty %}
+                <p class="text-muted text-center">{{ 'programme.public.upcoming_empty'|trans }}</p>
+            {% else %}
+                <div class="programme-toolbar mb-4" data-controller="programme-filter">
+                    <div class="programme-toolbar__group">
+                        <span class="programme-toolbar__label">{{ 'programme.public.filter.discipline'|trans }}</span>
+                        <button type="button" class="programme-toolbar__chip programme-toolbar__chip--active"
+                                data-action="programme-filter#filterDiscipline" data-discipline="all">
+                            {{ 'programme.public.filter.all'|trans }}
+                        </button>
+                        {% for value in ['road', 'track', 'cyclocross'] %}
+                            <button type="button" class="programme-toolbar__chip"
+                                    data-action="programme-filter#filterDiscipline" data-discipline="{{ value }}">
+                                {{ ('programme.discipline.' ~ value)|trans }}
+                            </button>
                         {% endfor %}
-                    </ul>
-                {% endif %}
-            {% endfor %}
+                    </div>
+                    <div class="programme-toolbar__group">
+                        <span class="programme-toolbar__label">{{ 'programme.public.filter.category'|trans }}</span>
+                        <button type="button" class="programme-toolbar__chip programme-toolbar__chip--active"
+                                data-action="programme-filter#filterCategory" data-category="all">
+                            {{ 'programme.public.filter.all'|trans }}
+                        </button>
+                        {% for value in ['miniemen', 'aspiranten', 'nieuwelingen', 'junioren'] %}
+                            <button type="button" class="programme-toolbar__chip"
+                                    data-action="programme-filter#filterCategory" data-category="{{ value }}">
+                                {{ ('programme.category.' ~ value)|trans }}
+                            </button>
+                        {% endfor %}
+                    </div>
+                    <p class="programme-toolbar__empty d-none mb-0"
+                       data-programme-filter-target="empty">
+                        {{ 'programme.public.filter.empty'|trans }}
+                    </p>
+                </div>
+
+                {% set buckets = [
+                    {label: 'programme.public.upcoming', months: upcomingByMonth, modifier: 'upcoming'},
+                    {label: 'programme.public.past', months: pastByMonth, modifier: 'past'},
+                ] %}
+
+                {% for bucket in buckets %}
+                    {% if bucket.months is not empty %}
+                        <h2 class="programme-section-title programme-section-title--{{ bucket.modifier }} mt-4">
+                            {{ bucket.label|trans }}
+                        </h2>
+                        {% for monthKey, monthRaces in bucket.months %}
+                            {% set sample = monthRaces|first %}
+                            <h3 class="programme-month">
+                                {{ sample.startsAt|format_datetime(locale='nl', pattern='MMMM yyyy')|capitalize }}
+                            </h3>
+                            <div class="row g-3 programme-month-group" data-programme-filter-target="group">
+                                {% for race in monthRaces %}
+                                    {% set catKeys = [] %}
+                                    {% for c in race.categories %}{% set catKeys = catKeys|merge([c.value]) %}{% endfor %}
+                                    <div class="col-12 col-md-6 col-lg-4"
+                                         data-programme-filter-target="card"
+                                         data-discipline="{{ race.discipline.value }}"
+                                         data-categories="{{ catKeys|join(',') }}">
+                                        <article class="race-card race-card--{{ bucket.modifier }}">
+                                            <div class="race-card__date">
+                                                <span class="race-card__day">{{ race.startsAt|date('d') }}</span>
+                                                <span class="race-card__month">{{ race.startsAt|format_datetime(locale='nl', pattern='MMM') }}</span>
+                                                <span class="race-card__time">{{ race.startsAt|date('H:i') }}</span>
+                                            </div>
+                                            <div class="race-card__body">
+                                                <h4 class="race-card__title">
+                                                    {% if race.externalUrl %}
+                                                        <a href="{{ race.externalUrl }}" target="_blank" rel="noopener">
+                                                            {{ race.name }} <twig:ux:icon name="bi:box-arrow-up-right" />
+                                                        </a>
+                                                    {% else %}
+                                                        {{ race.name }}
+                                                    {% endif %}
+                                                </h4>
+                                                <p class="race-card__meta">
+                                                    <span><twig:ux:icon name="bi:geo-alt" /> {{ race.location }}</span>
+                                                </p>
+                                                <div class="race-card__badges">
+                                                    <span class="race-card__badge race-card__badge--{{ race.discipline.value }}">
+                                                        {{ ('programme.discipline.' ~ race.discipline.value)|trans }}
+                                                    </span>
+                                                    {% for cat in race.categories %}
+                                                        <span class="race-card__badge race-card__badge--category">
+                                                            {{ ('programme.category.' ~ cat.value)|trans }}
+                                                        </span>
+                                                    {% endfor %}
+                                                </div>
+                                                {% if race.description %}
+                                                    <p class="race-card__description">
+                                                        {%- if race.description|length > 140 -%}
+                                                            {{ race.description|slice(0, 140) }}…
+                                                        {%- else -%}
+                                                            {{ race.description }}
+                                                        {%- endif -%}
+                                                    </p>
+                                                {% endif %}
+                                            </div>
+                                        </article>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
         </div>
     </section>
 {% endblock %}

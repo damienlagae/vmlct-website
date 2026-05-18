@@ -40,4 +40,30 @@ final class ResultRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult());
     }
+
+    /**
+     * Groups results by race (linked Race id first, fallback to standalone
+     * raceName+raceDate) preserving the input order so groups appear in the
+     * date order produced by `findRecent()`.
+     *
+     * @param list<Result> $results
+     *
+     * @return array<string, list<Result>>
+     */
+    public static function groupByRace(array $results): array
+    {
+        $grouped = [];
+        foreach ($results as $result) {
+            $race = $result->getRace();
+            if (null !== $race) {
+                $key = 'r:'.$race->getId();
+            } else {
+                $key = 'n:'.($result->getRaceName() ?? '?').'|'.($result->getRaceDate()?->format('Y-m-d') ?? '');
+            }
+            $grouped[$key] ??= [];
+            $grouped[$key][] = $result;
+        }
+
+        return $grouped;
+    }
 }

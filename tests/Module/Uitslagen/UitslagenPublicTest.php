@@ -41,8 +41,8 @@ final class UitslagenPublicTest extends WebTestCase
         self::assertStringContainsString('Regiokoers Kruibeke', $html);
         self::assertStringContainsString('Lars Test', $html);
         self::assertStringContainsString('Kruibeke', $html);
-        // rank rendered
-        self::assertMatchesRegularExpression('/>3<\/strong>/', $html);
+        // Rank 3 surfaces as the bronze podium slot.
+        self::assertStringContainsString('uitslagen-podium__slot--rank3', $html);
     }
 
     public function testEffectiveRaceFieldsFollowLinkedRace(): void

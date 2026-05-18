@@ -600,7 +600,451 @@ footer {
     border-top: 1px solid #e2e8f0;
 }
 
-/* Programme — public race list */
+/* Home — racing recap (next races + recent results) */
+.racing-recap__card {
+    background: #fff;
+    border: 1px solid #e2e8f0;
+    border-radius: 14px;
+    padding: 1.5rem;
+    height: 100%;
+    box-shadow: 0 6px 20px rgba(var(--vmlct-dark-rgb), 0.05);
+}
+
+.racing-recap__card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.racing-recap__card-header > span:first-child {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--vmlct-dark);
+    font-weight: 700;
+}
+
+.racing-recap__more {
+    color: var(--vmlct-blue);
+    font-size: 0.85rem;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    transition: gap 0.2s;
+}
+
+.racing-recap__more:hover {
+    gap: 0.5rem;
+}
+
+.racing-recap__list {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.racing-recap__item {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+}
+
+.racing-recap__date {
+    flex: 0 0 50px;
+    background: linear-gradient(135deg, var(--vmlct-blue), var(--vmlct-dark));
+    color: #fff;
+    border-radius: 8px;
+    padding: 0.35rem;
+    text-align: center;
+    line-height: 1.1;
+}
+
+.racing-recap__day {
+    display: block;
+    font-weight: 800;
+    font-size: 1.1rem;
+}
+
+.racing-recap__month {
+    display: block;
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.racing-recap__rank {
+    flex: 0 0 42px;
+    height: 42px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f1f5f9;
+    color: var(--vmlct-dark);
+    font-weight: 800;
+    font-size: 0.85rem;
+}
+
+.racing-recap__rank-number {
+    font-size: 1rem;
+}
+
+.racing-recap__rank-status {
+    font-size: 0.7rem;
+}
+
+.racing-recap__body {
+    min-width: 0;
+    flex: 1 1 auto;
+}
+
+.racing-recap__meta {
+    color: #64748b;
+    margin: 0.15rem 0 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+}
+
+.racing-recap__meta span {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+/* Programme — toolbar filters */
+.programme-toolbar {
+    background: #fff;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 1rem 1.25rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem 2rem;
+    align-items: center;
+}
+
+.programme-toolbar__group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    align-items: center;
+}
+
+.programme-toolbar__label {
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #64748b;
+    margin-right: 0.5rem;
+}
+
+.programme-toolbar__chip {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 999px;
+    padding: 0.3rem 0.9rem;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: #475569;
+    cursor: pointer;
+    transition: background 0.15s, color 0.15s, border-color 0.15s;
+}
+
+.programme-toolbar__chip:hover {
+    background: #eef2f6;
+}
+
+.programme-toolbar__chip--active {
+    background: var(--vmlct-dark);
+    color: #fff;
+    border-color: var(--vmlct-dark);
+}
+
+.programme-toolbar__empty {
+    width: 100%;
+    color: #64748b;
+    font-style: italic;
+    text-align: center;
+    padding-top: 0.5rem;
+}
+
+.programme-section-title {
+    font-size: 1.4rem;
+    font-weight: 800;
+    color: var(--vmlct-dark);
+    padding-left: 0.75rem;
+    border-left: 4px solid var(--vmlct-blue);
+}
+
+.programme-section-title--past {
+    border-left-color: #cbd5e1;
+    color: #64748b;
+}
+
+.programme-month {
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #64748b;
+    margin: 1.25rem 0 0.5rem;
+}
+
+/* Programme — race cards (grid) */
+.race-card {
+    display: grid;
+    grid-template-columns: 84px minmax(0, 1fr);
+    gap: 1rem;
+    height: 100%;
+    background: #fff;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 1rem;
+    box-shadow: 0 4px 14px rgba(var(--vmlct-dark-rgb), 0.05);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.race-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 24px rgba(var(--vmlct-dark-rgb), 0.10);
+}
+
+.race-card--past {
+    opacity: 0.85;
+}
+
+.race-card__date {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, var(--vmlct-blue), var(--vmlct-dark));
+    color: #fff;
+    border-radius: 10px;
+    padding: 0.5rem;
+    line-height: 1.1;
+}
+
+.race-card--past .race-card__date {
+    background: linear-gradient(135deg, #94a3b8, #475569);
+}
+
+.race-card__day {
+    font-size: 1.5rem;
+    font-weight: 800;
+}
+
+.race-card__month {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-top: 0.2rem;
+}
+
+.race-card__time {
+    font-size: 0.7rem;
+    opacity: 0.85;
+    margin-top: 0.25rem;
+}
+
+.race-card__body {
+    min-width: 0;
+}
+
+.race-card__title {
+    margin: 0 0 0.4rem;
+    font-size: 1.05rem;
+    color: var(--vmlct-dark);
+    font-weight: 700;
+}
+
+.race-card__title a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.race-card__title a:hover {
+    color: var(--vmlct-blue);
+}
+
+.race-card__meta {
+    color: #64748b;
+    margin: 0 0 0.5rem;
+    font-size: 0.85rem;
+}
+
+.race-card__meta span {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+.race-card__badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.25rem;
+    margin-bottom: 0.5rem;
+}
+
+.race-card__badge {
+    font-size: 0.7rem;
+    padding: 0.2rem 0.55rem;
+    border-radius: 4px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+.race-card__badge--road { background: #dbeafe; color: #1d4ed8; }
+.race-card__badge--track { background: #fee2e2; color: #b91c1c; }
+.race-card__badge--cyclocross { background: #fef3c7; color: #92400e; }
+.race-card__badge--category { background: #f1f5f9; color: #475569; }
+
+.race-card__description {
+    color: #475569;
+    font-size: 0.85rem;
+    margin: 0;
+}
+
+/* Uitslagen — grouped results with podium */
+.uitslagen-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.uitslagen-group {
+    background: #fff;
+    border: 1px solid #e2e8f0;
+    border-radius: 14px;
+    padding: 1.25rem 1.5rem;
+    box-shadow: 0 6px 18px rgba(var(--vmlct-dark-rgb), 0.05);
+}
+
+.uitslagen-group__header {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    align-items: start;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.uitslagen-group__title {
+    margin: 0;
+    font-size: 1.2rem;
+    color: var(--vmlct-dark);
+    font-weight: 700;
+}
+
+.uitslagen-group__meta {
+    color: #64748b;
+    margin: 0.3rem 0 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    font-size: 0.85rem;
+}
+
+.uitslagen-group__meta span {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+}
+
+.uitslagen-group__count {
+    font-size: 0.8rem;
+    color: #64748b;
+    background: #f1f5f9;
+    padding: 0.2rem 0.7rem;
+    border-radius: 999px;
+}
+
+.uitslagen-podium {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+}
+
+.uitslagen-podium__slot {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem 1rem;
+    border-radius: 10px;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+}
+
+.uitslagen-podium__slot--rank1 {
+    background: linear-gradient(135deg, #fef3c7, #fde68a);
+    border-color: #f59e0b;
+}
+
+.uitslagen-podium__slot--rank2 {
+    background: linear-gradient(135deg, #f1f5f9, #e2e8f0);
+    border-color: #94a3b8;
+}
+
+.uitslagen-podium__slot--rank3 {
+    background: linear-gradient(135deg, #fed7aa, #fdba74);
+    border-color: #c2410c;
+}
+
+.uitslagen-podium__medal {
+    font-size: 1.75rem;
+    line-height: 1;
+}
+
+.uitslagen-podium__name {
+    font-weight: 700;
+    color: var(--vmlct-dark);
+}
+
+.uitslagen-tail {
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 0.4rem 1rem;
+}
+
+.uitslagen-tail__item {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    color: #475569;
+}
+
+.uitslagen-tail__rank {
+    flex: 0 0 36px;
+    text-align: center;
+    background: #f1f5f9;
+    border-radius: 6px;
+    padding: 0.15rem;
+    font-weight: 700;
+    font-size: 0.8rem;
+}
+
+.uitslagen-tail__item--dnf .uitslagen-tail__rank,
+.uitslagen-tail__item--dns .uitslagen-tail__rank,
+.uitslagen-tail__item--dsq .uitslagen-tail__rank {
+    background: #fee2e2;
+    color: #b91c1c;
+}
+
+/* Programme — legacy public race list (kept for backward compat) */
 .race-list {
     margin: 0;
     padding: 0;
