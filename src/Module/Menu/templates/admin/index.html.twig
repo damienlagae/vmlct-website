@@ -1,0 +1,49 @@
+{% extends '@Shared/admin/layout.html.twig' %}
+
+{% block title %}{{ 'menu.admin.index.title'|trans }}{% endblock %}
+
+{% block admin_content %}
+    <header class="admin-page-header mb-4 d-flex flex-wrap align-items-center justify-content-between gap-3">
+        <div>
+            <h1 class="admin-page-header__title">{{ 'menu.admin.index.title'|trans }}</h1>
+            <p class="admin-page-header__subtitle">{{ 'menu.admin.index.subtitle'|trans }}</p>
+        </div>
+        {% if is_granted(enum('App\\Module\\Menu\\Security\\MenuPermissions').create.value) %}
+            <a href="{{ path('admin_menu_create') }}" class="btn btn-primary">
+                <twig:ux:icon name="bi:plus-lg" /> {{ 'menu.admin.actions.create'|trans }}
+            </a>
+        {% endif %}
+    </header>
+
+    {% for label, messages in app.flashes(['success', 'danger']) %}
+        {% for message in messages %}
+            <div class="alert alert-{{ label }} alert-dismissible fade show" role="alert">
+                {{ message|trans }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        {% endfor %}
+    {% endfor %}
+
+    {% if roots is empty %}
+        <p class="text-muted">{{ 'menu.admin.empty'|trans }}</p>
+    {% else %}
+        <div class="card shadow-sm">
+            <ul class="list-group list-group-flush">
+                {% for root in roots %}
+                    <li class="list-group-item">
+                        {% include '@Menu/admin/_row.html.twig' with {item: root, level: 0} only %}
+                        {% if root.children|length > 0 %}
+                            <ul class="list-group list-group-flush mt-2 ms-4">
+                                {% for child in root.children %}
+                                    <li class="list-group-item">
+                                        {% include '@Menu/admin/_row.html.twig' with {item: child, level: 1} only %}
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        {% endif %}
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+{% endblock %}

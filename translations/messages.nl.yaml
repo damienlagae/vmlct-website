@@ -3,14 +3,6 @@ app:
     description: 'Jeugdwielerclub uit Beveren, actief in wielrennen op de weg, baanwielrennen en veldrijden. Sluit je aan vanaf 8 jaar!'
     title: 'Van Moer Logistics Cycling Team – Jeugdwielerploeg uit het Waasland'
 
-menu:
-    navbar:
-        home: 'Home'
-        category: 'Categorieën'
-        aboutUs: 'Over ons'
-        sponsors: 'Sponsors'
-        contact: 'Contact'
-
 home:
     title: 'Van Moer Logistics Cycling Team'
     subtitle: 'Een jeugdwielerploeg uit het Waasland die zich richt op de ontwikkeling van jonge wielertalenten.'
@@ -396,6 +388,55 @@ user:
             save: 'Opslaan'
             confirm_delete: 'Weet je zeker dat je gebruiker "%email%" wilt verwijderen?'
 
+menu:
+    target:
+        type:
+            page: 'Pagina'
+            route: 'Sectie'
+        route:
+            home: 'Home'
+            news: 'Nieuws'
+            team: 'Ploeg'
+    form:
+        label: 'Label'
+        targetType: 'Type doel'
+        page: 'Pagina'
+        page_placeholder: 'Kies een pagina…'
+        page_help: 'Enkel gebruikt wanneer het doeltype "Pagina" is.'
+        routeName: 'Sectie'
+        route_placeholder: 'Kies een sectie…'
+        parent: 'Bovenliggend item'
+        parent_placeholder: 'Geen (hoofditem)'
+        parent_help: 'Maak een sub-item door een bestaand hoofditem te kiezen.'
+        position: 'Positie'
+        position_help: 'Lager getal = links/eerst. Items met dezelfde positie worden alfabetisch gesorteerd.'
+        active: 'Actief (zichtbaar in de navigatie)'
+        openInNewTab: 'Openen in nieuw tabblad'
+        section:
+            identity: 'Identiteit'
+            placement: 'Plaatsing'
+            options: 'Opties'
+    flash:
+        created: 'Menu-item aangemaakt.'
+        updated: 'Menu-item bijgewerkt.'
+        deleted: 'Menu-item verwijderd.'
+    admin:
+        index:
+            title: 'Menu'
+            subtitle: 'Beheer de items van de hoofdnavigatie.'
+        create:
+            title: 'Nieuw menu-item'
+            subtitle: 'Voeg een item toe aan de navigatie.'
+        edit:
+            title: 'Item bewerken: %label%'
+        empty: 'Nog geen items in het menu. Voeg er een toe.'
+        status:
+            inactive: 'Inactief'
+        actions:
+            create: 'Item toevoegen'
+            save: 'Opslaan'
+            confirm_delete: 'Weet je zeker dat je menu-item "%label%" wilt verwijderen?'
+
 page:
     public:
         body_coming_soon: 'De inhoud van deze pagina komt binnenkort beschikbaar.'
@@ -459,6 +500,7 @@ admin:
         dashboard: 'Dashboard'
         news: 'Nieuws'
         pages: "Pagina's"
+        menu: 'Menu'
         team: 'Team'
         staff: 'Omkadering'
         riders: 'Renners'

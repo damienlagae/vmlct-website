@@ -1,0 +1,19 @@
+{% extends '@Shared/admin/layout.html.twig' %}
+
+{% block title %}{{ 'menu.admin.edit.title'|trans({'%label%': item.label}) }}{% endblock %}
+
+{% block admin_content %}
+    <header class="admin-page-header mb-4 d-flex flex-wrap align-items-center justify-content-between gap-3">
+        <div>
+            <h1 class="admin-page-header__title">{{ 'menu.admin.edit.title'|trans({'%label%': item.label}) }}</h1>
+        </div>
+        <button type="button" class="btn btn-outline-secondary btn-sm"
+                data-bs-toggle="offcanvas" data-bs-target="#admin-audit-trail">
+            <twig:ux:icon name="bi:clock-history" /> {{ 'audit.title'|trans }}
+        </button>
+    </header>
+
+    {% include '@Menu/admin/_form.html.twig' with {form: form, submitLabel: 'menu.admin.actions.save'} %}
+
+    {% include '@Shared/admin/_audit_offcanvas.html.twig' with {entity: item} %}
+{% endblock %}

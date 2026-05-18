@@ -1,0 +1,49 @@
+{{ form_start(form, {attr: {class: 'admin-form'}}) }}
+    <div class="row g-4">
+        <div class="col-lg-8">
+            <div class="card shadow-sm">
+                <div class="card-header bg-white d-flex align-items-center gap-2 py-3">
+                    <twig:ux:icon name="bi:list-nested" class="text-primary" />
+                    <h2 class="h6 mb-0">{{ 'menu.form.section.identity'|trans }}</h2>
+                </div>
+                <div class="card-body">
+                    {{ form_row(form.label) }}
+                    {{ form_row(form.targetType) }}
+                    {{ form_row(form.page) }}
+                    {{ form_row(form.routeName) }}
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-4">
+            <div class="card shadow-sm mb-3">
+                <div class="card-header bg-white d-flex align-items-center gap-2 py-3">
+                    <twig:ux:icon name="bi:sort-numeric-down" class="text-primary" />
+                    <h2 class="h6 mb-0">{{ 'menu.form.section.placement'|trans }}</h2>
+                </div>
+                <div class="card-body">
+                    {{ form_row(form.parent) }}
+                    {{ form_row(form.position) }}
+                </div>
+            </div>
+
+            <div class="card shadow-sm">
+                <div class="card-header bg-white d-flex align-items-center gap-2 py-3">
+                    <twig:ux:icon name="bi:toggles" class="text-primary" />
+                    <h2 class="h6 mb-0">{{ 'menu.form.section.options'|trans }}</h2>
+                </div>
+                <div class="card-body">
+                    {{ form_row(form.active) }}
+                    {{ form_row(form.openInNewTab) }}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="admin-form-actions">
+        <a href="{{ path('admin_menu_index') }}" class="btn btn-link">{{ 'admin.form.cancel'|trans }}</a>
+        <button type="submit" class="btn btn-primary">
+            <twig:ux:icon name="bi:check2" /> {{ submitLabel|trans }}
+        </button>
+    </div>
+{{ form_end(form) }}

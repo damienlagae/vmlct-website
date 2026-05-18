@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Shared\Security;
 
+use App\Module\Menu\Security\MenuPermissions;
 use App\Module\News\Security\NewsPermissions;
 use App\Module\Sponsor\Security\SponsorPermissions;
 use App\Module\Team\Security\TeamPermissions;
@@ -56,6 +57,12 @@ final class PermissionMapProvider
         PagePermissions::create->value => ['ROLE_ADMIN'],
         PagePermissions::edit->value => ['ROLE_ADMIN'],
         PagePermissions::delete->value => ['ROLE_SUPER_ADMIN'],
+
+        // MENU
+        MenuPermissions::view->value => ['ROLE_ADMIN'],
+        MenuPermissions::create->value => ['ROLE_ADMIN'],
+        MenuPermissions::edit->value => ['ROLE_ADMIN'],
+        MenuPermissions::delete->value => ['ROLE_SUPER_ADMIN'],
     ];
 
     /**

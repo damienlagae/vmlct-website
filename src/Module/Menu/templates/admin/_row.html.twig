@@ -1,0 +1,43 @@
+<div class="d-flex flex-wrap align-items-center justify-content-between gap-2">
+    <div class="d-flex align-items-center gap-2">
+        {% if level == 0 %}
+            <twig:ux:icon name="bi:list-nested" class="text-muted" />
+        {% else %}
+            <twig:ux:icon name="bi:arrow-return-right" class="text-muted" />
+        {% endif %}
+        <strong>{{ item.label }}</strong>
+        {% if item.targetType.value == 'page' %}
+            <span class="badge bg-primary-subtle text-primary">
+                {{ 'menu.target.type.page'|trans }}
+                {% if item.page %}· /{{ item.page.path }}{% endif %}
+            </span>
+        {% else %}
+            <span class="badge bg-info-subtle text-info">
+                {{ 'menu.target.type.route'|trans }}
+                {% if item.routeName %}· {{ item.routeName }}{% endif %}
+            </span>
+        {% endif %}
+        <span class="text-muted small">#{{ item.position }}</span>
+        {% if not item.active %}
+            <span class="badge bg-secondary-subtle text-secondary">{{ 'menu.admin.status.inactive'|trans }}</span>
+        {% endif %}
+    </div>
+    <div class="d-flex gap-2">
+        {% if is_granted(enum('App\\Module\\Menu\\Security\\MenuPermissions').edit.value, item) %}
+            <a href="{{ path('admin_menu_edit', {id: item.id}) }}" class="btn btn-sm btn-outline-primary">
+                <twig:ux:icon name="bi:pencil" />
+            </a>
+        {% endif %}
+        {% if is_granted(enum('App\\Module\\Menu\\Security\\MenuPermissions').delete.value, item) %}
+            <form method="post" action="{{ path('admin_menu_delete', {id: item.id}) }}"
+                  class="d-inline"
+                  data-controller="confirm"
+                  data-confirm-message-value="{{ 'menu.admin.actions.confirm_delete'|trans({'%label%': item.label}) }}">
+                <input type="hidden" name="_token" value="{{ csrf_token('delete-menu-' ~ item.id) }}" />
+                <button type="submit" class="btn btn-sm btn-outline-danger">
+                    <twig:ux:icon name="bi:trash" />
+                </button>
+            </form>
+        {% endif %}
+    </div>
+</div>

@@ -8,6 +8,7 @@ twig:
         '%kernel.project_dir%/src/Module/Sponsor/templates': Sponsor
         '%kernel.project_dir%/src/Module/Team/templates': Team
         '%kernel.project_dir%/src/Module/News/templates': News
+        '%kernel.project_dir%/src/Module/Menu/templates': Menu
 
 when@test:
     twig:

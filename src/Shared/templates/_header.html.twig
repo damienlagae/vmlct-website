@@ -17,23 +17,7 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ms-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="#home" data-active-section-target="link">{{ 'menu.navbar.home'|trans }}</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#categorieen" data-active-section-target="link">{{ 'menu.navbar.category'|trans }}</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#over-ons" data-active-section-target="link">{{ 'menu.navbar.aboutUs'|trans }}</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#sponsors" data-active-section-target="link">{{ 'menu.navbar.sponsors'|trans }}</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#contact" data-active-section-target="link">{{ 'menu.navbar.contact'|trans }}</a>
-                </li>
-            </ul>
+            <twig:Site:Menu />
             <div class="d-flex ms-lg-3 gap-2 mt-3 mt-lg-0">
                 <a href="https://www.facebook.com/wielerteamwaasland" target="_blank" rel="noopener"
                    class="btn btn-outline-light btn-sm" aria-label="Facebook">

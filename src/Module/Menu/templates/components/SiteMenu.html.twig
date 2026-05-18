@@ -1,0 +1,37 @@
+<ul class="navbar-nav ms-auto">
+    {% for item in this.roots %}
+        {% set hasChildren = item.children|length > 0 %}
+        {% set itemUrl = this.url(item) %}
+        <li class="nav-item{% if hasChildren %} dropdown{% endif %}">
+            {% if hasChildren %}
+                <a class="nav-link dropdown-toggle"
+                   href="{{ itemUrl }}"
+                   id="navItem-{{ item.id }}"
+                   role="button"
+                   data-bs-toggle="dropdown"
+                   aria-expanded="false">
+                    {{ item.label }}
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="navItem-{{ item.id }}">
+                    {% for child in item.children %}
+                        {% if child.active %}
+                            <li>
+                                <a class="dropdown-item"
+                                   href="{{ this.url(child) }}"
+                                   {% if child.openInNewTab %}target="_blank" rel="noopener"{% endif %}>
+                                    {{ child.label }}
+                                </a>
+                            </li>
+                        {% endif %}
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <a class="nav-link"
+                   href="{{ itemUrl }}"
+                   {% if item.openInNewTab %}target="_blank" rel="noopener"{% endif %}>
+                    {{ item.label }}
+                </a>
+            {% endif %}
+        </li>
+    {% endfor %}
+</ul>
