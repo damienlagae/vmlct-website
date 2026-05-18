@@ -177,7 +177,10 @@ jobs:
         env:
           DATABASE_URL: "mysql://root@database:3306/app?serverVersion=mariadb-11.4.10"
 
-      - name: Run tests
-        run: bin/phpunit --testdox
+      - name: Run tests with coverage
+        run: bin/phpunit --testdox --coverage-clover=var/coverage/clover.xml
         env:
           DATABASE_URL: "mysql://root@database:3306/app?serverVersion=mariadb-11.4.10"
+
+      - name: Enforce coverage threshold (80% lines)
+        run: php tools/coverage-check.php var/coverage/clover.xml 80

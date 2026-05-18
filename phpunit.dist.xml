@@ -26,6 +26,17 @@
         <include>
             <directory suffix=".php">src</directory>
         </include>
+        <exclude>
+            <!-- Foundry stories and factories: fixture bootstrap, not business code. -->
+            <directory suffix=".php">src/*/Story</directory>
+            <directory suffix=".php">src/*/*/Story</directory>
+            <directory suffix=".php">src/*/Factory</directory>
+            <directory suffix=".php">src/*/*/Factory</directory>
+            <!-- DI compiler pass: exercised at container build, not via unit tests. -->
+            <file>src/Shared/Security/DependencyInjection/PermissionEnumDiscoveryPass.php</file>
+            <!-- App kernel: framework-bootstrap, no logic to test. -->
+            <file>src/Kernel.php</file>
+        </exclude>
     </source>
 
     <coverage>
