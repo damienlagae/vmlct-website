@@ -6,6 +6,12 @@
     <meta name="robots" content="noindex,nofollow">
 {% endblock %}
 
+{# Admin pages don't need OG / Twitter cards — just a `<title>` matching
+   the page block. #}
+{% block seo %}
+    <title>{% block title %}{{ 'app.title'|trans }}{% endblock %}</title>
+{% endblock %}
+
 {% block header %}
     <twig:Admin:Header />
 {% endblock %}

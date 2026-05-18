@@ -138,6 +138,15 @@ security:
         password: 'Wachtwoord'
         submit: 'Aanmelden'
 
+seo:
+    form:
+        section:
+            title: 'SEO'
+        metaTitle: 'SEO-titel'
+        metaTitle_help: 'Optioneel — gebruikt als <title>. Laat leeg om de standaardtitel te gebruiken.'
+        metaDescription: 'SEO-beschrijving'
+        metaDescription_help: 'Optioneel — gebruikt voor meta description en sociale media. Houd onder 160 tekens.'
+
 content:
     editor:
         empty: 'Nog geen blokken. Voeg er een toe met de knoppen hieronder.'

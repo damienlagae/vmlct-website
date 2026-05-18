@@ -2,12 +2,10 @@
 
 {% block title %}{{ page.metaTitle ?: page.title }}{% endblock %}
 
-{% block meta_tags %}
-    {{ parent() }}
-    {% if page.metaDescription %}
-        <meta name="description" content="{{ page.metaDescription }}">
-        <meta property="og:description" content="{{ page.metaDescription }}">
-    {% endif %}
+{% block seo %}
+    <twig:Site:SeoMeta :entity="page"
+                       title="{{ page.metaTitle ?: page.title }}"
+                       description="{{ page.metaDescription ?: page.excerpt }}" />
 {% endblock %}
 
 {% block body %}

@@ -9,6 +9,8 @@ use App\Shared\Entity\HasUlidIdInterface;
 use App\Shared\Entity\TimestampableInterface;
 use App\Shared\Entity\TimestampableTrait;
 use App\Shared\Entity\UlidIdTrait;
+use App\Shared\Seo\Entity\SeoableInterface;
+use App\Shared\Seo\Entity\SeoableTrait;
 use DH\Auditor\Attribute\Auditable;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
@@ -21,10 +23,11 @@ use Symfony\Component\Uid\Ulid;
  */
 #[ORM\Entity(repositoryClass: PageRepository::class)]
 #[Auditable]
-class Page implements HasUlidIdInterface, TimestampableInterface
+class Page implements HasUlidIdInterface, SeoableInterface, TimestampableInterface
 {
-    use UlidIdTrait;
+    use SeoableTrait;
     use TimestampableTrait;
+    use UlidIdTrait;
 
     #[ORM\Column(length: 200)]
     private string $title;
@@ -43,12 +46,6 @@ class Page implements HasUlidIdInterface, TimestampableInterface
 
     #[ORM\Column(type: Types::DATETIME_IMMUTABLE, nullable: true)]
     private ?\DateTimeImmutable $publishedAt = null;
-
-    #[ORM\Column(length: 200, nullable: true)]
-    private ?string $metaTitle = null;
-
-    #[ORM\Column(type: Types::TEXT, nullable: true)]
-    private ?string $metaDescription = null;
 
     public function __construct(string $title, string $path)
     {
@@ -153,25 +150,5 @@ class Page implements HasUlidIdInterface, TimestampableInterface
     public function isPublished(): bool
     {
         return null !== $this->publishedAt && $this->publishedAt <= new \DateTimeImmutable();
-    }
-
-    public function getMetaTitle(): ?string
-    {
-        return $this->metaTitle;
-    }
-
-    public function setMetaTitle(?string $metaTitle): void
-    {
-        $this->metaTitle = $metaTitle;
-    }
-
-    public function getMetaDescription(): ?string
-    {
-        return $this->metaDescription;
-    }
-
-    public function setMetaDescription(?string $metaDescription): void
-    {
-        $this->metaDescription = $metaDescription;
     }
 }

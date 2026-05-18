@@ -1,0 +1,20 @@
+{% set title = resolvedTitle ?: 'app.title'|trans %}
+{% set description = resolvedDescription ?: 'app.description'|trans %}
+{% set ogImage = image|default(absolute_url(asset('img/logo/van_moer_logistics_cycling_team.png'))) %}
+
+<title>{{ title }}</title>
+<meta name="description" content="{{ description }}">
+<link rel="canonical" href="{{ canonicalUrl }}">
+
+<meta property="og:type" content="website">
+<meta property="og:locale" content="nl_BE">
+<meta property="og:site_name" content="{{ 'app.name'|trans }}">
+<meta property="og:title" content="{{ title }}">
+<meta property="og:description" content="{{ description }}">
+<meta property="og:url" content="{{ canonicalUrl }}">
+<meta property="og:image" content="{{ ogImage }}">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{{ title }}">
+<meta name="twitter:description" content="{{ description }}">
+<meta name="twitter:image" content="{{ ogImage }}">

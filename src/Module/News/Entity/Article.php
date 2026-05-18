@@ -10,6 +10,8 @@ use App\Shared\Entity\TimestampableInterface;
 use App\Shared\Entity\TimestampableTrait;
 use App\Shared\Entity\UlidIdTrait;
 use App\Shared\Security\Entity\User;
+use App\Shared\Seo\Entity\SeoableInterface;
+use App\Shared\Seo\Entity\SeoableTrait;
 use DH\Auditor\Attribute\Auditable;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
@@ -21,10 +23,11 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
 #[ORM\HasLifecycleCallbacks]
 #[Vich\Uploadable]
 #[Auditable]
-class Article implements HasUlidIdInterface, TimestampableInterface
+class Article implements HasUlidIdInterface, SeoableInterface, TimestampableInterface
 {
-    use UlidIdTrait;
+    use SeoableTrait;
     use TimestampableTrait;
+    use UlidIdTrait;
 
     #[ORM\Column(length: 200)]
     private string $title;

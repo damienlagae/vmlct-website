@@ -2,6 +2,16 @@
 
 {% block title %}{{ article.title }}{% endblock %}
 
+{% block seo %}
+    {% set ogImage = article.coverPath
+        ? absolute_url(article.coverPath|imagine_filter('article_cover'))
+        : null %}
+    <twig:Site:SeoMeta :entity="article"
+                       title="{{ article.metaTitle ?: article.title }}"
+                       description="{{ article.metaDescription ?: article.excerpt }}"
+                       image="{{ ogImage }}" />
+{% endblock %}
+
 {% block body %}
     <article class="news-article">
         {% if article.coverPath %}

@@ -58,6 +58,17 @@
                 </div>
             </div>
 
+            <div class="card shadow-sm mb-3">
+                <div class="card-header bg-white d-flex align-items-center gap-2 py-3">
+                    <twig:ux:icon name="bi:search" class="text-primary" />
+                    <h2 class="h6 mb-0">{{ 'seo.form.section.title'|trans }}</h2>
+                </div>
+                <div class="card-body">
+                    {{ form_row(form.metaTitle) }}
+                    {{ form_row(form.metaDescription) }}
+                </div>
+            </div>
+
             {% if article is not null and article.author %}
                 <div class="card shadow-sm">
                     <div class="card-header bg-white d-flex align-items-center gap-2 py-3">

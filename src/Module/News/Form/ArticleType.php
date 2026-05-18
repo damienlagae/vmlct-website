@@ -59,6 +59,18 @@ final class ArticleType extends AbstractType
                 'input' => 'datetime_immutable',
                 'help' => 'news.form.publishedAt_help',
             ])
+            ->add('metaTitle', TextType::class, [
+                'label' => 'seo.form.metaTitle',
+                'required' => false,
+                'help' => 'seo.form.metaTitle_help',
+                'constraints' => [new Assert\Length(max: 200)],
+            ])
+            ->add('metaDescription', TextareaType::class, [
+                'label' => 'seo.form.metaDescription',
+                'required' => false,
+                'help' => 'seo.form.metaDescription_help',
+                'attr' => ['rows' => 3, 'maxlength' => 320],
+            ])
         ;
 
         $builder->get('content')->addModelTransformer(new JsonBlocksTransformer());
