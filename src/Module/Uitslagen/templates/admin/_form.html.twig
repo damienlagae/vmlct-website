@@ -1,0 +1,42 @@
+{{ form_start(form, {attr: {class: 'admin-form'}}) }}
+    <div class="row g-4">
+        <div class="col-lg-7">
+            <div class="card shadow-sm">
+                <div class="card-header bg-white d-flex align-items-center gap-2 py-3">
+                    <twig:ux:icon name="bi:trophy" class="text-primary" />
+                    <h2 class="h6 mb-0">{{ 'uitslagen.form.section.race'|trans }}</h2>
+                </div>
+                <div class="card-body">
+                    {{ form_row(form.race) }}
+                    <p class="text-muted small">{{ 'uitslagen.form.race_fallback_hint'|trans }}</p>
+                    {{ form_row(form.raceName) }}
+                    {{ form_row(form.raceDate) }}
+                    {{ form_row(form.raceLocation) }}
+                    {{ form_row(form.discipline) }}
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-5">
+            <div class="card shadow-sm">
+                <div class="card-header bg-white d-flex align-items-center gap-2 py-3">
+                    <twig:ux:icon name="bi:person-check" class="text-primary" />
+                    <h2 class="h6 mb-0">{{ 'uitslagen.form.section.result'|trans }}</h2>
+                </div>
+                <div class="card-body">
+                    {{ form_row(form.rider) }}
+                    {{ form_row(form.status) }}
+                    {{ form_row(form.rank) }}
+                    {{ form_row(form.notes) }}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="admin-form-actions">
+        <a href="{{ path('admin_result_index') }}" class="btn btn-link">{{ 'admin.form.cancel'|trans }}</a>
+        <button type="submit" class="btn btn-primary">
+            <twig:ux:icon name="bi:check2" /> {{ submitLabel|trans }}
+        </button>
+    </div>
+{{ form_end(form) }}

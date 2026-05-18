@@ -600,6 +600,111 @@ footer {
     border-top: 1px solid #e2e8f0;
 }
 
+/* Programme — public race list */
+.race-list {
+    margin: 0;
+    padding: 0;
+}
+
+.race-list__item {
+    display: grid;
+    grid-template-columns: 96px minmax(0, 1fr);
+    gap: 1.25rem;
+    padding: 1rem 1.25rem;
+    margin-bottom: 0.75rem;
+    background: #fff;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(var(--vmlct-dark-rgb), 0.04);
+}
+
+.race-list__date {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, var(--vmlct-blue), var(--vmlct-dark));
+    color: #fff;
+    border-radius: 10px;
+    padding: 0.5rem;
+    line-height: 1;
+}
+
+.race-list__day {
+    font-size: 1.75rem;
+    font-weight: 800;
+}
+
+.race-list__month {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-top: 0.25rem;
+}
+
+.race-list__year {
+    font-size: 0.7rem;
+    opacity: 0.8;
+    margin-top: 0.15rem;
+}
+
+.race-list__body {
+    min-width: 0;
+}
+
+.race-list__name {
+    font-size: 1.15rem;
+    margin: 0 0 0.4rem;
+    color: var(--vmlct-dark);
+    font-weight: 700;
+}
+
+.race-list__name a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.race-list__name a:hover {
+    color: var(--vmlct-blue);
+}
+
+.race-list__meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    color: #64748b;
+    margin: 0 0 0.4rem;
+    font-size: 0.9rem;
+}
+
+.race-list__meta span {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+}
+
+.race-list__categories {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.25rem;
+    margin: 0 0 0.4rem;
+}
+
+.race-list__description {
+    color: #475569;
+    margin: 0.4rem 0 0;
+}
+
+@media (max-width: 575.98px) {
+    .race-list__item {
+        grid-template-columns: 1fr;
+    }
+    .race-list__date {
+        flex-direction: row;
+        gap: 0.5rem;
+    }
+}
+
 /* Public Page detail (static dynamic pages) */
 .page-article__header {
     padding: 3.5rem 0 1.5rem;

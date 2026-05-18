@@ -446,6 +446,135 @@ menu:
             save: 'Opslaan'
             confirm_delete: 'Weet je zeker dat je menu-item "%label%" wilt verwijderen?'
 
+programme:
+    public:
+        title: 'Programma'
+        intro: 'De grote koersen waar onze renners aan deelnemen.'
+        upcoming: 'Volgende koersen'
+        past: 'Voorbije koersen'
+        upcoming_empty: 'Nog geen koersen aangekondigd.'
+        past_empty: 'Nog geen voorbije koersen.'
+    discipline:
+        road: 'Weg'
+        track: 'Piste'
+        cyclocross: 'Veldrijden'
+    category:
+        miniemen: 'Miniemen'
+        aspiranten: 'Aspiranten'
+        nieuwelingen: 'Nieuwelingen'
+        junioren: 'Junioren'
+    form:
+        name: 'Naam'
+        startsAt: 'Datum & uur'
+        location: 'Locatie'
+        discipline: 'Discipline'
+        categories: 'Categorieën'
+        description: 'Beschrijving'
+        externalUrl: 'Externe link'
+        externalUrl_help: 'Optioneel — link naar de officiële koersinfo.'
+        section:
+            identity: 'Identiteit'
+            classification: 'Classificatie'
+    flash:
+        created: 'Koers aangemaakt.'
+        updated: 'Koers bijgewerkt.'
+        deleted: 'Koers verwijderd.'
+    admin:
+        index:
+            title: 'Programma'
+            subtitle: 'Beheer de geplande koersen.'
+        create:
+            title: 'Nieuwe koers'
+            subtitle: 'Voeg een geplande koers toe.'
+        edit:
+            title: 'Koers bewerken: %name%'
+        section:
+            upcoming: 'Volgende koersen'
+            past: 'Voorbije koersen'
+        empty:
+            upcoming: 'Nog geen volgende koersen.'
+            past: 'Nog geen voorbije koersen.'
+        stats:
+            upcoming: 'Volgende koersen'
+            past: 'Voorbije koersen (max. 50)'
+        table:
+            name: 'Naam'
+            startsAt: 'Datum'
+            location: 'Locatie'
+            discipline: 'Discipline'
+            actions: 'Acties'
+        actions:
+            create: 'Koers toevoegen'
+            save: 'Opslaan'
+            confirm_delete: 'Weet je zeker dat je koers "%name%" wilt verwijderen?'
+
+uitslagen:
+    public:
+        title: 'Uitslagen'
+        intro: 'Recente prestaties van onze renners.'
+        empty: 'Nog geen uitslagen om te tonen.'
+        table:
+            race: 'Koers'
+            date: 'Datum'
+            rider: 'Renner'
+            status: 'Status'
+            rank: 'Plaats'
+    status:
+        finished: 'Aankomst'
+        dnf: 'Opgave (DNF)'
+        dns: 'Niet gestart (DNS)'
+        dsq: 'Gediskwalificeerd (DSQ)'
+    discipline:
+        road: 'Weg'
+        track: 'Piste'
+        cyclocross: 'Veldrijden'
+    form:
+        rider: 'Renner'
+        rider_placeholder: 'Kies een renner…'
+        race: 'Geplande koers'
+        race_placeholder: 'Geen — handmatige koersinfo hieronder'
+        race_help: 'Optioneel — link met een koers uit het programma.'
+        race_fallback_hint: 'Als de koers niet in het programma staat, vul dan de gegevens hieronder zelf in.'
+        raceName: 'Naam van de koers'
+        raceName_help: 'Verplicht wanneer geen geplande koers gekozen is.'
+        raceDate: 'Datum koers'
+        raceLocation: 'Locatie'
+        discipline: 'Discipline'
+        discipline_placeholder: 'Kies een discipline…'
+        status: 'Status'
+        rank: 'Plaats'
+        rank_help: 'Laat leeg bij DNF / DNS / DSQ.'
+        notes: 'Opmerkingen'
+        section:
+            race: 'Koersinfo'
+            result: 'Resultaat'
+    flash:
+        created: 'Uitslag aangemaakt.'
+        updated: 'Uitslag bijgewerkt.'
+        deleted: 'Uitslag verwijderd.'
+    admin:
+        index:
+            title: 'Uitslagen'
+            subtitle: 'Beheer de individuele resultaten van de renners.'
+        create:
+            title: 'Nieuwe uitslag'
+            subtitle: 'Voeg een resultaat toe.'
+        edit:
+            title: 'Uitslag bewerken — %rider%'
+        empty: 'Nog geen uitslagen aangemaakt.'
+        linked: 'Gekoppeld'
+        table:
+            race: 'Koers'
+            date: 'Datum'
+            rider: 'Renner'
+            status: 'Status'
+            rank: 'Plaats'
+            actions: 'Acties'
+        actions:
+            create: 'Uitslag toevoegen'
+            save: 'Opslaan'
+            confirm_delete: 'Weet je zeker dat je deze uitslag voor "%name%" wilt verwijderen?'
+
 page:
     public:
         body_coming_soon: 'De inhoud van deze pagina komt binnenkort beschikbaar.'
@@ -510,6 +639,8 @@ admin:
         news: 'Nieuws'
         pages: "Pagina's"
         menu: 'Menu'
+        programme: 'Programma'
+        uitslagen: 'Uitslagen'
         team: 'Team'
         staff: 'Omkadering'
         riders: 'Renners'

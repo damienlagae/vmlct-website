@@ -1,0 +1,70 @@
+{% extends '@Shared/base.html.twig' %}
+
+{% block title %}{{ 'uitslagen.public.title'|trans }}{% endblock %}
+
+{% block body %}
+    <section class="py-5">
+        <div class="container">
+            <header class="text-center mb-5">
+                <h1 class="section-title">{{ 'uitslagen.public.title'|trans }}</h1>
+                <div class="title-underline mx-auto"></div>
+                <p class="text-muted mt-3">{{ 'uitslagen.public.intro'|trans }}</p>
+            </header>
+
+            {% if results is empty %}
+                <p class="text-muted text-center">{{ 'uitslagen.public.empty'|trans }}</p>
+            {% else %}
+                <div class="card shadow-sm">
+                    <div class="table-responsive">
+                        <table class="table table-hover align-middle mb-0">
+                            <thead>
+                                <tr>
+                                    <th>{{ 'uitslagen.public.table.race'|trans }}</th>
+                                    <th>{{ 'uitslagen.public.table.date'|trans }}</th>
+                                    <th>{{ 'uitslagen.public.table.rider'|trans }}</th>
+                                    <th class="text-center">{{ 'uitslagen.public.table.status'|trans }}</th>
+                                    <th class="text-end">{{ 'uitslagen.public.table.rank'|trans }}</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for result in results %}
+                                    <tr>
+                                        <td>
+                                            <strong>{{ result.effectiveRaceName ?? '—' }}</strong>
+                                            {% if result.effectiveRaceLocation %}
+                                                <div class="small text-muted">{{ result.effectiveRaceLocation }}</div>
+                                            {% endif %}
+                                        </td>
+                                        <td>
+                                            {% if result.effectiveRaceDate %}
+                                                <time datetime="{{ result.effectiveRaceDate|date('c') }}">
+                                                    {{ result.effectiveRaceDate|format_datetime(locale='nl', pattern='dd MMM yyyy') }}
+                                                </time>
+                                            {% else %}
+                                                <span class="text-muted">—</span>
+                                            {% endif %}
+                                        </td>
+                                        <td>{{ result.rider.fullName }}</td>
+                                        <td class="text-center">
+                                            {% set status = result.status.value %}
+                                            <span class="badge bg-{{ status == 'finished' ? 'success' : 'secondary' }}-subtle text-{{ status == 'finished' ? 'success' : 'secondary' }}">
+                                                {{ ('uitslagen.status.' ~ status)|trans }}
+                                            </span>
+                                        </td>
+                                        <td class="text-end">
+                                            {% if result.rank %}
+                                                <strong>{{ result.rank }}</strong>
+                                            {% else %}
+                                                <span class="text-muted">—</span>
+                                            {% endif %}
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    </section>
+{% endblock %}

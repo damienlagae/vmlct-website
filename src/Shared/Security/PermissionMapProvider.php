@@ -6,8 +6,10 @@ namespace App\Shared\Security;
 
 use App\Module\Menu\Security\MenuPermissions;
 use App\Module\News\Security\NewsPermissions;
+use App\Module\Programme\Security\ProgrammePermissions;
 use App\Module\Sponsor\Security\SponsorPermissions;
 use App\Module\Team\Security\TeamPermissions;
+use App\Module\Uitslagen\Security\UitslagenPermissions;
 use App\Page\Security\PagePermissions;
 use App\Shared\Security\Permissions\UserPermissions;
 
@@ -63,6 +65,18 @@ final class PermissionMapProvider
         MenuPermissions::create->value => ['ROLE_ADMIN'],
         MenuPermissions::edit->value => ['ROLE_ADMIN'],
         MenuPermissions::delete->value => ['ROLE_SUPER_ADMIN'],
+
+        // PROGRAMME
+        ProgrammePermissions::view->value => ['ROLE_USER'],
+        ProgrammePermissions::create->value => ['ROLE_ADMIN'],
+        ProgrammePermissions::edit->value => ['ROLE_ADMIN'],
+        ProgrammePermissions::delete->value => ['ROLE_SUPER_ADMIN'],
+
+        // UITSLAGEN
+        UitslagenPermissions::view->value => ['ROLE_USER'],
+        UitslagenPermissions::create->value => ['ROLE_ADMIN'],
+        UitslagenPermissions::edit->value => ['ROLE_ADMIN'],
+        UitslagenPermissions::delete->value => ['ROLE_SUPER_ADMIN'],
     ];
 
     /**

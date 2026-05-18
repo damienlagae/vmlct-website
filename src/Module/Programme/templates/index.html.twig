@@ -1,0 +1,69 @@
+{% extends '@Shared/base.html.twig' %}
+
+{% block title %}{{ 'programme.public.title'|trans }}{% endblock %}
+
+{% block body %}
+    <section class="py-5">
+        <div class="container">
+            <header class="text-center mb-5">
+                <h1 class="section-title">{{ 'programme.public.title'|trans }}</h1>
+                <div class="title-underline mx-auto"></div>
+                <p class="text-muted mt-3">{{ 'programme.public.intro'|trans }}</p>
+            </header>
+
+            {% set buckets = [
+                {key: 'upcoming', label: 'programme.public.upcoming', races: upcoming, empty: 'programme.public.upcoming_empty'},
+                {key: 'past', label: 'programme.public.past', races: past, empty: 'programme.public.past_empty'},
+            ] %}
+
+            {% for bucket in buckets %}
+                <h2 class="h4 mt-5 mb-3">{{ bucket.label|trans }}</h2>
+                {% if bucket.races is empty %}
+                    <p class="text-muted">{{ bucket.empty|trans }}</p>
+                {% else %}
+                    <ul class="race-list list-unstyled">
+                        {% for race in bucket.races %}
+                            <li class="race-list__item">
+                                <div class="race-list__date">
+                                    <span class="race-list__day">{{ race.startsAt|date('d') }}</span>
+                                    <span class="race-list__month">{{ race.startsAt|format_datetime(locale='nl', pattern='MMM') }}</span>
+                                    <span class="race-list__year">{{ race.startsAt|date('Y') }}</span>
+                                </div>
+                                <div class="race-list__body">
+                                    <h3 class="race-list__name">
+                                        {% if race.externalUrl %}
+                                            <a href="{{ race.externalUrl }}" target="_blank" rel="noopener">
+                                                {{ race.name }}
+                                                <twig:ux:icon name="bi:box-arrow-up-right" />
+                                            </a>
+                                        {% else %}
+                                            {{ race.name }}
+                                        {% endif %}
+                                    </h3>
+                                    <p class="race-list__meta">
+                                        <span><twig:ux:icon name="bi:geo-alt" /> {{ race.location }}</span>
+                                        <span><twig:ux:icon name="bi:tag" /> {{ ('programme.discipline.' ~ race.discipline.value)|trans }}</span>
+                                        <span class="race-list__time">
+                                            <twig:ux:icon name="bi:clock" />
+                                            {{ race.startsAt|date('H:i') }}
+                                        </span>
+                                    </p>
+                                    {% if race.categories|length > 0 %}
+                                        <p class="race-list__categories">
+                                            {% for cat in race.categories %}
+                                                <span class="badge bg-light text-dark">{{ ('programme.category.' ~ cat.value)|trans }}</span>
+                                            {% endfor %}
+                                        </p>
+                                    {% endif %}
+                                    {% if race.description %}
+                                        <p class="race-list__description">{{ race.description|nl2br }}</p>
+                                    {% endif %}
+                                </div>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            {% endfor %}
+        </div>
+    </section>
+{% endblock %}

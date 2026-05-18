@@ -31,6 +31,8 @@ final class AdminSidebar
             ['label' => 'admin.sidebar.news', 'route' => 'admin_article_index', 'icon' => 'bi:newspaper', 'match' => ['admin_article_index', 'admin_article_create', 'admin_article_edit']],
             ['label' => 'admin.sidebar.pages', 'route' => 'admin_page_index', 'icon' => 'bi:file-earmark-text', 'match' => ['admin_page_index', 'admin_page_create', 'admin_page_edit']],
             ['label' => 'admin.sidebar.menu', 'route' => 'admin_menu_index', 'icon' => 'bi:list-nested', 'match' => ['admin_menu_index', 'admin_menu_create', 'admin_menu_edit']],
+            ['label' => 'admin.sidebar.programme', 'route' => 'admin_race_index', 'icon' => 'bi:calendar-event', 'match' => ['admin_race_index', 'admin_race_create', 'admin_race_edit']],
+            ['label' => 'admin.sidebar.uitslagen', 'route' => 'admin_result_index', 'icon' => 'bi:trophy', 'match' => ['admin_result_index', 'admin_result_create', 'admin_result_edit']],
             [
                 'label' => 'admin.sidebar.team',
                 'route' => 'admin_team_dashboard',
